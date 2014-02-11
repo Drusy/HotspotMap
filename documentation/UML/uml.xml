@@ -1,0 +1,150 @@
+This XML file does not appear to have any style information associated with it. The document tree is shown below.
+<uml:Model xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xmi:version="2.0" xmi:id="_AzHlsJMIEeOm1JFGMI0ftg" name="HotspotMap" visibility="private">
+<packageImport xmi:id="_AzHlsZMIEeOm1JFGMI0ftg">
+<eAnnotations xmi:id="_AzHlspMIEeOm1JFGMI0ftg" source="genmymodel">
+<details xmi:id="_AzHls5MIEeOm1JFGMI0ftg" key="uuid" value="_WlqVkHUzEDGZRv1Ax7bzSg"/>
+</eAnnotations>
+<importedPackage href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#/"/>
+</packageImport>
+<packageImport xmi:id="_AzHltJMIEeOm1JFGMI0ftg">
+<eAnnotations xmi:id="_AzHltZMIEeOm1JFGMI0ftg" source="genmymodel">
+<details xmi:id="_AzHltpMIEeOm1JFGMI0ftg" key="uuid" value="_WlqVkXUzEDGZRv1Ax7bzSg"/>
+</eAnnotations>
+<importedPackage href="pathmap://GENMYMODEL_LIBRARIES/GenMyModelPrimitiveTypes.library.uml#/"/>
+</packageImport>
+<packagedElement xsi:type="uml:Package" xmi:id="_AzHlt5MIEeOm1JFGMI0ftg" name="Model">
+<eAnnotations xmi:id="_AzHluJMIEeOm1JFGMI0ftg" source="genmymodel">
+<details xmi:id="_AzHluZMIEeOm1JFGMI0ftg" key="uuid" value="_QJSvEHUzEDGlGpKZH9pSAQ"/>
+</eAnnotations>
+<packagedElement xsi:type="uml:Class" xmi:id="_AzHlupMIEeOm1JFGMI0ftg" name="User">
+<eAnnotations xmi:id="_AzHlu5MIEeOm1JFGMI0ftg" source="genmymodel">
+<details xmi:id="_AzHlvJMIEeOm1JFGMI0ftg" key="uuid" value="_SHzDIHUzEDGlGpKZH9pSAQ"/>
+</eAnnotations>
+<generalization xmi:id="_AzHlvZMIEeOm1JFGMI0ftg" general="_AzHl1ZMIEeOm1JFGMI0ftg">
+<eAnnotations xmi:id="_AzHlvpMIEeOm1JFGMI0ftg" source="genmymodel">
+<details xmi:id="_AzHlv5MIEeOm1JFGMI0ftg" key="uuid" value="_bznoMHUzEDGlGpKZH9pSAQ"/>
+</eAnnotations>
+</generalization>
+</packagedElement>
+<packagedElement xsi:type="uml:Class" xmi:id="_AzHlwJMIEeOm1JFGMI0ftg" name="Place">
+<eAnnotations xmi:id="_AzHlwZMIEeOm1JFGMI0ftg" source="genmymodel">
+<details xmi:id="_AzHlwpMIEeOm1JFGMI0ftg" key="uuid" value="_TFuD8HUzEDGlGpKZH9pSAQ"/>
+</eAnnotations>
+<generalization xmi:id="_AzHlw5MIEeOm1JFGMI0ftg" general="_AzHlxpMIEeOm1JFGMI0ftg">
+<eAnnotations xmi:id="_AzHlxJMIEeOm1JFGMI0ftg" source="genmymodel">
+<details xmi:id="_AzHlxZMIEeOm1JFGMI0ftg" key="uuid" value="_ZGIHMHUzEDGlGpKZH9pSAQ"/>
+</eAnnotations>
+</generalization>
+</packagedElement>
+<packagedElement xsi:type="uml:Class" xmi:id="_AzHlxpMIEeOm1JFGMI0ftg" name="PlaceModel">
+<eAnnotations xmi:id="_AzHlx5MIEeOm1JFGMI0ftg" source="genmymodel">
+<details xmi:id="_AzHlyJMIEeOm1JFGMI0ftg" key="uuid" value="_UIdTUHUzEDGlGpKZH9pSAQ"/>
+</eAnnotations>
+<ownedOperation xmi:id="_AzHlyZMIEeOm1JFGMI0ftg" name="save">
+<eAnnotations xmi:id="_AzHlypMIEeOm1JFGMI0ftg" source="genmymodel">
+<details xmi:id="_AzHly5MIEeOm1JFGMI0ftg" key="uuid" value="_7yL2kHUzEDGlGpKZH9pSAQ"/>
+</eAnnotations>
+<ownedParameter xmi:id="_AzHlzJMIEeOm1JFGMI0ftg" name="returnParameter" isUnique="false" direction="return">
+<eAnnotations xmi:id="_AzHlzZMIEeOm1JFGMI0ftg" source="genmymodel">
+<details xmi:id="_AzHlzpMIEeOm1JFGMI0ftg" key="uuid" value="_7yKocHUzEDGlGpKZH9pSAQ"/>
+</eAnnotations>
+</ownedParameter>
+</ownedOperation>
+<ownedOperation xmi:id="_AzHlz5MIEeOm1JFGMI0ftg" name="delete">
+<eAnnotations xmi:id="_AzHl0JMIEeOm1JFGMI0ftg" source="genmymodel">
+<details xmi:id="_AzHl0ZMIEeOm1JFGMI0ftg" key="uuid" value="_CVM3oXU0EDGlGpKZH9pSAQ"/>
+</eAnnotations>
+<ownedParameter xmi:id="_AzHl0pMIEeOm1JFGMI0ftg" name="returnParameter" isUnique="false" direction="return">
+<eAnnotations xmi:id="_AzHl05MIEeOm1JFGMI0ftg" source="genmymodel">
+<details xmi:id="_AzHl1JMIEeOm1JFGMI0ftg" key="uuid" value="_CVM3oHU0EDGlGpKZH9pSAQ"/>
+</eAnnotations>
+</ownedParameter>
+</ownedOperation>
+</packagedElement>
+<packagedElement xsi:type="uml:Class" xmi:id="_AzHl1ZMIEeOm1JFGMI0ftg" name="UserModel">
+<eAnnotations xmi:id="_AzHl1pMIEeOm1JFGMI0ftg" source="genmymodel">
+<details xmi:id="_AzHl15MIEeOm1JFGMI0ftg" key="uuid" value="_U7yNsHUzEDGlGpKZH9pSAQ"/>
+</eAnnotations>
+<ownedOperation xmi:id="_AzHl2JMIEeOm1JFGMI0ftg" name="save">
+<eAnnotations xmi:id="_AzHl2ZMIEeOm1JFGMI0ftg" source="genmymodel">
+<details xmi:id="_AzHl2pMIEeOm1JFGMI0ftg" key="uuid" value="_DC5EEXU0EDGlGpKZH9pSAQ"/>
+</eAnnotations>
+<ownedParameter xmi:id="_AzHl25MIEeOm1JFGMI0ftg" name="returnParameter" isUnique="false" direction="return">
+<eAnnotations xmi:id="_AzHl3JMIEeOm1JFGMI0ftg" source="genmymodel">
+<details xmi:id="_AzHl3ZMIEeOm1JFGMI0ftg" key="uuid" value="_DC5EEHU0EDGlGpKZH9pSAQ"/>
+</eAnnotations>
+</ownedParameter>
+</ownedOperation>
+<ownedOperation xmi:id="_AzHl3pMIEeOm1JFGMI0ftg" name="delete">
+<eAnnotations xmi:id="_AzHl35MIEeOm1JFGMI0ftg" source="genmymodel">
+<details xmi:id="_AzHl4JMIEeOm1JFGMI0ftg" key="uuid" value="_DsBgoXU0EDGlGpKZH9pSAQ"/>
+</eAnnotations>
+<ownedParameter xmi:id="_AzHl4ZMIEeOm1JFGMI0ftg" name="returnParameter" isUnique="false" direction="return">
+<eAnnotations xmi:id="_AzHl4pMIEeOm1JFGMI0ftg" source="genmymodel">
+<details xmi:id="_AzHl45MIEeOm1JFGMI0ftg" key="uuid" value="_DsBgoHU0EDGlGpKZH9pSAQ"/>
+</eAnnotations>
+</ownedParameter>
+</ownedOperation>
+</packagedElement>
+<packagedElement xsi:type="uml:Class" xmi:id="_AzHl5JMIEeOm1JFGMI0ftg" name="UserMapperService">
+<eAnnotations xmi:id="_AzHl5ZMIEeOm1JFGMI0ftg" source="genmymodel">
+<details xmi:id="_AzHl5pMIEeOm1JFGMI0ftg" key="uuid" value="_hxtXQHUzEDGlGpKZH9pSAQ"/>
+</eAnnotations>
+<ownedOperation xmi:id="_AzHl55MIEeOm1JFGMI0ftg" name="findBy">
+<eAnnotations xmi:id="_AzHl6JMIEeOm1JFGMI0ftg" source="genmymodel">
+<details xmi:id="_AzHl6ZMIEeOm1JFGMI0ftg" key="uuid" value="_I8QEIXU0EDGlGpKZH9pSAQ"/>
+</eAnnotations>
+<ownedParameter xmi:id="_AzHl6pMIEeOm1JFGMI0ftg" name="returnParameter" type="_AzHlupMIEeOm1JFGMI0ftg" isUnique="false" direction="return">
+<eAnnotations xmi:id="_AzHl65MIEeOm1JFGMI0ftg" source="genmymodel">
+<details xmi:id="_AzHl7JMIEeOm1JFGMI0ftg" key="uuid" value="_I8QEIHU0EDGlGpKZH9pSAQ"/>
+</eAnnotations>
+</ownedParameter>
+</ownedOperation>
+</packagedElement>
+<packagedElement xsi:type="uml:Class" xmi:id="_AzHl7ZMIEeOm1JFGMI0ftg" name="PlaceMapperService">
+<eAnnotations xmi:id="_AzHl7pMIEeOm1JFGMI0ftg" source="genmymodel">
+<details xmi:id="_AzHl75MIEeOm1JFGMI0ftg" key="uuid" value="_lkH48HUzEDGlGpKZH9pSAQ"/>
+</eAnnotations>
+<ownedOperation xmi:id="_AzIMwJMIEeOm1JFGMI0ftg" name="findBy">
+<eAnnotations xmi:id="_AzIMwZMIEeOm1JFGMI0ftg" source="genmymodel">
+<details xmi:id="_AzIMwpMIEeOm1JFGMI0ftg" key="uuid" value="_KNoMcHU0EDGlGpKZH9pSAQ"/>
+</eAnnotations>
+<ownedParameter xmi:id="_AzIMw5MIEeOm1JFGMI0ftg" name="returnParameter" type="_AzHlwJMIEeOm1JFGMI0ftg" isUnique="false" direction="return">
+<eAnnotations xmi:id="_AzIMxJMIEeOm1JFGMI0ftg" source="genmymodel">
+<details xmi:id="_AzIMxZMIEeOm1JFGMI0ftg" key="uuid" value="_KNnlYHU0EDGlGpKZH9pSAQ"/>
+</eAnnotations>
+</ownedParameter>
+</ownedOperation>
+</packagedElement>
+</packagedElement>
+<packagedElement xsi:type="uml:Package" xmi:id="_AzIMxpMIEeOm1JFGMI0ftg" name="Controller">
+<eAnnotations xmi:id="_AzIMx5MIEeOm1JFGMI0ftg" source="genmymodel">
+<details xmi:id="_AzIMyJMIEeOm1JFGMI0ftg" key="uuid" value="_UXFIsHU0EDGlGpKZH9pSAQ"/>
+</eAnnotations>
+</packagedElement>
+<packagedElement xsi:type="uml:Package" xmi:id="_AzIMyZMIEeOm1JFGMI0ftg" name="View">
+<eAnnotations xmi:id="_AzIMypMIEeOm1JFGMI0ftg" source="genmymodel">
+<details xmi:id="_AzIMy5MIEeOm1JFGMI0ftg" key="uuid" value="_aqu4EHU0EDGlGpKZH9pSAQ"/>
+</eAnnotations>
+<packagedElement xsi:type="uml:Class" xmi:id="_AzIMzJMIEeOm1JFGMI0ftg" name="less files">
+<eAnnotations xmi:id="_AzIMzZMIEeOm1JFGMI0ftg" source="genmymodel">
+<details xmi:id="_AzIMzpMIEeOm1JFGMI0ftg" key="uuid" value="_lnTd4HU1EDGlGpKZH9pSAQ"/>
+</eAnnotations>
+</packagedElement>
+<packagedElement xsi:type="uml:Class" xmi:id="_AzIMz5MIEeOm1JFGMI0ftg" name="css files">
+<eAnnotations xmi:id="_AzIM0JMIEeOm1JFGMI0ftg" source="genmymodel">
+<details xmi:id="_AzIM0ZMIEeOm1JFGMI0ftg" key="uuid" value="_nzm9YHU1EDGlGpKZH9pSAQ"/>
+</eAnnotations>
+</packagedElement>
+</packagedElement>
+<packagedElement xsi:type="uml:Package" xmi:id="_AzIM0pMIEeOm1JFGMI0ftg" name="Mapping">
+<eAnnotations xmi:id="_AzIM05MIEeOm1JFGMI0ftg" source="genmymodel">
+<details xmi:id="_AzIM1JMIEeOm1JFGMI0ftg" key="uuid" value="_za1UoHU0EDGlGpKZH9pSAQ"/>
+</eAnnotations>
+<packagedElement xsi:type="uml:Class" xmi:id="_AzIM1ZMIEeOm1JFGMI0ftg" name="Index">
+<eAnnotations xmi:id="_AzIM1pMIEeOm1JFGMI0ftg" source="genmymodel">
+<details xmi:id="_AzIM15MIEeOm1JFGMI0ftg" key="uuid" value="_1y8bgHU0EDGlGpKZH9pSAQ"/>
+</eAnnotations>
+</packagedElement>
+</packagedElement>
+</uml:Model>
