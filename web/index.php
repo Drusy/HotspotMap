@@ -8,4 +8,8 @@ $app->get('/hello', function() {
     return 'Hello!';
 });
 
+$app->get('/kevin', function() {
+    return '<h1>Kevin is a noob!</h1>';
+});
+
 $app->run();
