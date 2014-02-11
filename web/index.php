@@ -4,12 +4,14 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 $app = new Silex\Application();
 
-$app->get('/hello', function() {
-    return 'Hello!';
+$app['debug'] = true;
+
+$app->get('/', function () {
+    return 'It works!';
 });
 
-$app->get('/kevin', function() {
-    return '<h1>Kevin is a noob!</h1>';
+$app->get('/hello/{name}', function ($name) use ($app) {
+    return 'Hello '.$app->escape($name).'!';
 });
 
 $app->run();

@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "d219208d0f16c07421f1fba7f8ec141a",
+    "hash": "0e7e3081d6b967c8c5cdfde0e1139e04",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -473,6 +473,54 @@
                 "parser"
             ],
             "time": "2013-01-12 18:59:04"
+        },
+        {
+            "name": "geocoder-php/geocoder-service-provider",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/geocoder-php/GeocoderServiceProvider.git",
+                "reference": "2564896bd5efd1dc4657c781a1aceae3bb3e956a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/geocoder-php/GeocoderServiceProvider/zipball/2564896bd5efd1dc4657c781a1aceae3bb3e956a",
+                "reference": "2564896bd5efd1dc4657c781a1aceae3bb3e956a",
+                "shasum": ""
+            },
+            "require": {
+                "willdurand/geocoder": ">=1.0,<3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": ">=3.7.0",
+                "silex/silex": "~1.0@dev",
+                "symfony/twig-bridge": "~2.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Geocoder": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kévin Gomez",
+                    "email": "contact@kevingomez.fr",
+                    "homepage": "http://www.kevingomez.fr/"
+                }
+            ],
+            "description": "Geocoder service provider for Silex",
+            "keywords": [
+                "geocoder",
+                "provider",
+                "service",
+                "silex"
+            ],
+            "time": "2013-09-18 19:49:10"
         },
         {
             "name": "monolog/monolog",
@@ -2215,6 +2263,119 @@
                 "templating"
             ],
             "time": "2013-12-06 07:47:10"
+        },
+        {
+            "name": "willdurand/geocoder",
+            "version": "2.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/geocoder-php/Geocoder.git",
+                "reference": "258e2f5c84a9cea03096f6f11ecdc0293fbc7b93"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/geocoder-php/Geocoder/zipball/258e2f5c84a9cea03096f6f11ecdc0293fbc7b93",
+                "reference": "258e2f5c84a9cea03096f6f11ecdc0293fbc7b93",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "geoip/geoip": "~1.13",
+                "guzzle/guzzle": "@stable",
+                "kriswallsmith/buzz": "@stable",
+                "zendframework/zend-http": "~2.1"
+            },
+            "suggest": {
+                "ext-curl": "Enabling the curl extension allows you to use the CurlHttpAdapter.",
+                "ext-geoip": "Enabling the geoip extension allows you to use the MaxMindProvider.",
+                "geoip/geoip": "If you are going to use the MaxMindBinaryProvider (conflict with geoip extension).",
+                "guzzle/guzzle": "Enabling Guzzle allows you to use the GuzzleHttpAdapter.",
+                "kriswallsmith/buzz": "Enabling Buzz allows you to use the BuzzHttpAdapter.",
+                "zendframework/zend-http": "Enabling Zend Http allows you to use the ZendHttpAdapter."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Geocoder": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "William Durand",
+                    "email": "william.durand1@gmail.com",
+                    "homepage": "http://www.willdurand.fr"
+                }
+            ],
+            "description": "The almost missing Geocoder PHP 5.3 library.",
+            "homepage": "http://geocoder-php.org",
+            "keywords": [
+                "abstraction",
+                "geocoder",
+                "geocoding",
+                "geoip"
+            ],
+            "time": "2014-01-05 01:57:42"
+        },
+        {
+            "name": "willdurand/negotiation",
+            "version": "1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/willdurand/Negotiation.git",
+                "reference": "203195e05492d49600b075229915e23772597e19"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/willdurand/Negotiation/zipball/203195e05492d49600b075229915e23772597e19",
+                "reference": "203195e05492d49600b075229915e23772597e19",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Negotiation": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "William Durand",
+                    "email": "william.durand1@gmail.com",
+                    "homepage": "http://www.willdurand.fr"
+                }
+            ],
+            "description": "Content Negotiation tools for PHP provided as a standalone library.",
+            "homepage": "http://williamdurand.fr/Negotiation/",
+            "keywords": [
+                "accept",
+                "content",
+                "format",
+                "header",
+                "negotiation"
+            ],
+            "time": "2014-01-20 11:06:37"
         }
     ],
     "packages-dev": [
@@ -2224,9 +2385,10 @@
 
     ],
     "minimum-stability": "stable",
-    "stability-flags": [
-
-    ],
+    "stability-flags": {
+        "geocoder-php/geocoder-service-provider": 0,
+        "willdurand/negotiation": 0
+    },
     "platform": [
 
     ],
