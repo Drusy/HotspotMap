@@ -8,7 +8,10 @@ use Symfony\Component\HttpFoundation\Request;
 class MapController{
 
     public function index(Request $request, Application $app){
-        return 'et ca marche bien';
+        $um = $app['UserMapper'];
+
+        $mess = 'et ca marche bien';
+        return $mess;
     }
 
 }
