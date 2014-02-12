@@ -8,12 +8,11 @@
 
 namespace HotspotMap\Model\ORM;
 
-
-class User {
-    private $id;
-    private $firstname;
-    private $lastname;
-    private $email;
-    private $pseudo;
-    private $website;
+class UserModel {
+    protected $id;
+    protected $firstname;
+    protected $lastname;
+    protected $email;
+    protected $pseudo;
+    protected $website;
 } 

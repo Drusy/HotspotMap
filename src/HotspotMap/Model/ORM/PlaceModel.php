@@ -8,9 +8,9 @@
 
 namespace HotspotMap\Model\ORM;
 
-class Place {
-    private $id;
-    private $latitude;
-    private $longitude;
-    private $adress;
+class PlaceModel {
+    protected $id;
+    protected $latitude;
+    protected $longitude;
+    protected $adress;
 } 
