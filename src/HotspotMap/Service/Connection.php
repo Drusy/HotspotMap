@@ -23,7 +23,13 @@ class Connection extends \PDO
         $stmt = $this->prepareQuery($query, $parameters);
 
         if($stmt->execute())
-            return $stmt->fetch(\PDO::FETCH_BOTH);
+        {
+            while ($row = $stmt->fetch(\PDO::FETCH_BOTH))
+            {
+                $tab[] = $row;
+            }
+            return $tab;
+        }
 
         return null;
     }

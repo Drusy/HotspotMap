@@ -13,7 +13,11 @@ use HotspotMap\Model\User;
 
 class UserMapper extends Mapper{
 
-    private $countQueryById = 'SELECT COUNT(*) FROM User WHERE id = :id';
+    private $countByIdQuery = 'SELECT COUNT(*) FROM User WHERE id = :id';
+
+    private $findByIdQuery = 'SELECT * FROM User WHERE id = :id';
+
+    private $findAllQuery = 'SELECT * FROM User';
 
     private $insertQuery = 'INSERT INTO User Values (
         :id,
@@ -23,42 +27,71 @@ class UserMapper extends Mapper{
         :pseudo,
         :website)';
 
-    private $updateQuery = 'UPDATE USER
+    private $updateQuery = 'UPDATE User
         SET
-        id = :id,
         firstname = :firstname,
         lastname = :lastname,
         email = :email,
         pseudo = :pseudo,
-        website = :website';
+        website = :website
+        WHERE id = :id';
 
-    public function save(User $u){
+    public function save(User $user){
 
-        $exist = $this->con->selectQuery($this->countQueryById, [
-            'id'    =>  $u->getId()
+        $exist = $this->con->selectQuery($this->countByIdQuery, [
+            'id'    =>  $user->getId()
         ]);
 
-        if($exist[0] == 1){
+        if($exist[0][0] == 1){
             $res = $this->con->executeQuery($this->updateQuery, [
-                'id'    => $u->getId(),
-                'firstname' => $u->getFirstname(),
-                'lastname' => $u->getLastname(),
-                'email' => $u->getEmail(),
-                'pseudo' => $u->getPseudo(),
-                'website' => $u->getWebsite()
+                'id'    => $user->getId(),
+                'firstname' => $user->firstname,
+                'lastname' => $user->lastname,
+                'email' => $user->getEmail(),
+                'pseudo' => $user->pseudo,
+                'website' => $user->getWebsite()
             ]);
         }
         else{
             $res = $this->con->executeQuery($this->insertQuery, [
-                'id'    => $u->getId(),
-                'firstname' => $u->getFirstname(),
-                'lastname' => $u->getLastname(),
-                'email' => $u->getEmail(),
-                'pseudo' => $u->getPseudo(),
-                'website' => $u->getWebsite()
+                'id'    => $user->getId(),
+                'firstname' => $user->firstname,
+                'lastname' => $user->lastname,
+                'email' => $user->getEmail(),
+                'pseudo' => $user->pseudo,
+                'website' => $user->getWebsite()
             ]);
         }
 
         return $res;
+    }
+
+    public function findById($id){
+        $userTab = $this->con->selectQuery($this->findByIdQuery, [
+            'id'    =>  $id
+        ]);
+        return $this->fillUser($userTab);
+    }
+
+    public function findAll(){
+        $userTab = $this->con->selectQuery($this->findAllQuery);
+        $userList = [];
+
+        foreach ($userTab as $user) {
+            $userList[] = $this->fillUser($user);
+        }
+
+        return $userList;
+    }
+
+    private function fillUser($userTab){
+        $user = new User($userTab['id']);
+        $user->pseudo = $userTab['pseudo'];
+        $user->firstname = $userTab['firstname'];
+        $user->lastname = $userTab['lastname'];
+        $user->setEmail($userTab['email']);
+        $user->setWebsite($userTab['website']);
+
+        return $user;
     }
 } 
