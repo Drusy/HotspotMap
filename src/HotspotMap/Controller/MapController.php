@@ -4,13 +4,15 @@ namespace HotspotMap\Controller;
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class MapController {
 
-    public function index(Request $request, Application $app){
-        $um = $app['UserMapper'];
+    public function index(Request $request, Application $app) {
+        $userMapper = $app['UserMapper'];
 
-        $mess = 'et ca marche bien';
-        return $mess;
+        $message = 'MapController index';
+
+        return $message;
     }
 }
