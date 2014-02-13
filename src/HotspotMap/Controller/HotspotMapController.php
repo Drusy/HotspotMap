@@ -5,9 +5,10 @@ namespace HotspotMap\Controller;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Response;
 
-class HotspotMapController {
-
-    public function respond(Application $app, $dataName, $data, $uri) {
+class HotspotMapController
+{
+    public function respond(Application $app, $dataName, $data, $uri)
+    {
         $negotiator = new \Negotiation\Negotiator();
         $contentType = $negotiator->getBest($_SERVER['HTTP_ACCEPT']);
 

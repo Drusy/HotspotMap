@@ -20,10 +20,10 @@ $app['password'] = 'root';
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../app/Resources/views'
 ));
-$app['PlaceMapper'] = $app->share(function()use($app){
+$app['PlaceMapper'] = $app->share(function () use ($app) {
     return new PlaceMapper($app);
 });
-$app['UserMapper'] = $app->share(function()use($app){
+$app['UserMapper'] = $app->share(function () use ($app) {
     return new UserMapper($app);
 });
 
@@ -32,15 +32,17 @@ $app->get('/', 'HotspotMap\\Controller\\MapController::index');
 
 $app->get('/places', 'HotspotMap\\Controller\\PlacesController::places');
 $app->get('/place/{id}', 'HotspotMap\\Controller\\PlacesController::place')
-->assert('id', '\d+');;
+    ->convert('id', function ($id) { return (int) $id; })
+    ->assert('id', '\d+');
 
 $app->get('/users', 'HotspotMap\\Controller\\UsersController::users');
 $app->get('/user/{id}', 'HotspotMap\\Controller\\UsersController::user')
-->assert('id', '\d+');
+    ->convert('id', function ($id) { return (int) $id; })
+    ->assert('id', '\d+');
 
 // Error management
 $app->error(function (\Exception $e, $code) use ($app, $negotiator) {
-    if($app['debug']) {
+    if ($app['debug']) {
         return;
     }
 
@@ -59,7 +61,7 @@ $app->error(function (\Exception $e, $code) use ($app, $negotiator) {
 });
 
 // REST response
-$app->after(function(Request $request, Response $response) use ($app) {
+$app->after(function (Request $request, Response $response) use ($app) {
     $negotiator = new \Negotiation\Negotiator();
     $contentType = $negotiator->getBest($_SERVER['HTTP_ACCEPT'])->getValue();
 

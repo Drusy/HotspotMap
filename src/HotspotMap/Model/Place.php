@@ -10,9 +10,9 @@ namespace HotspotMap\Model;
 
 use HotspotMap\Model\ORM\PlaceModel;
 
-class Place extends PlaceModel{
-
-    function __construct()
+class Place extends PlaceModel
+{
+    public function __construct()
     {
     }
 
@@ -20,4 +20,4 @@ class Place extends PlaceModel{
     {
         return $this->id;
     }
-} 
+}

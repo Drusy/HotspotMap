@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: florian
- * Date: 11/02/14
- * Time: 16:36
- */
 
 namespace HotspotMap\Service;
-
 
 class Connection extends \PDO
 {
@@ -22,12 +15,11 @@ class Connection extends \PDO
     {
         $stmt = $this->prepareQuery($query, $parameters);
 
-        if($stmt->execute())
-        {
-            while ($row = $stmt->fetch(\PDO::FETCH_BOTH))
-            {
+        if ($stmt->execute()) {
+            while ($row = $stmt->fetch(\PDO::FETCH_BOTH)) {
                 $tab[] = $row;
             }
+
             return $tab;
         }
 

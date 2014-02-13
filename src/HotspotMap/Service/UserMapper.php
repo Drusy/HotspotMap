@@ -1,24 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: florian
- * Date: 11/02/14
- * Time: 16:07
- */
 
 namespace HotspotMap\Service;
 
-
 use HotspotMap\Model\User;
 
-class UserMapper extends Mapper{
-
+class UserMapper extends Mapper
+{
     private $countByIdQuery = 'SELECT COUNT(*) FROM User WHERE id = :id';
-
     private $findByIdQuery = 'SELECT * FROM User WHERE id = :id';
-
     private $findAllQuery = 'SELECT * FROM User';
-
     private $insertQuery = 'INSERT INTO User Values (
         :id,
         :firstname,
@@ -26,7 +16,6 @@ class UserMapper extends Mapper{
         :email,
         :pseudo,
         :website)';
-
     private $updateQuery = 'UPDATE User
         SET
         firstname = :firstname,
@@ -36,25 +25,36 @@ class UserMapper extends Mapper{
         website = :website
         WHERE id = :id';
 
-    public function save(User $user){
+    private function fillUser($userTab)
+    {
+        $user = new User($userTab['id']);
+        $user->pseudo = $userTab['pseudo'];
+        $user->firstname = $userTab['firstname'];
+        $user->lastname = $userTab['lastname'];
+        $user->setEmail($userTab['email']);
+        $user->setWebsite($userTab['website']);
 
+        return $user;
+    }
+
+    public function save(User $user)
+    {
         $exist = $this->con->selectQuery($this->countByIdQuery, [
-            'id'    =>  $user->getId()
+            'id' => $user->getId()
         ]);
 
-        if($exist[0][0] == 1){
+        if ($exist[0][0] == 1) {
             $res = $this->con->executeQuery($this->updateQuery, [
-                'id'    => $user->getId(),
+                'id' => $user->getId(),
                 'firstname' => $user->firstname,
                 'lastname' => $user->lastname,
                 'email' => $user->getEmail(),
                 'pseudo' => $user->pseudo,
                 'website' => $user->getWebsite()
             ]);
-        }
-        else{
+        } else {
             $res = $this->con->executeQuery($this->insertQuery, [
-                'id'    => $user->getId(),
+                'id' => $user->getId(),
                 'firstname' => $user->firstname,
                 'lastname' => $user->lastname,
                 'email' => $user->getEmail(),
@@ -66,32 +66,26 @@ class UserMapper extends Mapper{
         return $res;
     }
 
-    public function findById($id){
+    public function findById($id)
+    {
         $userTab = $this->con->selectQuery($this->findByIdQuery, [
-            'id'    =>  $id
+            'id' => $id
         ]);
-        return $this->fillUser($userTab);
+
+        return $this->fillUser($userTab[0]);
     }
 
-    public function findAll(){
+    public function findAll()
+    {
         $userTab = $this->con->selectQuery($this->findAllQuery);
         $userList = [];
 
-        foreach ($userTab as $user) {
-            $userList[] = $this->fillUser($user);
+        if (!empty($userTab)) {
+            foreach ($userTab as $user) {
+                $userList[] = $this->fillUser($user);
+            }
         }
 
         return $userList;
     }
-
-    private function fillUser($userTab){
-        $user = new User($userTab['id']);
-        $user->pseudo = $userTab['pseudo'];
-        $user->firstname = $userTab['firstname'];
-        $user->lastname = $userTab['lastname'];
-        $user->setEmail($userTab['email']);
-        $user->setWebsite($userTab['website']);
-
-        return $user;
-    }
-} 
+}

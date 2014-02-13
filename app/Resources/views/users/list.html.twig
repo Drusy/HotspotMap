@@ -6,7 +6,7 @@
         <h1>Users</h1>
         {% for user in users %}
             <div>
-                {{ user.name }}
+                {{ user.firstname }} {{ user.lastname }} ({{ user.email }})
             </div>
         {% endfor %}
     </body>
