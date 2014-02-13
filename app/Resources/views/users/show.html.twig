@@ -1,11 +1,14 @@
 <html>
     <head>
-        <title>user {{ user.id }}</title>
+        <title>User {{ user.pseudo }}</title>
     </head>
     <body>
-        <h1>User</h1>
-            <div>
-                {{ user.firstname }} {{ user.lastname }} ({{ user.email }})
-            </div>
+        <h1>{{ user.pseudo }}</h1>
+        <div>
+            {{ user.firstname }} {{ user.lastname }} ({{ user.email }})
+        </div>
+        <div>
+            Website : {{ user.website }}
+        </div>
     </body>
 </html>

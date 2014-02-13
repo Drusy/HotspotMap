@@ -3,9 +3,21 @@
         <title>Place {{ place.name }}</title>
     </head>
     <body>
-        <h1>Place {{ place.name }}</h1>
-            <div>
-                {{ place.name }} {{ place.id }}
-            </div>
+        <h1>{{ place.name }}</h1>
+        <div>
+            Address : {{ place.address }}
+        </div>
+        <div>
+            Town : {{ place.town }}
+        </div>
+        <div>
+            Country : {{ place.country }}
+        </div>
+        <div>
+            Position : ({{ place.longitude }}, {{ place.latitude }})
+        </div>
+        <div>
+            Website : {{ place.website }}
+        </div>
     </body>
 </html>

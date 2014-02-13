@@ -2,9 +2,21 @@
 <users>
     {% for user in users %}
         <user>
-            <name>
-                {{ user.name }}
-            </name>
+            <firstname>
+                {{ user.firstname }}
+            </firstname>
+            <lastname>
+                {{ user.lastname }}
+            </lastname>
+            <email>
+                {{ user.email }}
+            </email>
+            <pseudo>
+                {{ user.pseudo }}
+            </pseudo>
+            <website>
+                {{ user.website }}
+            </website>
         </user>
     {% endfor %}
 </users>
