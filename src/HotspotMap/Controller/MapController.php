@@ -5,13 +5,22 @@ namespace HotspotMap\Controller;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 
-class MapController
+class MapController extends HotspotMapController
 {
-    public function index(Request $request, Application $app)
+    public function index( Application $app)
     {
+        $placeMapper = $app['PlaceMapper'];
         $userMapper = $app['UserMapper'];
 
-        $message = 'MapController index';
+        $places = $placeMapper->findAll();
+        $users = $userMapper->findAll();
+
+        $data = array(
+            'users' => $users,
+            'places' => $places
+        );
+
+        return $this->respond($app, 'data', $data, 'map/index');
 
         return $message;
     }

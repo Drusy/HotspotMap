@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <title>Map</title>
+    </head>
+    <body>
+        <h1>Places</h1>
+        {% for place in data['places'] %}
+            <h3>{{ place.name }}</h3>
+            <div>
+                Address : {{ place.address }}
+            </div>
+            <div>
+                Town : {{ place.town }}
+            </div>
+            <div>
+                Country : {{ place.country }}
+            </div>
+            <div>
+                Position : ({{ place.longitude }}, {{ place.latitude }})
+            </div>
+            <div>
+                Website : {{ place.website }}
+            </div>
+        {% endfor %}
+
+        <h1>Users</h1>
+        {% for user in data['users'] %}
+            <h3>{{ user.pseudo }}</h3>
+            <div>
+                {{ user.firstname }} {{ user.lastname }} ({{ user.email }})
+            </div>
+            <div>
+                Website : {{ user.website }}
+            </div>
+        {% endfor %}
+    </body>
+</html>

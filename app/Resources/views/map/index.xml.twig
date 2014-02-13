@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<places>
+    {% for place in data['places'] %}
+        <place>
+            <name>
+                {{ place.name }}
+            </name>
+            <longitude>
+                {{ place.longitude }}
+            </longitude>
+            <latitude>
+                {{ place.latitude }}
+            </latitude>
+            <address>
+                {{ place.address }}
+            </address>
+            <country>
+                {{ place.country }}
+            </country>
+            <town>
+                {{ place.town }}
+            </town>
+            <website>
+                {{ place.website }}
+            </website>
+        </place>
+    {% endfor %}
+</places>
+<users>
+    {% for user in data['users'] %}
+        <user>
+            <firstname>
+                {{ user.firstname }}
+            </firstname>
+            <lastname>
+                {{ user.lastname }}
+            </lastname>
+            <email>
+                {{ user.email }}
+            </email>
+            <pseudo>
+                {{ user.pseudo }}
+            </pseudo>
+            <website>
+                {{ user.website }}
+            </website>
+        </user>
+    {% endfor %}
+</users>
