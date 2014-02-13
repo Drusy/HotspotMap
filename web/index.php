@@ -12,7 +12,7 @@ $app = new Silex\Application();
 
 // Configure app
 $app['debug'] = true;
-$app['dsn'] = 'mysql:host=localhost:3306;dbname=HotspotMap';
+$app['dsn'] = 'mysql:host=localhost;dbname=HotspotMap';
 $app['user'] = 'root';
 $app['password'] = 'root';
 
@@ -41,7 +41,7 @@ $app->get('/user/{id}', 'HotspotMap\\Controller\\UsersController::user')
     ->assert('id', '\d+');
 
 // Error management
-$app->error(function (\Exception $e, $code) use ($app, $negotiator) {
+$app->error(function (\Exception $e, $code) use ($app) {
     if ($app['debug']) {
         return;
     }
