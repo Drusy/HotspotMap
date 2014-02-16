@@ -4,6 +4,23 @@ namespace HotspotMap\Service;
 
 class Connection extends \PDO
 {
+
+    private static $con = null;
+
+    public static function getConnection($app)
+    {
+        if(Connection::$con == null)
+        {
+            $dsn = $app['dsn'];
+            $user = $app['user'];
+            $password = $app['password'];
+
+            Connection::$con = new Connection($dsn, $user, $password);
+        }
+
+        return Connection::$con;
+    }
+
     public function executeQuery($query, array $parameters = [])
     {
         $stmt = $this->prepareQuery($query, $parameters);

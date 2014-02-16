@@ -8,10 +8,6 @@ class Mapper
 
     public function __construct($app)
     {
-        $dsn = $app['dsn'];
-        $user = $app['user'];
-        $password = $app['password'];
-
-        $this->con = new Connection($dsn, $user, $password);
+        $this->con = Connection::getConnection($app);
     }
 }

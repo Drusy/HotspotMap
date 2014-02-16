@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Hotspot Map</title>
+
+    <meta name="description" content="Hotspot map, find the right place to work.">
+    <meta name="keywords" content="google,maps,google maps,hotspot maps,hotspot,work place">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+    <meta property="og:url" content="http://..." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Find the place to work." />
+    <meta property="og:image" content="" />
+    <meta property="og:site_name" content="HotspotMap" />
+    <meta property="og:description" content="Hotspot map, find the right place to work." />
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:domain" content=""/>
+    <meta name="twitter:creator" content="@" />
+
+    <link rel="stylesheet" href="../../../../web/HotspotMap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../../web/HotspotMap/css/style.css">
+    <link rel="stylesheet" href="../../../../web/HotspotMap/css/tipsy.css">
+
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+
+<body id="app">
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Hotspot Map</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="core">
+        <div class="settings">
+            <ul>
+                <li><label for="api">Address <a class="q" href="adress/dest" target="_blank" rel="tipsy" title="How HotspotMap work">?</a></label><input type="text" value="" name="googlemapapi" id="googlemapapi"></li>
+                <li><label for="api">Town</label><input type="text" value="" name="googlemapapi" id="googlemapapi"></li>
+                <li><label for="api">Country</label><input type="text" value="" name="googlemapapi" id="googlemapapi"></li>
+                <li>
+                    <label for="center">Map Center</label>
+                    <span class="weelabel">Latitude</span>
+                    <input id="lat" name="lat" style="width:100px" value="" type="text">
+                    <hr>
+                    <span class="weelabel">Longitude</span>
+                    <input id="lon" name="lon" style="width:100px" value="" type="text">
+                </li>
+                <li>
+                    <label for="maptype">Type of Hotspot</label>
+                    <select id="maptypecontrol" name="maptypecontrol">
+                        <option value="false">None</option>
+                        <option value="DROPDOWN_MENU">Enterprise</option>
+                        <option selected="selected" value="HORIZONTAL_BAR">Public spot</option>
+                    </select>
+                </li>
+                <li>
+                    <button class="generate btn">Search</button>
+                </li>
+            </ul>
+        </div><!-- settings -->
+
+        <div class="result">
+            <div id="map">
+                <iframe class ="gmap" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.fr/maps?f=q&amp;source=s_q&amp;hl=fr&amp;geocode=&amp;q=clermont+ferrand&amp;sll=45.753814,4.224634&amp;sspn=1.094245,2.705383&amp;ie=UTF8&amp;hq=&amp;hnear=Clermont-Ferrand,+Puy-de-D%C3%B4me,+Auvergne&amp;t=m&amp;z=12&amp;ll=45.777222,3.087025&amp;output=embed"></iframe><br />
+            </div>
+            <ul class="resultopts">
+                <li class="close">Close</li>
+            </ul>
+        </div><!-- result -->
+
+        <div class="overlay"></div>
+        <div class="infobar">
+            <a class="createdby" target="_blank" href="...">Report experience</a>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="../../../../web/HotspotMap/js/bootstrap.min.js"></script>
+    <!-- <script type='text/javascript' src="assets/js/jquery.tipsy.js"></script> -->
+    <!-- <script src="assets/js/app.js"></script> -->
+    <!-- <script src="assets/js/generate.js"></script> -->
+</body>
+</html>

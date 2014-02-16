@@ -20,7 +20,7 @@ class HotspotMapController
                 return $app['twig']->render($uri.'.xml.twig', array($dataName => $data));
                 break;
             default:
-                return $app['twig']->render($uri.'.html.twig', array($dataName => $data));
+                return $app['twig']->render('map/index_test1.html.twig', array($dataName => $data));
         }
     }
 }
