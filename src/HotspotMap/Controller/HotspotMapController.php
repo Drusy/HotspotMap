@@ -10,7 +10,8 @@ class HotspotMapController
     public function respond(Application $app, $dataName, $data, $uri)
     {
         $negotiator = new \Negotiation\Negotiator();
-        $contentType = $negotiator->getBest($_SERVER['HTTP_ACCEPT']);
+        $priorities   = array('text/html', 'application/json', 'application/xml', '*/*');
+        $contentType = $negotiator->getBest($_SERVER['HTTP_ACCEPT'], $priorities);
 
         switch ($contentType->getValue()) {
             case 'application/json':
@@ -20,7 +21,7 @@ class HotspotMapController
                 return $app['twig']->render($uri.'.xml.twig', array($dataName => $data));
                 break;
             default:
-                return $app['twig']->render('map/index_test1.html.twig', array($dataName => $data));
+                return $app['twig']->render($uri.'.html.twig', array($dataName => $data));
         }
     }
 }

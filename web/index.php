@@ -12,7 +12,7 @@ $app = new Silex\Application();
 
 // Configure app
 $app['debug'] = true;
-$app['dsn'] = 'mysql:host=localhost;dbname=HotspotMap';
+$app['dsn'] = 'mysql:host=localhost:3306;dbname=HotspotMap';
 $app['user'] = 'root';
 $app['password'] = 'root';
 

@@ -3,7 +3,9 @@ body, * {
 	margin: 0;
 	padding: 0;	
 }
+
 .resultopts{display: none;}
+
 body {
 	background: #383d40;
 	color: #fff;
@@ -16,7 +18,7 @@ body {
 	-moz-box-sizing: border-box;
 	min-height: 100%;
 	position: relative;
-	width: 300px;
+	width: 280px;
 	float:left;
 	margin:0 0 50px;
 	z-index: 2;
@@ -72,7 +74,7 @@ body {
 			display: inline;
 			text-align: left;
 			text-shadow: none;
-			width: 244px;
+			width: 235px;
 			padding:8px;
 			position:relative;
 			float:left;
@@ -114,18 +116,18 @@ hr{
 .result {
 	background: #2c3031;
 	bottom: 20px;
-	left: 300px;
+	left: 280px;
 	right: 20px;
-	top: 90px;
+	top: 75px;
 	position: fixed;
 }
 #map {
 	overflow: hidden;
 	position: absolute;
-    width: 80%;
-    height: 85%;
-    left:10%;
-    top:5%;
+    width: 100%;
+    height: 100%;
+    left: 0%;
+    top: 0%;
 	transition: width 1s ease 0s, height 1s ease 0s, top 1s ease 0s, left 1s ease 0s, margin 1s ease 0s;
 }
 
@@ -134,13 +136,13 @@ hr{
     width: 100% ;
 }
 .infobar {
-	bottom: 30px;
+	bottom: 35px;
 	position: fixed;
 	right: 30px;
 	z-index: 200;
 }
 .createdby {
-    background:#e65b34;
+    background: #6EB0EB;
 	border-radius: 2px;
 	color: #fff;
 	display: block;
@@ -158,14 +160,16 @@ hr{
 	}
 
 	.createdby:hover{
-		background:#ef6d49;
+		background: #6EB0EB;
+        color: #383d40;
+        text-decoration: none;
 	}
 .btn:last-child{
-	margin:5px 0 0 0;
+	margin:5px 0 0 8px;
 }
 .btn {
 	-moz-box-sizing: border-box;
-	background: #e65b34;
+	background: #6EB0EB;
 	color: #fff;
 	cursor: pointer;
 	display: block;
@@ -187,7 +191,7 @@ hr{
 	-webkit-box-shadow: 0 1px rgba(0, 0, 0, 0.2);
 }
 	.btn:hover{
-		background:#ef6d49;
+		background:#6EB0EB;
 	}
 .generate{
 	width:100%;
@@ -219,6 +223,7 @@ hr{
 	overflow:auto;
 	max-height:350px;
 }
+
 .overlay{
 	background: rgba(0,0,0,0.4);
 	bottom: 0;
@@ -232,8 +237,9 @@ hr{
 	height:100%;
 	display:none
 }
+
 .q{
-	background:#f3643c;
+	background: #6EB0EB;
 	text-decoration:none;
 	padding:0px 5px;
 	-webkit-border-radius: 150px;
@@ -244,7 +250,7 @@ hr{
 	cursor: pointer;
 }
 .q:hover{
-	color:#383d40;
+	color: #6EB0EB;
 }
 pre{
 	font-size: 12px;
