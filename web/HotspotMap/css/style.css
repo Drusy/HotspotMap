@@ -136,7 +136,7 @@ hr{
     width: 100% ;
 }
 .infobar {
-	bottom: 35px;
+	bottom: 40px;
 	position: fixed;
 	right: 30px;
 	z-index: 200;
