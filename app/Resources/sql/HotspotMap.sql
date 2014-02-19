@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Jeu 13 Février 2014 à 21:38
+-- Généré le: Mer 19 Février 2014 à 21:05
 -- Version du serveur: 5.5.33
 -- Version de PHP: 5.5.3
 
@@ -22,8 +22,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `Place` (
   `id` varchar(255) NOT NULL,
-  `latitude` varchar(255) NOT NULL,
-  `longitude` varchar(255) NOT NULL,
+  `latitude` float(10,6) NOT NULL,
+  `longitude` float(10,6) NOT NULL,
   `address` varchar(255) NOT NULL,
   `country` varchar(255) NOT NULL,
   `town` varchar(255) NOT NULL,
@@ -37,8 +37,8 @@ CREATE TABLE IF NOT EXISTS `Place` (
 --
 
 INSERT INTO `Place` (`id`, `latitude`, `longitude`, `address`, `country`, `town`, `name`, `website`) VALUES
-('0', '2.34706', '48.858859', '29 Rue du Faubourg Saint-Antoine', 'France', 'Paris', 'Stabucks', 'www.starbucks.fr'),
-('1', '3.134995', '45.763653', 'Rue de l''Oradou', 'France', 'Clermont-Ferrand', 'McDonald''s', 'www.macdonalds.fr');
+('0', 48.858860, 2.347060, '29 Rue du Faubourg Saint-Antoine', 'France', 'Paris', 'Starbucks', 'www.starbucks.fr'),
+('1', 45.763653, 3.134995, 'Rue de l''Oradou', 'France', 'Clermont-Ferrand', 'McDonald''s', 'www.macdonalds.fr');
 
 -- --------------------------------------------------------
 

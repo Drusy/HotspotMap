@@ -43,11 +43,24 @@
             var map = new google.maps.Map(document.getElementById('map'),
                     mapOptions);
 
+            // Add current markers
             var marker = new google.maps.Marker({
                 position: pos,
                 map: map,
-                title: '{{ data['clientInfo']['city'] }}'
+                title: '{{ data['clientInfo']['city'] }}',
+                icon: 'Hotspotmap/images/blue_marker.png',
+                zIndex: 999
             });
+
+            // Add places markers
+            {% for place in data['places'] %}
+                new google.maps.Marker({
+                    position: new google.maps.LatLng({{ place.latitude }}, {{ place.longitude }}),
+                    map: map,
+                    title: '{{ place.town }}',
+                    icon: 'Hotspotmap/images/green_marker.png'
+                });
+            {% endfor %}
         }
 
         google.maps.event.addDomListener(window, 'load', initialize);
@@ -76,28 +89,37 @@
     <div class="core">
         <div class="settings">
             <ul>
-                <li><label for="api">Address <a class="q" href="adress/dest" target="_blank" rel="tipsy" title="How HotspotMap work">?</a></label><input type="text" value="" name="googlemapapi" id="googlemapapi"></li>
-                <li><label for="api">Town</label><input type="text" value="" name="googlemapapi" id="googlemapapi"></li>
-                <li><label for="api">Country</label><input type="text" value="" name="googlemapapi" id="googlemapapi"></li>
                 <li>
-                    <label for="center">Map Center</label>
+                    <label for="api">Address <a class="q" href="adress/dest" target="_blank" rel="tipsy" title="How HotspotMap work">?</a></label>
+                    <input type="text" value="{{ data['clientInfo']['city'] }} {{ data['clientInfo']['region'] }} {{ data['clientInfo']['country'] }}" name="googlemapapi" id="googlemapapi">
+                </li>
+                <li>
+                    <label for="center">Spot position</label>
                     <span class="weelabel">Latitude</span>
-                    <input id="lat" name="lat" style="width:100px" value="" type="text">
+                    <input id="lat" name="lat" style="width:100px;" value="{{ data['clientInfo']['loc']|split(',')[0] }}" type="text">
                     <hr>
                     <span class="weelabel">Longitude</span>
-                    <input id="lon" name="lon" style="width:100px" value="" type="text">
+                    <input id="lon" name="lon" style="width:100px;" value="{{ data['clientInfo']['loc']|split(',')[1] }}" type="text">
                 </li>
                 <li>
                     <label for="maptype">Type of Hotspot</label>
                     <select id="maptypecontrol" name="maptypecontrol">
-                        <option value="false">None</option>
-                        <option value="DROPDOWN_MENU">Enterprise</option>
-                        <option selected="selected" value="HORIZONTAL_BAR">Public spot</option>
+                        <option selected="selected">None</option>
+                        <option>Company</option>
+                        <option>Public spot</option>
                     </select>
                 </li>
                 <li>
                     <button class="generate btn">Search</button>
                 </li>
+            </ul>
+            <ul>
+                <li><label for="center">Closest spots</label></li>
+                {% for place in data['closestPlaces'] %}
+                    <li>
+                        <a class="weelabel" href="/place/{{ place.id }}">{{ place.name }}</a>
+                    </li>
+                {% endfor %}
             </ul>
         </div><!-- settings -->
 
@@ -110,7 +132,7 @@
 
         <div class="overlay"></div>
         <div class="infobar">
-            <a class="createdby" target="_blank" href="...">Report experience</a>
+            <a class="createdby" target="_blank" href="">Report experience</a>
         </div>
     </div>
 </body>

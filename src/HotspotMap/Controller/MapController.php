@@ -43,16 +43,19 @@ class MapController extends HotspotMapController
     {
         $placeMapper = $app['PlaceMapper'];
         $userMapper = $app['UserMapper'];
+        $clientInfo = $this->retrieveClientInfo();
+        list($latitude, $longitude) = explode(",", $clientInfo['loc']);
 
         $places = $placeMapper->findAll();
         $users = $userMapper->findAll();
+        $closestPlaces = $placeMapper->findClosestPlaces($latitude, $longitude, 10);
 
         $data = array(
             'users' => $users,
-            'places' => $places
+            'places' => $places,
+            'closestPlaces' => $closestPlaces,
+            'clientInfo' => $clientInfo
         );
-
-        $data['clientInfo'] = $this->retrieveClientInfo();
         $data['geocoder'] = $this->geocoder->geocode($this->geolocalize);
 
         return $this->respond($app, 'data', $data, 'map/index');

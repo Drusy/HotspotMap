@@ -238,6 +238,18 @@ hr{
 	display:none
 }
 
+a.weelabel{
+    position:relative;
+    float:left;
+    font-size: 12px;
+    font-weight:700;
+    line-height:28px;
+    padding:0 5px;
+    width:100px;
+    color:#fff;
+    margin-left: 10px;
+}
+
 .q{
 	background: #6EB0EB;
 	text-decoration:none;
