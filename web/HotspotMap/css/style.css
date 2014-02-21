@@ -121,27 +121,59 @@ hr{
 	top: 75px;
 	position: fixed;
 }
+
+#caract {
+    overflow: hidden;
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    top: 0%;
+    transition: width 1s ease 0s, height 1s ease 0s, top 1s ease 0s, left 1s ease 0s, margin 1s ease 0s;
+    left:0%;
+}
+
 #map {
 	overflow: hidden;
 	position: absolute;
     width: 100%;
     height: 100%;
-    left: 0%;
     top: 0%;
 	transition: width 1s ease 0s, height 1s ease 0s, top 1s ease 0s, left 1s ease 0s, margin 1s ease 0s;
+    z-index: 3;
+}
+
+#map.view{
+    right: 0%;
+}
+
+#map.edit{
+    width: 50%;
+    height: 50%;
+    right: 0%;
 }
 
 .gmap {
     height: 100% ;
     width: 100% ;
 }
+
+#map-info {
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    bottom: 0%;
+    left: 0px;
+    transition: width 1s ease 0s, height 1s ease 0s, top 1s ease 0s, left 1s ease 0s, margin 1s ease 0s;
+}
+
 .infobar {
 	bottom: 40px;
 	position: fixed;
 	right: 30px;
 	z-index: 200;
 }
-.createdby {
+.hotspot-button {
     background: #6EB0EB;
 	border-radius: 2px;
 	color: #fff;
@@ -155,11 +187,8 @@ hr{
 	position: relative;
 	float: left; margin: 0 3px 0 0;
 }
-	.createdby:last-child{
-		margin: 0;
-	}
 
-	.createdby:hover{
+    .hotspot-button:hover{
 		background: #6EB0EB;
         color: #383d40;
         text-decoration: none;
@@ -217,7 +246,7 @@ hr{
 	font-size: 13px;
 	line-height: 1.42857;
 	margin: 0 0 10px;
-	padding: 9.5px;
+	padding: 9px;
 	word-break: break-all;
 	word-wrap: break-word;
 	overflow:auto;
@@ -254,4 +283,42 @@ hr{
 }
 pre{
 	font-size: 12px;
+}
+
+.form-control{
+    font-size: 12px;
+    font-weight:700;
+    letter-spacing: 1px;
+    background: #555;
+    color: #FFFFFF;
+    display: inline;
+    text-shadow: none;
+    width: 44%;
+    padding:8px;
+    position:relative;
+    border:none;
+    -webkit-appearance: none;
+    margin: 1%;
+    border-radius: 0;
+
+}
+.form-control.big{
+width: 91%;
+}
+
+textarea.form-control.big{
+    width: 70%;
+}
+
+
+.subtitle{
+    margin-left: 10px;
+    padding-top: 2%;
+}
+
+label.input-type{
+    padding-left: 3%;
+    font-weight: 700;
+    font-size: 13px;
+    color: #888;
 }

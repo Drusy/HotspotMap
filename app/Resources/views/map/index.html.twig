@@ -19,12 +19,9 @@
     <meta name="twitter:domain" content=""/>
     <meta name="twitter:creator" content="@" />
 
-    <link rel="stylesheet" href="HotspotMap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="HotspotMap/css/style.css">
-    <link rel="stylesheet" href="HotspotMap/css/tipsy.css">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-    <script src="HotspotMap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../../../web/HotspotMap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../../web/HotspotMap/css/style.css">
+    <link rel="stylesheet" href="../../../../web/HotspotMap/css/tipsy.css">
 
     <!--[if IE]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -102,16 +99,61 @@
         </div><!-- settings -->
 
         <div class="result">
-            <div id="map"></div>
-            <ul class="resultopts">
-                <li class="close">Close</li>
-            </ul>
+            <div class="row">
+                <div id="caract" class="col-md-6" style="display: none;">
+                    <label class="subtitle">PLACE</label><br/>
+
+                    <label class="input-type">GPS COORDINATE</label><br/>
+                    <input type="text" class="form-control" >
+                    <input type="text" class="form-control" >
+                    <label class="input-type">ADDRESS</label><br/>
+                    <input type="text" class="form-control big" placeholder="Street and number">
+                    <input type="text" class="form-control" placeholder="Country">
+                    <input type="text" class="form-control" placeholder="Town">
+                </div>
+
+                <div id="map" class="col-md-6 view"></div>
+            </div>
+            <div class="row">
+                <div id="map-info" class="col-md-12" style="display: none;">
+                    <label class="subtitle">DESCRIPTION</label><br/>
+
+
+                    <input type="text" class="form-control big" placeholder="Name">
+                    <input type="text" class="form-control big" placeholder="Website">
+                    <textarea class="form-control big" placeholder="More information"></textarea>
+                </div>
+            </div>
         </div><!-- result -->
 
         <div class="overlay"></div>
         <div class="infobar">
-            <a class="createdby" target="_blank" href="...">Report experience</a>
+            <a id="save-hotspot" class="hotspot-button" href="#" style="display: none;">Save</a>
+            <a id="add-hotspot" class="hotspot-button" href="#">Add your Hotspot</a>
         </div>
     </div>
 </body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="HotspotMap/js/bootstrap.min.js"></script>
+<script>
+    $( "#add-hotspot" ).click(function(e) {
+        $("#caract").toggle();
+        $("#map-info").toggle();
+        $("#save-hotspot").toggle();
+        if($("#map").hasClass("view"))
+        {
+            $("#map").removeClass("view");
+            $("#map").addClass("edit");
+            $(this).text("cancel");
+        }
+        else
+        {
+            $("#map").removeClass("edit");
+            $("#map").addClass("view");
+            $(this).text("add your hotspot");
+        }
+    });
+</script>
+
 </html>
