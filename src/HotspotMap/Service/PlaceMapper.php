@@ -29,6 +29,14 @@ class PlaceMapper extends Mapper
         website = :website
         WHERE id = :id';
 
+    private $closestPlaces = 'SELECT id, name,
+( 6371 * acos( cos( radians( :lat) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians( :long) ) + sin( radians( :lat ) ) * sin( radians( latitude ) ) ) )
+AS distance
+FROM Place
+HAVING distance < :dist
+ORDER BY distance
+LIMIT 0 , 10';
+
     private function fillPlace($placeTab)
     {
         $place = new Place($placeTab['id']);
@@ -88,6 +96,24 @@ class PlaceMapper extends Mapper
     public function findAll()
     {
         $placeTab = $this->con->selectQuery($this->findAllQuery);
+        $placeList = [];
+
+        if (!empty($placeTab)) {
+            foreach ($placeTab as $place) {
+                $placeList[] = $this->fillPlace($place);
+            }
+        }
+
+        return $placeList;
+    }
+
+    public function findClosestPlaces($latitude, $longitude, $distance)
+    {
+        $placeTab = $this->con->selectQuery($this->closestPlaces, [
+            'lat' => $latitude,
+            'long' => $longitude,
+            'dist' => $distance
+        ]);
         $placeList = [];
 
         if (!empty($placeTab)) {
