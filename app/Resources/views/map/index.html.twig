@@ -167,6 +167,12 @@
             $("#map").addClass("view");
             $(this).text("add your hotspot");
         }
+        setTimeout(
+            function()
+            {
+                google.maps.event.trigger(map, 'resize');
+            }, 1200
+        );
     });
 
     function updateFromClientInfo() {
