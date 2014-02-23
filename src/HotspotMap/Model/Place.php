@@ -14,6 +14,8 @@ class Place extends PlaceModel
         } else {
             $this->id = $id;
         }
+
+        $this->distance = 0;
     }
 
     public function getId()
@@ -23,7 +25,7 @@ class Place extends PlaceModel
 
     public function setWebsite($website)
     {
-        // TODO : VERIF
+        // TODO : Check website syntax
         $this->website = $website;
     }
 

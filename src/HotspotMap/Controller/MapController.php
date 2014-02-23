@@ -6,10 +6,8 @@ use Silex\Application;
 
 class MapController extends HotspotMapController
 {
-    private $geocoder;
     private $adapter;
     private $buzz;
-    private $geolocalize;
 
     private function retrieveClientInfo() {
         return json_decode(file_get_contents("http://ipinfo.io/"), true);
@@ -24,11 +22,6 @@ class MapController extends HotspotMapController
 
         // Manage client Ip Address
         $clientIp = $_SERVER['REMOTE_ADDR'];
-
-        $this->geolocalize = $clientIp;
-        $this->geocoder->registerProviders(array(
-            new \Geocoder\Provider\FreeGeoIpProvider($this->adapter)
-        ));
     }
 
     public function index(Application $app)
@@ -48,7 +41,6 @@ class MapController extends HotspotMapController
             'closestPlaces' => $closestPlaces,
             'clientInfo' => $clientInfo
         );
-        $data['geocoder'] = $this->geocoder->geocode($this->geolocalize);
 
         return $this->respond($app, 'data', $data, 'map/index');
     }
