@@ -3,16 +3,25 @@
 namespace HotspotMap\Controller;
 
 use Silex\Application;
+use HotspotMap\Model\Place;
 
 class MapController extends HotspotMapController
 {
-    private $geocoder;
     private $adapter;
     private $buzz;
-    private $geolocalize;
 
     private function retrieveClientInfo() {
-        return json_decode(file_get_contents("http://ipinfo.io/"), true);
+        $place = new Place();
+        $clientInfo = json_decode(file_get_contents("http://ipinfo.io/"), true);
+        list($latitude, $longitude) = explode(",", $clientInfo['loc']);
+
+        $place->address = $clientInfo['city']." ".$clientInfo['region']." ".$clientInfo['country'];
+        $place->longitude = $longitude;
+        $place->latitude = $latitude;
+        $place->country = $clientInfo['country'];
+        $place->town = $clientInfo['city'];
+
+        return $place;
     }
 
     public function __construct()
@@ -24,31 +33,24 @@ class MapController extends HotspotMapController
 
         // Manage client Ip Address
         $clientIp = $_SERVER['REMOTE_ADDR'];
-
-        $this->geolocalize = $clientIp;
-        $this->geocoder->registerProviders(array(
-            new \Geocoder\Provider\FreeGeoIpProvider($this->adapter)
-        ));
     }
 
     public function index(Application $app)
     {
         $placeMapper = $app['PlaceMapper'];
         $userMapper = $app['UserMapper'];
-        $clientInfo = $this->retrieveClientInfo();
-        list($latitude, $longitude) = explode(",", $clientInfo['loc']);
+        $place = $this->retrieveClientInfo();
 
         $places = $placeMapper->findAll();
         $users = $userMapper->findAll();
-        $closestPlaces = $placeMapper->findClosestPlaces($latitude, $longitude, 10);
+        $closestPlaces = $placeMapper->findClosestPlaces($place->latitude, $place->longitude,600);
 
         $data = array(
             'users' => $users,
             'places' => $places,
             'closestPlaces' => $closestPlaces,
-            'clientInfo' => $clientInfo
+            'place' => $place
         );
-        $data['geocoder'] = $this->geocoder->geocode($this->geolocalize);
 
         return $this->respond($app, 'data', $data, 'map/index');
     }

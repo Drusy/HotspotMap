@@ -10,6 +10,7 @@ class PlaceModel
     public $country;
     public $town;
     public $name;
+    public $distance;
 
     protected $id;
     protected  $website;

@@ -274,7 +274,6 @@ a.weelabel{
     font-weight:700;
     line-height:28px;
     padding:0 5px;
-    width:100px;
     color:#fff;
     margin-left: 10px;
 }
@@ -333,4 +332,8 @@ label.input-type{
     font-weight: 700;
     font-size: 13px;
     color: #888;
+}
+
+.headerLocation {
+    margin-right: 15px;
 }

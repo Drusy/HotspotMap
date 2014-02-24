@@ -29,7 +29,7 @@ class PlaceMapper extends Mapper
         website = :website
         WHERE id = :id';
 
-    private $closestPlaces = 'SELECT id, name,
+    private $closestPlaces = 'SELECT *,
 ( 6371 * acos( cos( radians( :lat) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians( :long) ) + sin( radians( :lat ) ) * sin( radians( latitude ) ) ) )
 AS distance
 FROM Place
@@ -46,6 +46,7 @@ LIMIT 0 , 10';
         $place->latitude = $placeTab['latitude'];
         $place->country = $placeTab['country'];
         $place->town = $placeTab['town'];
+        $place->distance = round($placeTab['distance'], 1, PHP_ROUND_HALF_EVEN);
         $place->setWebsite($placeTab['website']);
 
         return $place;

@@ -8,61 +8,13 @@
     <meta name="keywords" content="google,maps,google maps,hotspot maps,hotspot,work place">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
-    <meta property="og:url" content="http://..." />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Find the place to work." />
-    <meta property="og:image" content="" />
     <meta property="og:site_name" content="HotspotMap" />
     <meta property="og:description" content="Hotspot map, find the right place to work." />
-
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:domain" content=""/>
-    <meta name="twitter:creator" content="@" />
-
-    <link rel="stylesheet" href="../../../../web/HotspotMap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../../../web/HotspotMap/css/style.css">
-    <link rel="stylesheet" href="../../../../web/HotspotMap/css/tipsy.css">
-    <link rel="icon" type="image/ico" href="../../../../web/HotspotMap/images/favicon.ico">
-
-    <!--[if IE]>
-    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-    <script>
-        var map;
-        function initialize() {
-            var pos = new google.maps.LatLng({{ data['clientInfo']['loc'] }});
-            var mapOptions = {
-                zoom: 13,
-                center: pos,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            };
-            var map = new google.maps.Map(document.getElementById('map'),
-                    mapOptions);
-
-            // Add current markers
-            var marker = new google.maps.Marker({
-                position: pos,
-                map: map,
-                title: '{{ data['clientInfo']['city'] }}',
-                icon: 'Hotspotmap/images/blue_marker.png',
-                zIndex: 999
-            });
-
-            // Add places markers
-            {% for place in data['places'] %}
-                new google.maps.Marker({
-                    position: new google.maps.LatLng({{ place.latitude }}, {{ place.longitude }}),
-                    map: map,
-                    title: '{{ place.town }}',
-                    icon: 'Hotspotmap/images/green_marker.png'
-                });
-            {% endfor %}
-        }
-
-        google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
+    <link rel="stylesheet" href="HotspotMap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="HotspotMap/css/style.css">
+    <link rel="stylesheet" href="HotspotMap/css/tipsy.css">
 </head>
 
 <body id="app">
@@ -77,8 +29,8 @@
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-pushpin"></span>
-                        {{ data['clientInfo']['city'] }} ({{ data['clientInfo']['country'] }})
+                <li><a class="headerLocation clickablePlace" href="#" id="clientPosition"><span class="glyphicon glyphicon-pushpin"></span>
+                        {{ data['place'].town }} ({{ data['place'].country }})
                     </a>
                 </li>
             </ul>
@@ -88,16 +40,16 @@
         <div class="settings">
             <ul>
                 <li>
-                    <label for="api">Address <a class="q" href="adress/dest" target="_blank" rel="tipsy" title="How HotspotMap work">?</a></label>
-                    <input type="text" value="{{ data['clientInfo']['city'] }} {{ data['clientInfo']['region'] }} {{ data['clientInfo']['country'] }}" name="googlemapapi" id="googlemapapi">
+                    <label for="api">Address <a class="q" href="#" target="_blank" rel="tipsy" title="How HotspotMap work">?</a></label>
+                    <input type="text" value="{{ data['place'].address }}" name="address" id="addressInput">
                 </li>
                 <li>
                     <label for="center">Spot position</label>
                     <span class="weelabel">Latitude</span>
-                    <input id="lat" name="lat" style="width:100px;" value="{{ data['clientInfo']['loc']|split(',')[0] }}" type="text">
+                    <input name="lat" style="width:100px;" value="{{ data['place'].latitude }}" type="text" id="latitudeInput">
                     <hr>
                     <span class="weelabel">Longitude</span>
-                    <input id="lon" name="lon" style="width:100px;" value="{{ data['clientInfo']['loc']|split(',')[1] }}" type="text">
+                    <input name="lon" style="width:100px;" value="{{ data['place'].longitude }}" type="text" id="longitudeInput">
                 </li>
                 <li>
                     <label for="maptype">Type of Hotspot</label>
@@ -112,14 +64,14 @@
                 </li>
             </ul>
             <ul>
-                <li><label for="center">Closest spots</label></li>
+                <li><label for="center">Closest spots ({{ data['closestPlaces']|length }})</label></li>
                 {% for place in data['closestPlaces'] %}
                     <li>
-                        <a class="weelabel" href="/place/{{ place.id }}">{{ place.name }}</a>
+                        <a class="weelabel clickablePlace" id="{{ place.id }}" href="#" >{{ place.name }} ({{ place.distance }} km)</a>
                     </li>
                 {% endfor %}
             </ul>
-        </div><!-- settings -->
+        </div>
 
         <div class="result">
             <div class="row">
@@ -147,7 +99,7 @@
                     <textarea class="form-control big" placeholder="More information"></textarea>
                 </div>
             </div>
-        </div><!-- result -->
+        </div>
 
         <div class="overlay"></div>
         <div class="infobar">
@@ -157,10 +109,48 @@
     </div>
 </body>
 
+<!--[if IE]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="HotspotMap/js/bootstrap.min.js"></script>
+
 <script>
-    $( "#add-hotspot" ).click(function(e) {
+    var map;
+
+    function initialize() {
+        var pos = new google.maps.LatLng({{ data['place'].latitude }}, {{ data['place'].longitude }});
+        var mapOptions = {
+            zoom: 13,
+            center: pos,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+        // Add current markers
+        var marker = new google.maps.Marker({
+            position: pos,
+            map: map,
+            title: '{{ data['place'].town }}',
+            icon: 'Hotspotmap/images/blue_marker.png',
+            zIndex: 999
+        });
+
+        // Add places markers
+        {% for place in data['places'] %}
+        new google.maps.Marker({
+            position: new google.maps.LatLng({{ place.latitude }}, {{ place.longitude }}),
+            map: map,
+            title: '{{ place.town }}',
+            icon: 'Hotspotmap/images/green_marker.png'
+        });
+        {% endfor %}
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+    $("#add-hotspot").click(function() {
         $("#caract").toggle();
         $("#map-info").toggle();
         $("#save-hotspot").toggle();
@@ -175,6 +165,53 @@
             $("#map").removeClass("edit");
             $("#map").addClass("view");
             $(this).text("add your hotspot");
+        }
+        setTimeout(
+            function()
+            {
+                google.maps.event.trigger(map, 'resize');
+            }, 1200
+        );
+    });
+
+    function updateFromClientInfo() {
+        map.setCenter(new google.maps.LatLng({{ data['place'].latitude }}, {{ data['place'].longitude }}));
+
+        $( "#addressInput" ).val( "{{ data['place'].address }}" );
+        $( "#latitudeInput" ).val( {{ data['place'].latitude }} );
+        $( "#longitudeInput" ).val( {{ data['place'].longitude }} );
+    }
+
+    function updateFromPlaceId(placeId) {
+        $.ajax({
+            url: "/place/" + placeId,
+            type: "GET",
+            dataType: "text",
+            headers: {
+                Accept : "application/json"
+            }
+        })
+        .done(function( data ) {
+            var json = $.parseJSON(data);
+            map.setCenter(new google.maps.LatLng(json.latitude, json.longitude));
+
+            $( "#addressInput" ).val( json.address );
+            $( "#latitudeInput" ).val( json.latitude );
+            $( "#longitudeInput" ).val( json.longitude );
+        })
+        .fail(function(jqXHR, textStatus, errorThrown) {
+            alert( "Request failed: " + textStatus + " " + errorThrown );
+        });
+    }
+
+    $(".clickablePlace").click(function() {
+        var placeId = $(this).attr('id');
+        var uri;
+
+        if (placeId == 'clientPosition') {
+            updateFromClientInfo();
+        } else {
+            updateFromPlaceId(placeId);
         }
     });
 </script>
