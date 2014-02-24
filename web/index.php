@@ -30,15 +30,12 @@ $app['UserMapper'] = $app->share(function () use ($app) {
 // Manage controllers
 $app->get('/', 'HotspotMap\\Controller\\MapController::index');
 
+$app->post('/places', 'HotspotMap\\Controller\\PlacesController::addPlace');
 $app->get('/places', 'HotspotMap\\Controller\\PlacesController::places');
-$app->get('/place/{id}', 'HotspotMap\\Controller\\PlacesController::place')
-    ->convert('id', function ($id) { return (int) $id; })
-    ->assert('id', '\d+');
+$app->get('/places/{id}', 'HotspotMap\\Controller\\PlacesController::place');
 
 $app->get('/users', 'HotspotMap\\Controller\\UsersController::users');
-$app->get('/user/{id}', 'HotspotMap\\Controller\\UsersController::user')
-    ->convert('id', function ($id) { return (int) $id; })
-    ->assert('id', '\d+');
+$app->get('/users/{id}', 'HotspotMap\\Controller\\UsersController::user');
 
 // Error management
 $app->error(function (\Exception $e, $code) use ($app) {
@@ -69,6 +66,7 @@ $app->after(function (Request $request, Response $response) use ($app) {
         $contentType = 'text/html';
     }
 
+    $response->setStatusCode($app['statusCode']);
     $response->headers->set('Content-Type', $contentType);
 });
 

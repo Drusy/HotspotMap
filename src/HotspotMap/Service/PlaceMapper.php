@@ -11,13 +11,14 @@ class PlaceMapper extends Mapper
     private $findAllQuery = 'SELECT * FROM Place';
     private $insertQuery = 'INSERT INTO Place Values (
         :id,
-        :longitude,
         :latitude,
-        :name,
+        :longitude,
         :address,
         :country,
         :town,
-        :website)';
+        :name,
+        :website,
+        :description)';
     private $updateQuery = 'UPDATE Place
         SET
         longitude = :longitude,
@@ -25,17 +26,19 @@ class PlaceMapper extends Mapper
         name = :name,
         address = :address,
         country = :country,
-        town = :town
-        website = :website
+        town = :town,
+        website = :website,
+        descriptoon = :description
         WHERE id = :id';
 
     private $closestPlaces = 'SELECT *,
-( 6371 * acos( cos( radians( :lat) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians( :long) ) + sin( radians( :lat ) ) * sin( radians( latitude ) ) ) )
-AS distance
-FROM Place
-HAVING distance < :dist
-ORDER BY distance
-LIMIT 0 , 10';
+        ( 6371 * acos( cos( radians( :lat) ) * cos( radians( latitude ) ) * cos( radians( longitude ) -
+        radians( :long) ) + sin( radians( :lat ) ) * sin( radians( latitude ) ) ) )
+        AS distance
+        FROM Place
+        HAVING distance < :dist
+        ORDER BY distance
+        LIMIT 0 , 10';
 
     private function fillPlace($placeTab)
     {
@@ -46,6 +49,7 @@ LIMIT 0 , 10';
         $place->latitude = $placeTab['latitude'];
         $place->country = $placeTab['country'];
         $place->town = $placeTab['town'];
+        $place->description = $placeTab['description'];
         $place->distance = round($placeTab['distance'], 1, PHP_ROUND_HALF_EVEN);
         $place->setWebsite($placeTab['website']);
 
@@ -58,28 +62,22 @@ LIMIT 0 , 10';
             'id' => $place->getId()
         ]);
 
+        $placeArray = array(
+            'id' => $place->getId(),
+            'name' => $place->name,
+            'address' => $place->address,
+            'longitude' => $place->longitude,
+            'latitude' => $place->latitude,
+            'country' => $place->country,
+            'town' => $place->town,
+            'website' => $place->getWebsite(),
+            'description' => $place->description
+        );
+
         if ($exist[0][0] == 1) {
-            $res = $this->con->executeQuery($this->updateQuery, [
-                'id' => $place->getId(),
-                'name' => $place->name,
-                'address' => $place->address,
-                'longitude' => $place->longitude,
-                'latitude' => $place->latitude,
-                'country' => $place->country,
-                'town' => $place->town,
-                'website' => $place->getWebsite()
-            ]);
+            $res = $this->con->executeQuery($this->updateQuery, $placeArray);
         } else {
-            $res = $this->con->executeQuery($this->insertQuery, [
-                'id' => $place->getId(),
-                'name' => $place->name,
-                'address' => $place->address,
-                'longitude' => $place->longitude,
-                'latitude' => $place->latitude,
-                'country' => $place->country,
-                'town' => $place->town,
-                'website' => $place->getWebsite()
-            ]);
+            $res = $this->con->executeQuery($this->insertQuery, $placeArray);
         }
 
         return $res;

@@ -11,6 +11,7 @@ class UsersController extends HotspotMapController
     {
         $userMapper = $app['UserMapper'];
         $users = $userMapper->findAll();
+        $app['statusCode'] = 200;
 
         return $this->respond($app, 'users', $users, 'users/list');
     }
@@ -21,7 +22,8 @@ class UsersController extends HotspotMapController
         $user = $userMapper->findById($id);
 
         if (null === $user) {
-            return new Response('User not found', 404);
+            $app['statusCode'] = 404;
+            return new Response('User not found', $app['statusCode']);
         }
 
         return $this->respond($app, 'user', $user, 'users/show');

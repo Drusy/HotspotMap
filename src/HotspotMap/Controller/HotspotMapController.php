@@ -15,7 +15,7 @@ class HotspotMapController
 
         switch ($contentType->getValue()) {
             case 'application/json':
-                return new Response(json_encode($data), 200);
+                return new Response(json_encode($data), $app['statusCode']);
                 break;
             case 'application/xml':
                 return $app['twig']->render($uri.'.xml.twig', array($dataName => $data));

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Mer 19 Février 2014 à 21:05
+-- Généré le: Lun 24 Février 2014 à 14:30
 -- Version du serveur: 5.5.33
 -- Version de PHP: 5.5.3
 
@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS `Place` (
   `town` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `website` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -36,9 +37,9 @@ CREATE TABLE IF NOT EXISTS `Place` (
 -- Contenu de la table `Place`
 --
 
-INSERT INTO `Place` (`id`, `latitude`, `longitude`, `address`, `country`, `town`, `name`, `website`) VALUES
-('0', 48.858860, 2.347060, '29 Rue du Faubourg Saint-Antoine', 'France', 'Paris', 'Starbucks', 'www.starbucks.fr'),
-('1', 45.763653, 3.134995, 'Rue de l''Oradou', 'France', 'Clermont-Ferrand', 'McDonald''s', 'www.macdonalds.fr');
+INSERT INTO `Place` (`id`, `latitude`, `longitude`, `address`, `country`, `town`, `name`, `website`, `description`) VALUES
+('0', 48.858860, 2.347060, '29 Rue du Faubourg Saint-Antoine', 'France', 'Paris', 'Starbucks', 'www.starbucks.fr', '0'),
+('1', 45.763653, 3.134995, 'Rue de l''Oradou', 'France', 'Clermont-Ferrand', 'McDonald''s', 'www.macdonalds.fr', '0');
 
 -- --------------------------------------------------------
 
