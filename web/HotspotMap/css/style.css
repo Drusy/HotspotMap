@@ -293,6 +293,22 @@ a.weelabel{
 .q:hover{
 	color: #6EB0EB;
 }
+.tooltip {
+    text-transform: lowercase !important;
+    width: 150px;
+}
+.tooltip.right .tooltip-arrow {
+    top: 50%;
+    right: 0;
+    margin-top: -5px;
+    border-width: 5px 5px 5px 0;
+    border-right-color: #FFFFFF;
+}
+.tooltip-inner {
+    background-color: white;
+    color: black;
+}
+
 pre{
 	font-size: 12px;
 }

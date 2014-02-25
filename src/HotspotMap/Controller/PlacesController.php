@@ -34,11 +34,30 @@ class PlacesController extends HotspotMapController
         return $this->respond($app, 'places', $places, 'places/list');
     }
 
-    public function place(Application $app, $id)
+    public function placeFromId(Application $app, $id)
     {
-        error_log("searching " . $id);
         $placeMapper = $app['PlaceMapper'];
         $place = $placeMapper->findById($id);
+
+        if (null === $place) {
+            $app['statusCode'] = 404;
+            return new Response('Place not found', $app['statusCode']);
+        }
+        $app['statusCode'] = 200;
+
+        return $this->respond($app, 'place', $place, 'places/show');
+    }
+
+    public function placeFromLatLng(Application $app, $lat, $lng)
+    {
+        // TODO : Change route method ...
+        $lat = str_replace("_", ".", $lat);
+        $lng = str_replace("_", ".", $lng);
+
+        error_log($lat . " " . $lng);
+
+        $placeMapper = $app['PlaceMapper'];
+        $place = $placeMapper->findByLatLng($lat, $lng);
 
         if (null === $place) {
             $app['statusCode'] = 404;

@@ -67,7 +67,7 @@
         <div class="settings">
             <ul>
                 <li>
-                    <label for="api">Address <a class="q" href="#" target="_blank" rel="tipsy" title="How HotspotMap work">?</a></label>
+                    <label for="api">Address <a id="address-tooltip" class="q" href="#" data-toggle="tooltip" data-placement="right" title="Spot position is not mandatory">?</a></label>
                     <input type="text" value="{{ data['place'].address }}" name="address" id="addressInput">
                 </li>
                 <li>
@@ -134,6 +134,7 @@
         <div class="overlay"></div>
         {% if is_granted('ROLE_USER') %}
         <div class="infobar">
+            <a id="update-hotspot" class="hotspot-button" href="#" style="display: none;">update</a>
             <a id="save-hotspot" class="hotspot-button" href="#" style="display: none;">Save</a>
             <a id="add-hotspot" class="hotspot-button" href="#">Add your Hotspot</a>
         </div>
@@ -166,7 +167,7 @@
 
         // Add places markers
         {% for place in data['places'] %}
-            addGreenMarker('{{ place.town }}', new google.maps.LatLng({{ place.latitude }}, {{ place.longitude }}));
+            addGreenMarker('{{ place.id }}', '{{ place.name }}', new google.maps.LatLng({{ place.latitude }}, {{ place.longitude }}));
         {% endfor %}
     }
 

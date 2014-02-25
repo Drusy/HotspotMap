@@ -72,7 +72,7 @@ $app->get('/userInfo', 'HotspotMap\\Controller\\MapController::userInfo');
 
 $app->post('/places', 'HotspotMap\\Controller\\PlacesController::addPlace');
 $app->get('/places', 'HotspotMap\\Controller\\PlacesController::places');
-$app->get('/places/{id}', 'HotspotMap\\Controller\\PlacesController::place');
+$app->get('/places/{id}', 'HotspotMap\\Controller\\PlacesController::placeFromId');
 
 $app->get('/users', 'HotspotMap\\Controller\\UsersController::users');
 $app->get('/users/{id}', 'HotspotMap\\Controller\\UsersController::user');

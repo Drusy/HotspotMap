@@ -4,13 +4,12 @@ namespace HotspotMap\Model;
 
 use HotspotMap\Model\ORM\PlaceModel;
 
-class Place extends PlaceModel
+class Place extends PlaceModel implements \JsonSerializable
 {
     public function __construct($id = null)
     {
         if ($id == null) {
             $this->id = uniqid();
-            $this->pseudo = uniqid("place_");
         } else {
             $this->id = $id;
         }
@@ -32,5 +31,13 @@ class Place extends PlaceModel
     public function getWebsite()
     {
         return $this->website;
+    }
+
+    public function jsonSerialize() {
+        $json = array();
+        foreach($this as $key => $value) {
+            $json[$key] = $value;
+        }
+        return $json;
     }
 }

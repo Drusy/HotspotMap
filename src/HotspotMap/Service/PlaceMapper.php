@@ -33,7 +33,7 @@ class PlaceMapper extends Mapper
 
     private $closestPlaces = 'SELECT *,
         ( 6371 * acos( cos( radians( :lat) ) * cos( radians( latitude ) ) * cos( radians( longitude ) -
-        radians( :long) ) + sin( radians( :lat ) ) * sin( radians( latitude ) ) ) )
+        radians( :lng) ) + sin( radians( :lat ) ) * sin( radians( latitude ) ) ) )
         AS distance
         FROM Place
         HAVING distance < :dist
@@ -113,7 +113,7 @@ class PlaceMapper extends Mapper
     {
         $placeTab = $this->con->selectQuery($this->closestPlaces, [
             'lat' => $latitude,
-            'long' => $longitude,
+            'lng' => $longitude,
             'dist' => $distance
         ]);
         $placeList = [];
