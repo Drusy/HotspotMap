@@ -7,12 +7,13 @@ use \HotspotMap\Service\UserMapper;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Silex\Provider\UrlGeneratorServiceProvider;
 
 $app = new Silex\Application();
 
 // Configure app
 $app['debug'] = true;
-$app['dsn'] = 'mysql:host=localhost:3306;dbname=HotspotMap';
+$app['dsn'] = 'mysql:host=localhost;dbname=HotspotMap';
 $app['user'] = 'root';
 $app['password'] = 'root';
 
@@ -27,6 +28,44 @@ $app['UserMapper'] = $app->share(function () use ($app) {
     return new UserMapper($app);
 });
 
+
+//authentification info
+$app['security.firewalls'] = array(
+    'login' => array(
+        'pattern' => '^/login$',
+    ),
+    'secured' => array(
+        'anonymous' => true,
+        'form' => array('login_path' => '/login', 'check_path' => '/admin/login_check'),
+        'logout' => array('logout_path' => '/logout'),
+        'users' => $app->share(function () use ($app) {
+            return $app['UserMapper'];
+        }),
+    )
+);
+
+$app['security.access_rules'] = array(
+    array('^/admin', 'ROLE_ADMIN'),
+);
+
+/*
+$app['security.encoder.digest'] = $app->share(function ($app) {
+    // use the sha512 algorithm
+    // don't base64 encode the password
+    // use 6 iterations
+    return new MessageDigestPasswordEncoder('sha512', false, 6);
+});
+*/
+
+$app->register(new UrlGeneratorServiceProvider());
+
+$app->register(new Silex\Provider\SessionServiceProvider());
+
+$app->register(new Silex\Provider\SecurityServiceProvider(), array(
+    'security.firewalls' => $app['security.firewalls'],
+    'security.access_rules' => $app['security.access_rules']
+));
+
 // Manage controllers
 $app->get('/', 'HotspotMap\\Controller\\MapController::index');
 
@@ -39,6 +78,17 @@ $app->get('/users', 'HotspotMap\\Controller\\UsersController::users');
 $app->get('/user/{id}', 'HotspotMap\\Controller\\UsersController::user')
     ->convert('id', function ($id) { return (int) $id; })
     ->assert('id', '\d+');
+
+$app->get('/login', function(Request $request) use ($app) {
+    return $app['twig']->render('users/login.html.twig', array(
+        'error'         => $app['security.last_error']($request),
+        'last_username' => 'haha',
+    ));
+});
+
+$app->get('/admin', function(Request $request) use ($app) {
+    return "hello";
+});
 
 // Error management
 $app->error(function (\Exception $e, $code) use ($app) {

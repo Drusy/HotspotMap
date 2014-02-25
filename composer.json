@@ -20,7 +20,8 @@
         "doctrine/dbal": ">=2.2.0,<2.4.0-dev",
         "swiftmailer/swiftmailer": "5.*",
         "geocoder-php/geocoder-service-provider": "@stable",
-        "willdurand/negotiation": "@stable"
+        "willdurand/negotiation": "@stable",
+	"symfony/security": "~2.3"
     },
     "autoload": {
         "psr-0" : {"HotspotMap\\" : ["src/"]}

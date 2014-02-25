@@ -4,6 +4,7 @@ namespace HotspotMap\Controller;
 
 use Silex\Application;
 use HotspotMap\Model\Place;
+use HotspotMap\Model\User;
 
 class MapController extends HotspotMapController
 {

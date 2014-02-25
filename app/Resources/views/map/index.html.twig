@@ -12,9 +12,9 @@
     <meta property="og:title" content="Find the place to work." />
     <meta property="og:site_name" content="HotspotMap" />
     <meta property="og:description" content="Hotspot map, find the right place to work." />
-    <link rel="stylesheet" href="HotspotMap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="HotspotMap/css/style.css">
-    <link rel="stylesheet" href="HotspotMap/css/tipsy.css">
+    <link rel="stylesheet" href="../../../../web/HotspotMap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../../web/HotspotMap/css/style.css">
+    <link rel="stylesheet" href="../../../../web/HotspotMap/css/tipsy.css">
 </head>
 
 <body id="app">
@@ -25,14 +25,39 @@
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
+                {% if is_granted('ROLE_ADMIN') %}
+                <li><a href="admin">Administrate</a></li>
+                {% endif %}
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                {% if is_granted('ROLE_ADMIN') %}
+                <li><a class="headerLocation" href="#"><span class="glyphicon glyphicon-wrench"></span>
+                        admin
+                    </a>
+                </li>
+                {% elseif is_granted('ROLE_AUTH') %}
+                    <li><a class="headerLocation" href="#"><span class="glyphicon glyphicon-user"></span>
+                            simple user
+                        </a>
+                    </li>
+                {% endif %}
                 <li><a class="headerLocation clickablePlace" href="#" id="clientPosition"><span class="glyphicon glyphicon-pushpin"></span>
                         {{ data['place'].town }} ({{ data['place'].country }})
                     </a>
                 </li>
+                {% if is_granted('ROLE_AUTH') %}
+                <li><a class="headerLocation" href="logout"><span class="glyphicon glyphicon-off"></span>
+                        Disconnect
+                    </a>
+                </li>
+                {% else %}
+                <li><a class="headerLocation" href="login"><span class="glyphicon glyphicon-off"></span>
+                        Connect
+                    </a>
+                </li>
+                {% endif %}
             </ul>
         </div>
     </div>
@@ -102,10 +127,12 @@
         </div>
 
         <div class="overlay"></div>
+        {% if is_granted('ROLE_USER') %}
         <div class="infobar">
             <a id="save-hotspot" class="hotspot-button" href="#" style="display: none;">Save</a>
             <a id="add-hotspot" class="hotspot-button" href="#">Add your Hotspot</a>
         </div>
+        {% endif %}
     </div>
 </body>
 

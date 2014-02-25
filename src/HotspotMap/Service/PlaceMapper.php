@@ -91,6 +91,9 @@ LIMIT 0 , 10';
             'id' => $id
         ]);
 
+        if($placeTab == null)
+            return null;
+
         return $this->fillPlace($placeTab[0]);
     }
 
