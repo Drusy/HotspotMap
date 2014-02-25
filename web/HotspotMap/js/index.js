@@ -146,7 +146,6 @@ $('#search-form').on('submit', function(event) {
     return false;
 });
 
-
 $("#add-hotspot").click(function() {
     if(isMapViewMode())
     {
@@ -302,6 +301,11 @@ $(".clickablePlace").click(function() {
     var placeId = $(this).attr('id');
 
     if (placeId == 'clientPosition') {
+        currentPlaceId = null;
+        if (!isMapViewMode()) {
+            $("#update-hotspot").hide();
+            $("#save-hotspot").show();
+        }
         updateInputFromURI("/userInfo");
     } else {
         allowUpdateForId(placeId);

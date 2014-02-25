@@ -47,12 +47,14 @@ class MapController extends HotspotMapController
     {
         $placeMapper = $app['PlaceMapper'];
         $place = $this->retrieveClientInfo();
+        $places = $placeMapper->findAll();
 
         $closestPlaces = $placeMapper->findClosestPlaces($place->latitude, $place->longitude, 300);
 
         $data = array(
             'closestPlaces' => $closestPlaces,
-            'place' => $place
+            'place' => $place,
+            'places' => $places
         );
 
         $app['statusCode'] = 200;
