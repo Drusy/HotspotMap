@@ -68,16 +68,14 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
 
 // Manage controllers
 $app->get('/', 'HotspotMap\\Controller\\MapController::index');
+$app->get('/userInfo', 'HotspotMap\\Controller\\MapController::userInfo');
 
+$app->post('/places', 'HotspotMap\\Controller\\PlacesController::addPlace');
 $app->get('/places', 'HotspotMap\\Controller\\PlacesController::places');
-$app->get('/place/{id}', 'HotspotMap\\Controller\\PlacesController::place')
-    ->convert('id', function ($id) { return (int) $id; })
-    ->assert('id', '\d+');
+$app->get('/places/{id}', 'HotspotMap\\Controller\\PlacesController::place');
 
 $app->get('/users', 'HotspotMap\\Controller\\UsersController::users');
-$app->get('/user/{id}', 'HotspotMap\\Controller\\UsersController::user')
-    ->convert('id', function ($id) { return (int) $id; })
-    ->assert('id', '\d+');
+$app->get('/users/{id}', 'HotspotMap\\Controller\\UsersController::user');
 
 $app->get('/login', function(Request $request) use ($app) {
     return $app['twig']->render('users/login.html.twig', array(
@@ -119,6 +117,7 @@ $app->after(function (Request $request, Response $response) use ($app) {
         $contentType = 'text/html';
     }
 
+    $response->setStatusCode($app['statusCode']);
     $response->headers->set('Content-Type', $contentType);
 });
 

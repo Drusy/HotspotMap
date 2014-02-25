@@ -12,9 +12,11 @@
     <meta property="og:title" content="Find the place to work." />
     <meta property="og:site_name" content="HotspotMap" />
     <meta property="og:description" content="Hotspot map, find the right place to work." />
-    <link rel="stylesheet" href="../../../../web/HotspotMap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../../../web/HotspotMap/css/style.css">
-    <link rel="stylesheet" href="../../../../web/HotspotMap/css/tipsy.css">
+    <link rel="stylesheet" type="text/css" href="../../../../web/HotspotMap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../../web/HotspotMap/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../../../../web/HotspotMap/css/tipsy.css">
+    <link rel="stylesheet" type="text/css" href="../../../../web/HotspotMap/css/jquery.pnotify.default.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../web/HotspotMap/css/jquery.pnotify.default.icons.css" />
 </head>
 
 <body id="app">
@@ -85,7 +87,7 @@
                     </select>
                 </li>
                 <li>
-                    <button class="generate btn">Search</button>
+                    <button class="generate search-btn">Search</button>
                 </li>
             </ul>
             <ul>
@@ -98,33 +100,36 @@
             </ul>
         </div>
 
-        <div class="result">
-            <div class="row">
-                <div id="caract" class="col-md-6" style="display: none;">
-                    <label class="subtitle">PLACE</label><br/>
+        <form id="add-form">
+            <div class="result">
+                <div class="row">
+                    <div id="caract" class="col-md-6" style="display: none;">
 
-                    <label class="input-type">GPS COORDINATE</label><br/>
-                    <input type="text" class="form-control" placeholder="Latitude">
-                    <input type="text" class="form-control" placeholder="Longitude">
-                    <label class="input-type">ADDRESS</label><br/>
-                    <input type="text" class="form-control big" placeholder="Street and number">
-                    <input type="text" class="form-control" placeholder="Country">
-                    <input type="text" class="form-control" placeholder="Town">
+                        <label class="subtitle">PLACE</label><br/>
+
+                        <label class="input-type">GPS COORDINATE</label><br/>
+                        <input type="text" class="form-control" name="latitude" placeholder="Latitude" id="latitudeAddInput">
+                        <input type="text" class="form-control" name="longitude" placeholder="Longitude" id="longitudeAddInput">
+
+                        <label class="input-type">ADDRESS</label><br/>
+                        <input type="text" class="form-control big" name="address" placeholder="Street and number" id="addressAddInput">
+                        <input type="text" class="form-control" name="country" placeholder="Country" id="countryAddInput">
+                        <input type="text" class="form-control" name="town" placeholder="Town" id="townAddInput">
+                    </div>
+
+                    <div id="map" class="col-md-6 view"></div>
                 </div>
+                <div class="row">
+                    <div id="map-info" class="col-md-12" style="display: none;">
+                        <label class="subtitle">DESCRIPTION</label><br/>
 
-                <div id="map" class="col-md-6 view"></div>
-            </div>
-            <div class="row">
-                <div id="map-info" class="col-md-12" style="display: none;">
-                    <label class="subtitle">DESCRIPTION</label><br/>
-
-
-                    <input type="text" class="form-control big" placeholder="Name">
-                    <input type="text" class="form-control big" placeholder="Website">
-                    <textarea class="form-control big" placeholder="More information"></textarea>
+                        <input type="text" class="form-control big" name="name" placeholder="Name" id="nameAddInput">
+                        <input type="text" class="form-control big" name="website" placeholder="Website" id="websiteAddInput">
+                        <textarea class="form-control big" name="description" placeholder="More information" id="descriptionAddInput"></textarea>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
 
         <div class="overlay"></div>
         {% if is_granted('ROLE_USER') %}
@@ -141,106 +146,31 @@
 <![endif]-->
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<script src="HotspotMap/js/bootstrap.min.js"></script>
+<script src="../../../../web/HotspotMap/js/bootstrap.min.js"></script>
+<script src="../../../../web/HotspotMap/js/jquery.pnotify.min.js"></script>
 
-<script>
-    var map;
-
+<script src="HotspotMap/js/index.js"></script>
+<!-- Should stay in twig file due to template replacement -->
+<script type="text/javascript">
     function initialize() {
-        var pos = new google.maps.LatLng({{ data['place'].latitude }}, {{ data['place'].longitude }});
+        currentPos = new google.maps.LatLng({{ data['place'].latitude }}, {{ data['place'].longitude }});
         var mapOptions = {
             zoom: 13,
-            center: pos,
+            center: currentPos,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
         // Add current markers
-        var marker = new google.maps.Marker({
-            position: pos,
-            map: map,
-            title: '{{ data['place'].town }}',
-            icon: 'Hotspotmap/images/blue_marker.png',
-            zIndex: 999
-        });
+        addBlueMarker('{{ data['place'].town }}', currentPos);
 
         // Add places markers
         {% for place in data['places'] %}
-        new google.maps.Marker({
-            position: new google.maps.LatLng({{ place.latitude }}, {{ place.longitude }}),
-            map: map,
-            title: '{{ place.town }}',
-            icon: 'Hotspotmap/images/green_marker.png'
-        });
+            addGreenMarker('{{ place.town }}', new google.maps.LatLng({{ place.latitude }}, {{ place.longitude }}));
         {% endfor %}
     }
 
     google.maps.event.addDomListener(window, 'load', initialize);
-
-    $("#add-hotspot").click(function() {
-        $("#caract").toggle();
-        $("#map-info").toggle();
-        $("#save-hotspot").toggle();
-        if($("#map").hasClass("view"))
-        {
-            $("#map").removeClass("view");
-            $("#map").addClass("edit");
-            $(this).text("cancel");
-        }
-        else
-        {
-            $("#map").removeClass("edit");
-            $("#map").addClass("view");
-            $(this).text("add your hotspot");
-        }
-        setTimeout(
-            function()
-            {
-                google.maps.event.trigger(map, 'resize');
-            }, 1200
-        );
-    });
-
-    function updateFromClientInfo() {
-        map.setCenter(new google.maps.LatLng({{ data['place'].latitude }}, {{ data['place'].longitude }}));
-
-        $( "#addressInput" ).val( "{{ data['place'].address }}" );
-        $( "#latitudeInput" ).val( {{ data['place'].latitude }} );
-        $( "#longitudeInput" ).val( {{ data['place'].longitude }} );
-    }
-
-    function updateFromPlaceId(placeId) {
-        $.ajax({
-            url: "/place/" + placeId,
-            type: "GET",
-            dataType: "text",
-            headers: {
-                Accept : "application/json"
-            }
-        })
-        .done(function( data ) {
-            var json = $.parseJSON(data);
-            map.setCenter(new google.maps.LatLng(json.latitude, json.longitude));
-
-            $( "#addressInput" ).val( json.address );
-            $( "#latitudeInput" ).val( json.latitude );
-            $( "#longitudeInput" ).val( json.longitude );
-        })
-        .fail(function(jqXHR, textStatus, errorThrown) {
-            alert( "Request failed: " + textStatus + " " + errorThrown );
-        });
-    }
-
-    $(".clickablePlace").click(function() {
-        var placeId = $(this).attr('id');
-        var uri;
-
-        if (placeId == 'clientPosition') {
-            updateFromClientInfo();
-        } else {
-            updateFromPlaceId(placeId);
-        }
-    });
 </script>
 
 </html>

@@ -150,6 +150,7 @@ hr{
     width: 50%;
     height: 50%;
     right: 0%;
+    margin: 15px 15px;
 }
 
 .gmap {
@@ -193,10 +194,10 @@ hr{
         color: #383d40;
         text-decoration: none;
 	}
-.btn:last-child{
+.search-btn:last-child{
 	margin:5px 0 0 8px;
 }
-.btn {
+.search-btn {
 	-moz-box-sizing: border-box;
 	background: #6EB0EB;
 	color: #fff;
@@ -219,7 +220,7 @@ hr{
     box-shadow: 0 1px rgba(0, 0, 0, 0.2);
 	-webkit-box-shadow: 0 1px rgba(0, 0, 0, 0.2);
 }
-	.btn:hover{
+	.search-btn:hover{
 		background:#6EB0EB;
 	}
 .generate{
@@ -321,7 +322,6 @@ textarea.form-control.big{
     width: 70%;
 }
 
-
 .subtitle{
     margin-left: 10px;
     padding-top: 2%;
@@ -336,4 +336,20 @@ label.input-type{
 
 .headerLocation {
     margin-right: 15px;
+}
+
+.pnotify-error {
+    border-radius: 4px;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    color: #a94442;
+    font-size: 15px;
+}
+
+.pnotify-success {
+    border-radius: 4px;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    color: #3c763d;
+    font-size: 15px;
 }
