@@ -118,10 +118,6 @@ function toggleMap() {
     );
 }
 
-$("#searchButton").click(function() {
-    $("#search-form").submit();
-});
-
 $('#search-form').on('submit', function(event) {
     event.preventDefault();
 
@@ -262,8 +258,8 @@ function updateFromJson(json) {
     map.setCenter(currentPos);
 
     $( "#addressInput" ).val(json.address);
-    $( "#latitudeInput" ).val(json.latitude);
-    $( "#longitudeInput" ).val(json.longitude);
+    //$( "#latitudeInput" ).val(json.latitude);
+    //$( "#longitudeInput" ).val(json.longitude);
 
     $( "#latitudeAddInput" ).val(json.latitude);
     $( "#longitudeAddInput" ).val(json.longitude);
