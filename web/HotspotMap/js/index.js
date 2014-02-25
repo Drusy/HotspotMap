@@ -1,6 +1,28 @@
 var map;
 var currentPos;
 
+function popupError() {
+    $.pnotify({
+        title: "Can't retrieve the place",
+        text: 'An error occurred while processing your request',
+        addclass: 'pnotify-error',
+        delay: 2000,
+        opacity: 0.9,
+        icon: 'glyphicon glyphicon-exclamation-sign'
+    });
+}
+
+function addPopupSuccess() {
+    $.pnotify({
+        title: 'Place added',
+        text: 'The place have beed added successfully',
+        addclass: 'pnotify-success',
+        delay: 2000,
+        opacity: 0.9,
+        icon: 'glyphicon glyphicon-ok'
+    });
+}
+
 function addGreenMarker(title, pos) {
     var marker = new google.maps.Marker({
         position: pos,
@@ -82,12 +104,13 @@ $('#add-form').on('submit', function(event) {
             {
                 addGreenMarker(json.town, new google.maps.LatLng(json.latitude, json.longitude));
                 updateFromJson(json);
+                addPopupSuccess();
             }, 1150
         );
     })
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
-        alert( "Request failed: " + textStatus + " " + errorThrown );
+        popupError();
     });
 
     // Prevent form submit
@@ -129,7 +152,7 @@ function updateFromURI(uri) {
     })
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
-        alert( "Request failed: " + textStatus + " " + errorThrown );
+        popupError();
     });
 }
 

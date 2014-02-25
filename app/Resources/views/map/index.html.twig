@@ -12,9 +12,13 @@
     <meta property="og:title" content="Find the place to work." />
     <meta property="og:site_name" content="HotspotMap" />
     <meta property="og:description" content="Hotspot map, find the right place to work." />
-    <link rel="stylesheet" href="HotspotMap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="HotspotMap/css/style.css">
-    <link rel="stylesheet" href="HotspotMap/css/tipsy.css">
+
+    <link rel="stylesheet" type="text/css" href="HotspotMap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="HotspotMap/css/style.css">
+    <link rel="stylesheet" type="text/css" href="HotspotMap/css/tipsy.css">
+    <link rel="stylesheet" type="text/css" href="HotspotMap/css/jquery.pnotify.default.css" />
+    <link rel="stylesheet" type="text/css" href="HotspotMap/css/jquery.pnotify.default.icons.css" />
+
 </head>
 
 <body id="app">
@@ -60,7 +64,7 @@
                     </select>
                 </li>
                 <li>
-                    <button class="generate btn">Search</button>
+                    <button class="generate search-btn">Search</button>
                 </li>
             </ul>
             <ul>
@@ -118,11 +122,11 @@
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="HotspotMap/js/bootstrap.min.js"></script>
-<script src="HotspotMap/js/jquery.pnotify.min.js"></script>s
+<script src="HotspotMap/js/jquery.pnotify.min.js"></script>
 
 <script src="HotspotMap/js/index.js"></script>
 <!-- Should stay in twig file due to template replacement -->
-<script>
+<script type="text/javascript">
     function initialize() {
         currentPos = new google.maps.LatLng({{ data['place'].latitude }}, {{ data['place'].longitude }});
         var mapOptions = {
