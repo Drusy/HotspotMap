@@ -29,6 +29,7 @@ $app['UserMapper'] = $app->share(function () use ($app) {
 
 // Manage controllers
 $app->get('/', 'HotspotMap\\Controller\\MapController::index');
+$app->get('/userInfo', 'HotspotMap\\Controller\\MapController::userInfo');
 
 $app->post('/places', 'HotspotMap\\Controller\\PlacesController::addPlace');
 $app->get('/places', 'HotspotMap\\Controller\\PlacesController::places');

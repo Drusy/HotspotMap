@@ -33,6 +33,15 @@ class MapController extends HotspotMapController
         return $place;
     }
 
+    public function userInfo(Application $app)
+    {
+        $place = $this->retrieveClientInfo();
+
+        $app['statusCode'] = 200;
+
+        return $this->respond($app, 'place', $place, 'places/show');
+    }
+
     public function index(Application $app)
     {
         $placeMapper = $app['PlaceMapper'];
