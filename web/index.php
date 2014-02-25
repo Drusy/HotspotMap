@@ -21,6 +21,7 @@ $app['password'] = 'root';
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../app/Resources/views'
 ));
+
 $app['PlaceMapper'] = $app->share(function () use ($app) {
     return new PlaceMapper($app);
 });
@@ -33,6 +34,7 @@ $app['UserMapper'] = $app->share(function () use ($app) {
 $app['security.firewalls'] = array(
     'login' => array(
         'pattern' => '^/login$',
+        'anonymous' => true,
     ),
     'secured' => array(
         'anonymous' => true,
@@ -67,7 +69,8 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
 ));
 
 // Manage controllers
-$app->get('/', 'HotspotMap\\Controller\\MapController::index');
+$app->get('/', 'HotspotMap\\Controller\\MapController::index')
+    ->bind('root');
 $app->get('/userInfo', 'HotspotMap\\Controller\\MapController::userInfo');
 
 $app->post('/places', 'HotspotMap\\Controller\\PlacesController::addPlace');
@@ -84,9 +87,18 @@ $app->get('/login', function(Request $request) use ($app) {
     ));
 });
 
-$app->get('/admin', function(Request $request) use ($app) {
-    return "hello";
-});
+$app->get('/about', function(Request $request) use ($app) {
+    return $app['twig']->render('about/about.html.twig');
+})
+    ->bind('about');
+
+$app->get('/contact', function(Request $request) use ($app) {
+    return $app['twig']->render('contact/contact.html.twig');
+})
+    ->bind('contact');
+
+$app->get('/admin', 'HotspotMap\\Controller\\AdminController::index')
+    ->bind('admin');
 
 // Error management
 $app->error(function (\Exception $e, $code) use ($app) {
