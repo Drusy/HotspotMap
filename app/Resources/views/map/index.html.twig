@@ -64,34 +64,36 @@
         </div>
     </div>
     <div class="core">
-        <div class="settings">
-            <ul>
-                <li>
-                    <label for="api">Address <a id="address-tooltip" class="q" href="#" data-toggle="tooltip"
-                    data-placement="bottom" title="Spot position is not mandatory but will have priority over the address.">?</a></label>
-                    <input type="text" value="{{ data['place'].address }}" name="address" id="addressInput">
-                </li>
-                <li>
-                    <label for="center">Spot position</label>
-                    <span class="weelabel">Latitude</span>
-                    <input name="lat" style="width:100px;" value="{{ data['place'].latitude }}" type="text" id="latitudeInput">
-                    <hr>
-                    <span class="weelabel">Longitude</span>
-                    <input name="lon" style="width:100px;" value="{{ data['place'].longitude }}" type="text" id="longitudeInput">
-                </li>
-                <li>
-                    <button class="generate search-btn">Search</button>
-                </li>
-            </ul>
-            <ul>
-                <li><label for="center">Closest spots ({{ data['closestPlaces']|length }})</label></li>
-                {% for place in data['closestPlaces'] %}
+        <form id="search-form">
+            <div class="settings">
+                <ul>
                     <li>
-                        <a class="weelabel clickablePlace" id="{{ place.id }}" href="#" >{{ place.name }} ({{ place.distance }} km)</a>
+                        <label for="api">Address <a id="address-tooltip" class="q" href="#" data-toggle="tooltip"
+                        data-placement="bottom" title="Spot position is not mandatory but will have priority over the address.">?</a></label>
+                        <input type="text" value="{{ data['place'].address }}" name="address" id="addressInput">
                     </li>
-                {% endfor %}
-            </ul>
-        </div>
+                    <li>
+                        <label for="center">Spot position</label>
+                        <span class="weelabel">Latitude</span>
+                        <input name="lat" style="width:100px;" value="{{ data['place'].latitude }}" type="text" id="latitudeInput">
+                        <hr>
+                        <span class="weelabel">Longitude</span>
+                        <input name="lon" style="width:100px;" value="{{ data['place'].longitude }}" type="text" id="longitudeInput">
+                    </li>
+                    <li>
+                        <button id="searchButton" class="generate search-btn">Search</button>
+                    </li>
+                </ul>
+                <ul>
+                    <li><label for="center">Closest spots ({{ data['closestPlaces']|length }})</label></li>
+                    {% for place in data['closestPlaces'] %}
+                        <li>
+                            <a class="weelabel clickablePlace" id="{{ place.id }}" href="#" >{{ place.name }} ({{ place.distance }} km)</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </form>
 
         <form id="add-form">
             <div class="result">

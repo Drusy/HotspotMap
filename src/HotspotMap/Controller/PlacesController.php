@@ -48,24 +48,6 @@ class PlacesController extends HotspotMapController
         return $this->respond($app, 'place', $place, 'places/show');
     }
 
-    public function placeFromLatLng(Application $app, $lat, $lng)
-    {
-        // TODO : Change route method ...
-        $lat = str_replace("_", ".", $lat);
-        $lng = str_replace("_", ".", $lng);
-
-        $placeMapper = $app['PlaceMapper'];
-        $place = $placeMapper->findByLatLng($lat, $lng);
-
-        if (null === $place) {
-            $app['statusCode'] = 404;
-            return new Response('Place not found', $app['statusCode']);
-        }
-        $app['statusCode'] = 200;
-
-        return $this->respond($app, 'place', $place, 'places/show');
-    }
-
     public function updatePlace(Application $app, $id)
     {
         $request = $app['request'];
@@ -104,6 +86,30 @@ class PlacesController extends HotspotMapController
 
         $app['statusCode'] = 400;
         return new Response('Cannot insert', $app['statusCode']);
+    }
+
+    public function findPlace(Application $app) {
+        $request = $app['request'];
+
+        $address = $request->get("address");
+        $latitude = $request->get("latitude");
+        $longitude = $request->get("longitude");
+
+        if (empty($latitude) || empty($longitude)) {
+            $geocoded = $this->geocoder->geocode($address);
+        } else if (!empty($latitude) && !empty($longitude)) {
+            $geocoded = $this->geocoder->reverse($latitude, $longitude);
+        }
+
+        $place = new Place();
+        $place->address = $geocoded['streetNumber']." ".$geocoded['streetName'];
+        $place->country = $geocoded['country'];
+        $place->town = $geocoded['city'];
+        $place->latitude = $geocoded['latitude'];
+        $place->longitude = $geocoded['longitude'];
+
+        $app['statusCode'] = 200;
+        return $this->respond($app, 'place', $place, 'places/show');
     }
 
     private function fillPlaceFromRequest($request, $id = null)

@@ -118,6 +118,39 @@ function toggleMap() {
     );
 }
 
+$("#searchButton").click(function() {
+    $("#search-form").submit();
+});
+
+$('#search-form').on('submit', function(event) {
+    event.preventDefault();
+
+    var request = $.ajax({
+        url: "/places/find",
+        type: "POST",
+        dataType: "text",
+        data: $('#search-form').serialize(),
+        headers: {
+            Accept : "application/json"
+        }
+    })
+
+    request.done(function( data ) {
+        var json = $.parseJSON(data);
+
+        currentPos = new google.maps.LatLng(json.latitude, json.longitude);
+        map.setCenter(currentPos);
+    })
+
+    request.fail(function(jqXHR, textStatus, errorThrown) {
+        popupError();
+    });
+
+    // Prevent form submit
+    return false;
+});
+
+
 $("#add-hotspot").click(function() {
     if(isMapViewMode())
     {
