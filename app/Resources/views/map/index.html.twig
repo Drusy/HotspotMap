@@ -124,16 +124,16 @@
 <!-- Should stay in twig file due to template replacement -->
 <script>
     function initialize() {
-        var pos = new google.maps.LatLng({{ data['place'].latitude }}, {{ data['place'].longitude }});
+        currentPos = new google.maps.LatLng({{ data['place'].latitude }}, {{ data['place'].longitude }});
         var mapOptions = {
             zoom: 13,
-            center: pos,
+            center: currentPos,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
         // Add current markers
-        addBlueMarker('{{ data['place'].town }}', pos);
+        addBlueMarker('{{ data['place'].town }}', currentPos);
 
         // Add places markers
         {% for place in data['places'] %}

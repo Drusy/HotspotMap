@@ -1,4 +1,5 @@
 var map;
+var currentPos;
 
 function addGreenMarker(title, pos) {
     var marker = new google.maps.Marker({
@@ -60,7 +61,7 @@ $('#save-hotspot').click(function() {
 $('#add-form').on('submit', function(event) {
     event.preventDefault();
 
-    $.ajax({
+    var request = $.ajax({
         url: "/places",
         type: "POST",
         dataType: "text",
@@ -69,7 +70,8 @@ $('#add-form').on('submit', function(event) {
             Accept : "application/json"
         }
     })
-    .done(function( data ) {
+
+    request.done(function( data ) {
         var json = $.parseJSON(data);
 
         toggleMap();
@@ -83,7 +85,8 @@ $('#add-form').on('submit', function(event) {
             }, 1150
         );
     })
-    .fail(function(jqXHR, textStatus, errorThrown) {
+
+    request.fail(function(jqXHR, textStatus, errorThrown) {
         alert( "Request failed: " + textStatus + " " + errorThrown );
     });
 
@@ -92,7 +95,8 @@ $('#add-form').on('submit', function(event) {
 });
 
 function updateFromJson(json) {
-    map.setCenter(new google.maps.LatLng(json.latitude, json.longitude));
+    currentPos = new google.maps.LatLng(json.latitude, json.longitude);
+    map.setCenter(currentPos);
 
     $( "#addressInput" ).val(json.address);
     $( "#latitudeInput" ).val(json.latitude);
@@ -108,30 +112,9 @@ function updateFromJson(json) {
     $( "#descriptionAddInput" ).val(json.description);
 }
 
-function updateFromClientInfo() {
+function updateFromURI(uri) {
     var request = $.ajax({
-        url: "/userInfo",
-        type: "GET",
-        dataType: "text",
-        headers: {
-            Accept : "application/json"
-        }
-    })
-
-    request.done(function( data ) {
-        var json = $.parseJSON(data);
-
-        updateFromJson(json);
-    })
-
-    request.fail(function(jqXHR, textStatus, errorThrown) {
-        alert( "Request failed: " + textStatus + " " + errorThrown );
-    });
-}
-
-function updateFromPlaceId(placeId) {
-    var request = $.ajax({
-        url: "/places/" + placeId,
+        url: uri,
         type: "GET",
         dataType: "text",
         headers: {
@@ -154,8 +137,8 @@ $(".clickablePlace").click(function() {
     var placeId = $(this).attr('id');
 
     if (placeId == 'clientPosition') {
-        updateFromClientInfo();
+        updateFromURI("/userInfo");
     } else {
-        updateFromPlaceId(placeId);
+        updateFromURI("/places/" + placeId);
     }
 });
