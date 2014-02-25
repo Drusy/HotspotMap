@@ -31,19 +31,23 @@ body {
 		.settings a:hover{
 			color:#fcfcfc;
 		}
-	.settings ul{
-		padding:20px;
+	.settings ul {
+		padding: 20px 20px 0px 20px;
 		list-style:none;
 		margin:0;
 		width:260px;
 		overflow:hidden;
 	}
-		.settings ul li{
+		.settings ul li {
 			position:relative;
 			float:left;
-			margin:0 0 10px;
+			margin: 0 0 10px;
 			width:100%;
 		}
+        .settings ul li .clickablePlace{
+            margin-top: -5px;
+            margin-bottom: -5px;
+        }
 		.settings ul li label{
 			padding:2px 5px;
 			position:relative;
@@ -195,7 +199,7 @@ hr{
         text-decoration: none;
 	}
 .search-btn:last-child{
-	margin:5px 0 0 8px;
+	margin: 10px 0 0 7px;
 }
 .search-btn {
 	-moz-box-sizing: border-box;
@@ -224,8 +228,8 @@ hr{
 		background:#6EB0EB;
 	}
 .generate{
-	width:100%;
-	padding:13px 0;
+	width: 100%;
+	padding: 8px 0;
 }
 
 .output{
@@ -297,12 +301,12 @@ a.weelabel{
     text-transform: lowercase !important;
     width: 150px;
 }
-.tooltip.right .tooltip-arrow {
-    top: 50%;
-    right: 0;
-    margin-top: -5px;
-    border-width: 5px 5px 5px 0;
-    border-right-color: #FFFFFF;
+.tooltip.bottom .tooltip-arrow {
+    top: 0%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 0 5px 5px;
+    border-bottom-color: #FFFFFF;
 }
 .tooltip-inner {
     background-color: white;

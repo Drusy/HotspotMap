@@ -1,6 +1,7 @@
 var map;
 var currentPos;
 var currentPlaceId;
+var markers = [];
 
 $("#address-tooltip").hover(
     function() {
@@ -51,6 +52,7 @@ function addGreenMarker(id, title, pos) {
     });
     addMarkerListener(marker);
     marker.id = id;
+    markers[marker.id] = marker;
 }
 
 function addBlueMarker(title, pos) {
@@ -133,6 +135,10 @@ $("#add-hotspot").click(function() {
     toggleMap();
 });
 
+$('#update-hotspot').click(function() {
+    $('#add-form').submit();
+});
+
 $('#save-hotspot').click(function() {
     $('#add-form').submit();
 });
@@ -140,11 +146,22 @@ $('#save-hotspot').click(function() {
 $('#add-form').on('submit', function(event) {
     event.preventDefault();
 
+    if (currentPlaceId == null) {
+        saveHotspot();
+    } else {
+        updateHotspot();
+    }
+
+    // Prevent form submit
+    return false;
+});
+
+function updateHotspot() {
     var request = $.ajax({
-        url: "/places",
-        type: "POST",
+        url: "/places/" + currentPlaceId,
+        type: "PUT",
         dataType: "text",
-        data: $(this).serialize(),
+        data: $('#add-form').serialize(),
         headers: {
             Accept : "application/json"
         }
@@ -152,7 +169,32 @@ $('#add-form').on('submit', function(event) {
 
     request.done(function( data ) {
         var json = $.parseJSON(data);
-        
+        currentPos = new google.maps.LatLng(json.latitude, json.longitude);
+
+        markers[json.id].setPosition(currentPos);
+        updateFromJson(json);
+        addPopupUpdateSuccess();
+    })
+
+    request.fail(function(jqXHR, textStatus, errorThrown) {
+        popupError();
+    });
+}
+
+function saveHotspot() {
+    var request = $.ajax({
+        url: "/places",
+        type: "POST",
+        dataType: "text",
+        data: $('#add-form').serialize(),
+        headers: {
+            Accept : "application/json"
+        }
+    })
+
+    request.done(function( data ) {
+        var json = $.parseJSON(data);
+
         toggleMap();
         $("#add-hotspot").text("add your hotspot");
 
@@ -169,10 +211,7 @@ $('#add-form').on('submit', function(event) {
     request.fail(function(jqXHR, textStatus, errorThrown) {
         popupError();
     });
-
-    // Prevent form submit
-    return false;
-});
+}
 
 function clearAddUpdateForm() {
     $( "#latitudeAddInput" ).val("");

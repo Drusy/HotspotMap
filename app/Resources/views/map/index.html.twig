@@ -67,7 +67,8 @@
         <div class="settings">
             <ul>
                 <li>
-                    <label for="api">Address <a id="address-tooltip" class="q" href="#" data-toggle="tooltip" data-placement="right" title="Spot position is not mandatory">?</a></label>
+                    <label for="api">Address <a id="address-tooltip" class="q" href="#" data-toggle="tooltip"
+                    data-placement="bottom" title="Spot position is not mandatory but will have priority over the address.">?</a></label>
                     <input type="text" value="{{ data['place'].address }}" name="address" id="addressInput">
                 </li>
                 <li>
@@ -77,14 +78,6 @@
                     <hr>
                     <span class="weelabel">Longitude</span>
                     <input name="lon" style="width:100px;" value="{{ data['place'].longitude }}" type="text" id="longitudeInput">
-                </li>
-                <li>
-                    <label for="maptype">Type of Hotspot</label>
-                    <select id="maptypecontrol" name="maptypecontrol">
-                        <option selected="selected">None</option>
-                        <option>Company</option>
-                        <option>Public spot</option>
-                    </select>
                 </li>
                 <li>
                     <button class="generate search-btn">Search</button>
@@ -148,7 +141,7 @@
 <script src="HotspotMap/js/bootstrap.min.js"></script>
 <script src="HotspotMap/js/jquery.pnotify.min.js"></script>
 
-<script src="../../../../web/HotspotMap/js/index.js"></script>
+<script src="HotspotMap/js/index.js"></script>
 <!-- Should stay in twig file due to template replacement -->
 <script type="text/javascript">
     function initialize() {

@@ -28,7 +28,7 @@ class PlaceMapper extends Mapper
         country = :country,
         town = :town,
         website = :website,
-        descriptoon = :description
+        description = :description
         WHERE id = :id';
 
     private $closestPlaces = 'SELECT *,
