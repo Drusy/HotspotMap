@@ -1,49 +1,59 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<places>
-    {% for place in data['places'] %}
+<closest>
+    {% for closePlace in data['$closestPlaces'] %}
         <place>
             <name>
-                {{ place.name }}
+                {{ closePlace.name }}
             </name>
             <longitude>
-                {{ place.longitude }}
+                {{ closePlace.longitude }}
             </longitude>
             <latitude>
-                {{ place.latitude }}
+                {{ closePlace.latitude }}
             </latitude>
             <address>
-                {{ place.address }}
+                {{ closePlace.address }}
             </address>
             <country>
-                {{ place.country }}
+                {{ closePlace.country }}
             </country>
             <town>
-                {{ place.town }}
+                {{ closePlace.town }}
             </town>
             <website>
-                {{ place.website }}
+                {{ closePlace.website }}
             </website>
+            <description>
+                {{ closePlace.description }}
+            </description>
         </place>
     {% endfor %}
-</places>
-<users>
-    {% for user in data['users'] %}
-        <user>
-            <firstname>
-                {{ user.firstname }}
-            </firstname>
-            <lastname>
-                {{ user.lastname }}
-            </lastname>
-            <email>
-                {{ user.email }}
-            </email>
-            <pseudo>
-                {{ user.pseudo }}
-            </pseudo>
-            <website>
-                {{ user.website }}
-            </website>
-        </user>
-    {% endfor %}
-</users>
+</closest>
+<current>
+    <place>
+        <name>
+            {{ place.name }}
+        </name>
+        <longitude>
+            {{ place.longitude }}
+        </longitude>
+        <latitude>
+            {{ place.latitude }}
+        </latitude>
+        <address>
+            {{ place.address }}
+        </address>
+        <country>
+            {{ place.country }}
+        </country>
+        <town>
+            {{ place.town }}
+        </town>
+        <website>
+            {{ place.website }}
+        </website>
+        <description>
+            {{ place.description }}
+        </description>
+    </place>
+</current>

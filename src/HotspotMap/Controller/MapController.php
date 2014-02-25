@@ -46,16 +46,11 @@ class MapController extends HotspotMapController
     public function index(Application $app)
     {
         $placeMapper = $app['PlaceMapper'];
-        $userMapper = $app['UserMapper'];
         $place = $this->retrieveClientInfo();
 
-        $places = $placeMapper->findAll();
-        $users = $userMapper->findAll();
         $closestPlaces = $placeMapper->findClosestPlaces($place->latitude, $place->longitude, 300);
 
         $data = array(
-            'users' => $users,
-            'places' => $places,
             'closestPlaces' => $closestPlaces,
             'place' => $place
         );
