@@ -152,9 +152,7 @@ $('#add-form').on('submit', function(event) {
 
     request.done(function( data ) {
         var json = $.parseJSON(data);
-
-        alert(data);
-
+        
         toggleMap();
         $("#add-hotspot").text("add your hotspot");
 
@@ -206,13 +204,16 @@ function updateFromJson(json) {
 }
 
 function updateInputFromURI(uri) {
+    var result = true;
+
     var request = $.ajax({
         url: uri,
         type: "GET",
         dataType: "text",
         headers: {
             Accept : "application/json"
-        }
+        },
+        async: false
     })
 
     request.done(function( data ) {
@@ -223,10 +224,10 @@ function updateInputFromURI(uri) {
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
         popupError();
-        return false;
+        result = false;
     });
 
-    return true;
+    return result;
 }
 
 $(".clickablePlace").click(function() {
