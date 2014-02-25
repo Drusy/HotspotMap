@@ -132,13 +132,11 @@
         </form>
 
         <div class="overlay"></div>
-        {% if is_granted('ROLE_USER') %}
         <div class="infobar">
             <a id="update-hotspot" class="hotspot-button" href="#" style="display: none;">update</a>
             <a id="save-hotspot" class="hotspot-button" href="#" style="display: none;">Save</a>
             <a id="add-hotspot" class="hotspot-button" href="#">Add your Hotspot</a>
         </div>
-        {% endif %}
     </div>
 </body>
 
@@ -150,7 +148,7 @@
 <script src="../../../../web/HotspotMap/js/bootstrap.min.js"></script>
 <script src="../../../../web/HotspotMap/js/jquery.pnotify.min.js"></script>
 
-<script src="HotspotMap/js/index.js"></script>
+<script src="../../../../web/HotspotMap/js/index.js"></script>
 <!-- Should stay in twig file due to template replacement -->
 <script type="text/javascript">
     function initialize() {

@@ -117,7 +117,8 @@ $app->after(function (Request $request, Response $response) use ($app) {
         $contentType = 'text/html';
     }
 
-    $response->setStatusCode($app['statusCode']);
+    if (isset($app['statusCode']))
+        $response->setStatusCode($app['statusCode']);
     $response->headers->set('Content-Type', $contentType);
 });
 
