@@ -74,8 +74,10 @@ $app->get('/', 'HotspotMap\\Controller\\MapController::index')
 $app->get('/userInfo', 'HotspotMap\\Controller\\MapController::userInfo');
 
 $app->post('/places', 'HotspotMap\\Controller\\PlacesController::addPlace');
+$app->post('/places/find', 'HotspotMap\\Controller\\PlacesController::findPlace');
 $app->get('/places', 'HotspotMap\\Controller\\PlacesController::places');
 $app->get('/places/{id}', 'HotspotMap\\Controller\\PlacesController::placeFromId');
+$app->put('/places/{id}', 'HotspotMap\\Controller\\PlacesController::updatePlace');
 
 $app->get('/users', 'HotspotMap\\Controller\\UsersController::users');
 $app->get('/users/{id}', 'HotspotMap\\Controller\\UsersController::user');
@@ -129,8 +131,10 @@ $app->after(function (Request $request, Response $response) use ($app) {
         $contentType = 'text/html';
     }
 
-    if (isset($app['statusCode']))
+    if (isset($app['statusCode']) && !empty($app['statusCode'])) {
         $response->setStatusCode($app['statusCode']);
+        $app['statusCode'] = '';
+    }
     $response->headers->set('Content-Type', $contentType);
 });
 

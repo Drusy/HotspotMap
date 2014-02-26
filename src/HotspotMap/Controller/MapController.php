@@ -4,7 +4,10 @@ namespace HotspotMap\Controller;
 
 use Silex\Application;
 use HotspotMap\Model\Place;
-use HotspotMap\Model\User;
+use Buzz\Browser;
+use \Buzz\Client\Curl;
+use \Geocoder\HttpAdapter\BuzzHttpAdapter;
+use \Geocoder\Geocoder;
 
 class MapController extends HotspotMapController
 {
@@ -15,9 +18,9 @@ class MapController extends HotspotMapController
     public function __construct()
     {
         // Init GeoCoder
-        $this->buzz = new \Buzz\Browser(new \Buzz\Client\Curl());
-        $this->adapter = new \Geocoder\HttpAdapter\BuzzHttpAdapter($this->buzz);
-        $this->geocoder = new \Geocoder\Geocoder();
+        $this->buzz = new Browser(new Curl());
+        $this->adapter = new BuzzHttpAdapter($this->buzz);
+        $this->geocoder = new Geocoder();
     }
 
     private function retrieveClientInfo() {
@@ -46,18 +49,15 @@ class MapController extends HotspotMapController
     public function index(Application $app)
     {
         $placeMapper = $app['PlaceMapper'];
-        $userMapper = $app['UserMapper'];
         $place = $this->retrieveClientInfo();
-
         $places = $placeMapper->findAll();
-        $users = $userMapper->findAll();
+
         $closestPlaces = $placeMapper->findClosestPlaces($place->latitude, $place->longitude, 300);
 
         $data = array(
-            'users' => $users,
-            'places' => $places,
             'closestPlaces' => $closestPlaces,
-            'place' => $place
+            'place' => $place,
+            'places' => $places
         );
 
         $app['statusCode'] = 200;

@@ -1,6 +1,7 @@
 var map;
 var currentPos;
 var currentPlaceId;
+var markers = [];
 
 $("#address-tooltip").hover(
     function() {
@@ -51,6 +52,7 @@ function addGreenMarker(id, title, pos) {
     });
     addMarkerListener(marker);
     marker.id = id;
+    markers[marker.id] = marker;
 }
 
 function addBlueMarker(title, pos) {
@@ -116,6 +118,34 @@ function toggleMap() {
     );
 }
 
+$('#search-form').on('submit', function(event) {
+    event.preventDefault();
+
+    var request = $.ajax({
+        url: "/places/find",
+        type: "POST",
+        dataType: "text",
+        data: $('#search-form').serialize(),
+        headers: {
+            Accept : "application/json"
+        }
+    })
+
+    request.done(function( data ) {
+        var json = $.parseJSON(data);
+
+        currentPos = new google.maps.LatLng(json.latitude, json.longitude);
+        map.setCenter(currentPos);
+    })
+
+    request.fail(function(jqXHR, textStatus, errorThrown) {
+        popupError();
+    });
+
+    // Prevent form submit
+    return false;
+});
+
 $("#add-hotspot").click(function() {
     if(isMapViewMode())
     {
@@ -133,6 +163,10 @@ $("#add-hotspot").click(function() {
     toggleMap();
 });
 
+$('#update-hotspot').click(function() {
+    $('#add-form').submit();
+});
+
 $('#save-hotspot').click(function() {
     $('#add-form').submit();
 });
@@ -140,11 +174,22 @@ $('#save-hotspot').click(function() {
 $('#add-form').on('submit', function(event) {
     event.preventDefault();
 
+    if (currentPlaceId == null) {
+        saveHotspot();
+    } else {
+        updateHotspot();
+    }
+
+    // Prevent form submit
+    return false;
+});
+
+function updateHotspot() {
     var request = $.ajax({
-        url: "/places",
-        type: "POST",
+        url: "/places/" + currentPlaceId,
+        type: "PUT",
         dataType: "text",
-        data: $(this).serialize(),
+        data: $('#add-form').serialize(),
         headers: {
             Accept : "application/json"
         }
@@ -152,8 +197,31 @@ $('#add-form').on('submit', function(event) {
 
     request.done(function( data ) {
         var json = $.parseJSON(data);
+        currentPos = new google.maps.LatLng(json.latitude, json.longitude);
 
-        alert(data);
+        markers[json.id].setPosition(currentPos);
+        updateFromJson(json);
+        addPopupUpdateSuccess();
+    })
+
+    request.fail(function(jqXHR, textStatus, errorThrown) {
+        popupError();
+    });
+}
+
+function saveHotspot() {
+    var request = $.ajax({
+        url: "/places",
+        type: "POST",
+        dataType: "text",
+        data: $('#add-form').serialize(),
+        headers: {
+            Accept : "application/json"
+        }
+    })
+
+    request.done(function( data ) {
+        var json = $.parseJSON(data);
 
         toggleMap();
         $("#add-hotspot").text("add your hotspot");
@@ -171,10 +239,7 @@ $('#add-form').on('submit', function(event) {
     request.fail(function(jqXHR, textStatus, errorThrown) {
         popupError();
     });
-
-    // Prevent form submit
-    return false;
-});
+}
 
 function clearAddUpdateForm() {
     $( "#latitudeAddInput" ).val("");
@@ -192,8 +257,8 @@ function updateFromJson(json) {
     map.setCenter(currentPos);
 
     $( "#addressInput" ).val(json.address);
-    $( "#latitudeInput" ).val(json.latitude);
-    $( "#longitudeInput" ).val(json.longitude);
+    //$( "#latitudeInput" ).val(json.latitude);
+    //$( "#longitudeInput" ).val(json.longitude);
 
     $( "#latitudeAddInput" ).val(json.latitude);
     $( "#longitudeAddInput" ).val(json.longitude);
@@ -206,13 +271,16 @@ function updateFromJson(json) {
 }
 
 function updateInputFromURI(uri) {
+    var result = true;
+
     var request = $.ajax({
         url: uri,
         type: "GET",
         dataType: "text",
         headers: {
             Accept : "application/json"
-        }
+        },
+        async: false
     })
 
     request.done(function( data ) {
@@ -223,16 +291,21 @@ function updateInputFromURI(uri) {
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
         popupError();
-        return false;
+        result = false;
     });
 
-    return true;
+    return result;
 }
 
 $(".clickablePlace").click(function() {
     var placeId = $(this).attr('id');
 
     if (placeId == 'clientPosition') {
+        currentPlaceId = null;
+        if (!isMapViewMode()) {
+            $("#update-hotspot").hide();
+            $("#save-hotspot").show();
+        }
         updateInputFromURI("/userInfo");
     } else {
         allowUpdateForId(placeId);
