@@ -33,11 +33,13 @@ class Place extends PlaceModel implements \JsonSerializable
         return $this->website;
     }
 
-    public function jsonSerialize() {
+    public function jsonSerialize()
+    {
         $json = array();
-        foreach($this as $key => $value) {
+        foreach ($this as $key => $value) {
             $json[$key] = $value;
         }
+
         return $json;
     }
 }

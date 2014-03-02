@@ -23,6 +23,7 @@ class UsersController extends HotspotMapController
 
         if (null === $user) {
             $app['statusCode'] = 404;
+
             return new Response('User not found', $app['statusCode']);
         }
 

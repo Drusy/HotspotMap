@@ -90,6 +90,7 @@ class PlaceMapper extends Mapper
         ]);
 
         if($placeTab == null)
+
             return null;
 
         return $this->fillPlace($placeTab[0]);

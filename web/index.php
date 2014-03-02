@@ -13,7 +13,7 @@ $app = new Silex\Application();
 
 // Configure app
 $app['debug'] = true;
-$app['dsn'] = 'mysql:host=localhost;dbname=HotspotMap';
+$app['dsn'] = 'mysql:host=localhost:3306;dbname=HotspotMap';
 $app['user'] = 'root';
 $app['password'] = 'root';
 
@@ -29,8 +29,7 @@ $app['UserMapper'] = $app->share(function () use ($app) {
     return new UserMapper($app);
 });
 
-
-//authentification info
+// Authentification info
 $app['security.firewalls'] = array(
     'login' => array(
         'pattern' => '^/login$',
@@ -82,19 +81,18 @@ $app->put('/places/{id}', 'HotspotMap\\Controller\\PlacesController::updatePlace
 $app->get('/users', 'HotspotMap\\Controller\\UsersController::users');
 $app->get('/users/{id}', 'HotspotMap\\Controller\\UsersController::user');
 
-$app->get('/login', function(Request $request) use ($app) {
+$app->get('/login', function (Request $request) use ($app) {
     return $app['twig']->render('users/login.html.twig', array(
-        'error'         => $app['security.last_error']($request),
-        'last_username' => 'haha',
+        'error'         => $app['security.last_error']($request)
     ));
 });
 
-$app->get('/about', function(Request $request) use ($app) {
+$app->get('/about', function (Request $request) use ($app) {
     return $app['twig']->render('about/about.html.twig');
 })
     ->bind('about');
 
-$app->get('/contact', function(Request $request) use ($app) {
+$app->get('/contact', function (Request $request) use ($app) {
     return $app['twig']->render('contact/contact.html.twig');
 })
     ->bind('contact');

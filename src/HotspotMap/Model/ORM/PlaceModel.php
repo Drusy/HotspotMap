@@ -14,5 +14,5 @@ class PlaceModel
     public $description;
 
     protected $id;
-    protected  $website;
+    protected $website;
 }

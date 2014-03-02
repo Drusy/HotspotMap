@@ -9,8 +9,7 @@ class Connection extends \PDO
 
     public static function getConnection($app)
     {
-        if(Connection::$con == null)
-        {
+        if (Connection::$con == null) {
             $dsn = $app['dsn'];
             $user = $app['user'];
             $password = $app['password'];

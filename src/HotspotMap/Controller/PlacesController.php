@@ -19,7 +19,6 @@ class PlacesController extends HotspotMapController
         $this->adapter = new \Geocoder\HttpAdapter\BuzzHttpAdapter($this->buzz);
         $this->geocoder = new \Geocoder\Geocoder();
 
-
         $provider = new \Geocoder\Provider\GoogleMapsProvider($this->adapter, 'fr_FR', 'France', true);
         $this->geocoder->registerProvider($provider);
     }
@@ -41,6 +40,7 @@ class PlacesController extends HotspotMapController
 
         if (null === $place) {
             $app['statusCode'] = 404;
+
             return new Response('Place not found', $app['statusCode']);
         }
         $app['statusCode'] = 200;
@@ -60,10 +60,12 @@ class PlacesController extends HotspotMapController
 
         if ($placeMapper->save($place)) {
             $app['statusCode'] = 200;
+
             return $this->respond($app, 'place', $place, 'places/show');
         }
 
         $app['statusCode'] = 400;
+
         return new Response('Cannot update', $app['statusCode']);
     }
 
@@ -75,20 +77,23 @@ class PlacesController extends HotspotMapController
 
         if (empty($place->latitude) || empty($place->longitude)) {
             $place = $this->geocodeFromAddress($place);
-        } else if (!empty($place->latitude) && !empty($place->longitude)) {
+        } elseif (!empty($place->latitude) && !empty($place->longitude)) {
             $place = $this->geocodeFromLatLng($place);
         }
 
         if ($placeMapper->save($place)) {
             $app['statusCode'] = 201;
+
             return $this->respond($app, 'place', $place, 'places/show');
         }
 
         $app['statusCode'] = 400;
+
         return new Response('Cannot insert', $app['statusCode']);
     }
 
-    public function findPlace(Application $app) {
+    public function findPlace(Application $app)
+    {
         $request = $app['request'];
 
         $address = $request->get("address");
@@ -97,7 +102,7 @@ class PlacesController extends HotspotMapController
 
         if (empty($latitude) || empty($longitude)) {
             $geocoded = $this->geocoder->geocode($address);
-        } else if (!empty($latitude) && !empty($longitude)) {
+        } elseif (!empty($latitude) && !empty($longitude)) {
             $geocoded = $this->geocoder->reverse($latitude, $longitude);
         }
 
@@ -109,6 +114,7 @@ class PlacesController extends HotspotMapController
         $place->longitude = $geocoded['longitude'];
 
         $app['statusCode'] = 200;
+
         return $this->respond($app, 'place', $place, 'places/show');
     }
 

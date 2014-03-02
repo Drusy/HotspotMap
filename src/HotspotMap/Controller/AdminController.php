@@ -4,7 +4,6 @@ namespace HotspotMap\Controller;
 
 use Silex\Application;
 
-
 class AdminController extends HotspotMapController
 {
 
@@ -16,6 +15,7 @@ class AdminController extends HotspotMapController
     public function index(Application $app)
     {
         $data = ":D";
+
         return $this->respond($app, 'data', $data, 'admin/admin');
     }
 }

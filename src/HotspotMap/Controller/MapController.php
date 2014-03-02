@@ -23,7 +23,8 @@ class MapController extends HotspotMapController
         $this->geocoder = new Geocoder();
     }
 
-    private function retrieveClientInfo() {
+    private function retrieveClientInfo()
+    {
         $place = new Place();
         $clientInfo = json_decode(file_get_contents("http://ipinfo.io/"), true);
         list($latitude, $longitude) = explode(",", $clientInfo['loc']);

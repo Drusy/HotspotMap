@@ -10,11 +10,11 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 
 class UserMapper extends Mapper implements UserProviderInterface
 {
-    private $countByIdQuery         = 'SELECT COUNT(*) FROM User WHERE id = :id';
-    private $findByIdQuery          = 'SELECT * FROM User WHERE id = :id';
-    private $findByUsernameQuery    = 'SELECT * FROM User WHERE username = :username';
-    private $findAllQuery           = 'SELECT * FROM User';
-    private $insertQuery            = 'INSERT INTO User Values (
+    private $countByIdQuery      = 'SELECT COUNT(*) FROM User WHERE id = :id';
+    private $findByIdQuery       = 'SELECT * FROM User WHERE id = :id';
+    private $findByUsernameQuery = 'SELECT * FROM User WHERE username = :username';
+    private $findAllQuery        = 'SELECT * FROM User';
+    private $insertQuery         = 'INSERT INTO User Values (
         :id,
         :firstname,
         :lastname,
@@ -93,6 +93,7 @@ class UserMapper extends Mapper implements UserProviderInterface
         ]);
 
         if($userTab == null)
+
             return null;
 
         return $this->fillUser($userTab[0]);
@@ -121,7 +122,7 @@ class UserMapper extends Mapper implements UserProviderInterface
         return $userList;
     }
 
-    ///UserProviderInterface
+    /// UserProviderInterface
     public function loadUserByUsername($username)
     {
         $user = $this->findByUsername($username);
