@@ -17,15 +17,12 @@ class AdminController extends HotspotMapController
         $request = $app['request'];
 
         $placeMapper = $app['PlaceMapper'];
-        $places = $placeMapper->findAllNonValidated();
+        $places = $request->request->all();
 
         if ($request->getMethod() == 'POST') {
-            foreach($places as $place)
+            foreach($places as $id => $status)
             {
-                $id = $place->getId();
-                $status = $request->get($id);
-
-                if($status == "create")
+                if($status == "validate")
                 {
                     $place = $placeMapper->findById($id);
                     if($place != null)
@@ -49,14 +46,11 @@ class AdminController extends HotspotMapController
         $request = $app['request'];
 
         $placeMapper = $app['PlaceMapper'];
-        $places = $placeMapper->findAllValidated();
+        $places = $request->request->all();
 
         if ($request->getMethod() == 'POST') {
-            foreach($places as $place)
+            foreach($places as $id => $status)
             {
-                $id = $place->getId();
-                $status = $request->get($id);
-
                 if($status == "delete")
                 {
                     $placeMapper->deleteById($id);
