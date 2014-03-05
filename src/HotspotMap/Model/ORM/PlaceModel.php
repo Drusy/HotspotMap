@@ -12,6 +12,7 @@ class PlaceModel
     public $name;
     public $distance;
     public $description;
+    public $validated;
 
     protected $id;
     protected $website;

@@ -8,7 +8,7 @@ class PlaceMapper extends Mapper
 {
     private $countByIdQuery = 'SELECT COUNT(*) FROM Place WHERE id = :id';
     private $findByIdQuery = 'SELECT * FROM Place WHERE id = :id';
-    private $findAllQuery = 'SELECT * FROM Place';
+    private $findAllQuery = 'SELECT * FROM Place WHERE validated = :validated';
     private $insertQuery = 'INSERT INTO Place Values (
         :id,
         :latitude,
@@ -18,7 +18,8 @@ class PlaceMapper extends Mapper
         :town,
         :name,
         :website,
-        :description)';
+        :description,
+        :validated)';
     private $updateQuery = 'UPDATE Place
         SET
         longitude = :longitude,
@@ -28,7 +29,8 @@ class PlaceMapper extends Mapper
         country = :country,
         town = :town,
         website = :website,
-        description = :description
+        description = :description,
+        validated = :validated
         WHERE id = :id';
 
     private $closestPlaces = 'SELECT *,
@@ -36,9 +38,14 @@ class PlaceMapper extends Mapper
         radians( :lng) ) + sin( radians( :lat ) ) * sin( radians( latitude ) ) ) )
         AS distance
         FROM Place
+        WHERE validated = :validated
         HAVING distance < :dist
         ORDER BY distance
         LIMIT 0 , 10';
+
+    private $delete = 'DELETE
+     FROM Place
+     WHERE id = :id';
 
     private function fillPlace($placeTab)
     {
@@ -52,6 +59,7 @@ class PlaceMapper extends Mapper
         $place->description = $placeTab['description'];
         $place->distance = round($placeTab['distance'], 1, PHP_ROUND_HALF_EVEN);
         $place->setWebsite($placeTab['website']);
+        $place->validated = $placeTab['validated'];
 
         return $place;
     }
@@ -71,7 +79,8 @@ class PlaceMapper extends Mapper
             'country' => $place->country,
             'town' => $place->town,
             'website' => $place->getWebsite(),
-            'description' => $place->description
+            'description' => $place->description,
+            'validated' => $place->validated
         );
 
         if ($exist[0][0] == 1) {
@@ -96,9 +105,21 @@ class PlaceMapper extends Mapper
         return $this->fillPlace($placeTab[0]);
     }
 
-    public function findAll()
+    public function findAllValidated()
     {
-        $placeTab = $this->con->selectQuery($this->findAllQuery);
+        return $this->findAll(true);
+    }
+
+    public function findAllNonValidated()
+    {
+        return $this->findAll(false);
+    }
+
+    protected function findAll($validated = true)
+    {
+        $placeTab = $this->con->selectQuery($this->findAllQuery, [
+            'validated' => $validated
+        ]);
         $placeList = [];
 
         if (!empty($placeTab)) {
@@ -115,7 +136,8 @@ class PlaceMapper extends Mapper
         $placeTab = $this->con->selectQuery($this->closestPlaces, [
             'lat' => $latitude,
             'lng' => $longitude,
-            'dist' => $distance
+            'dist' => $distance,
+            'validated' => 1
         ]);
         $placeList = [];
 
@@ -126,5 +148,12 @@ class PlaceMapper extends Mapper
         }
 
         return $placeList;
+    }
+
+    public function deleteById($id)
+    {
+        return $this->con->executeQuery($this->delete, [
+            'id' => $id
+        ]);
     }
 }
