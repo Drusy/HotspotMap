@@ -6,6 +6,27 @@
 {% block core %}
 
     <p style="margin-top: 60px">Admin</p>
+    <form name="admin-place" method="post" action="admin/save">
+        {% for line in data %}
+            <div class="admin-line">
+                {{ line.name }}
+                {{ line.latitude }}
+                {{ line.longitude }}
+                {{ line.address }}
+                {{ line.town }}
+                {{ line.country }}
+                {{ line.description }}
+                {{ line.website }}
+                <input type="radio" name="{{ line.id }}" value="create">Create
+                <input type="radio" name="{{ line.id }}" checked="checked" value="nothing">Do nothing
+                <input type="radio" name="{{ line.id }}" value="delete">Delete
+            </div>
+        {% else %}
+            No new place.
+        {% endfor %}
+
+        <input type="submit" value="Submit">
+    </form>
 
 {% endblock %}
 
