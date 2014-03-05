@@ -102,6 +102,8 @@ $app->get('/admin', 'HotspotMap\\Controller\\AdminController::index')
 
 $app->post('/admin/save', 'HotspotMap\\Controller\\AdminController::managePlaces');
 
+$app->post('/admin/remove', 'HotspotMap\\Controller\\AdminController::removePlaces');
+
 // Error management
 $app->error(function (\Exception $e, $code) use ($app) {
     if ($app['debug']) {

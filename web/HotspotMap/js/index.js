@@ -34,7 +34,7 @@ function addPopupUpdateSuccess() {
 function addPopupAddSuccess() {
     $.pnotify({
         title: 'Place added',
-        text: 'The place have beed added successfully',
+        text: 'The place have to be moderate by an administrator first.',
         addclass: 'pnotify-success',
         delay: 2000,
         opacity: 0.9,

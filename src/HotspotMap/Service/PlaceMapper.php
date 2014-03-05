@@ -43,6 +43,10 @@ class PlaceMapper extends Mapper
         ORDER BY distance
         LIMIT 0 , 10';
 
+    private $delete = 'DELETE
+     FROM Place
+     WHERE id = :id';
+
     private function fillPlace($placeTab)
     {
         $place = new Place($placeTab['id']);
@@ -148,6 +152,8 @@ class PlaceMapper extends Mapper
 
     public function deleteById($id)
     {
-
+        return $this->con->executeQuery($this->delete, [
+            'id' => $id
+        ]);
     }
 }

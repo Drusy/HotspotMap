@@ -1,14 +1,20 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.6
+-- version 4.0.6deb1
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Mar 25 Février 2014 à 18:45
--- Version du serveur: 5.5.33
--- Version de PHP: 5.5.3
+-- Généré le: Mer 05 Mars 2014 à 14:08
+-- Version du serveur: 5.5.35-0ubuntu0.13.10.2
+-- Version de PHP: 5.5.3-1ubuntu2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Base de données: `HotspotMap`
@@ -30,6 +36,7 @@ CREATE TABLE IF NOT EXISTS `Place` (
   `name` varchar(255) NOT NULL,
   `website` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
+  `validated` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -37,9 +44,8 @@ CREATE TABLE IF NOT EXISTS `Place` (
 -- Contenu de la table `Place`
 --
 
-INSERT INTO `Place` (`id`, `latitude`, `longitude`, `address`, `country`, `town`, `name`, `website`, `description`) VALUES
-('0', 48.858860, 2.347060, '29 Rue du Faubourg Saint-Antoine', 'France', 'Paris', 'Starbucks', 'www.starbucks.fr', ''),
-('1', 45.763653, 3.134995, 'Rue de l''Oradou', 'France', 'Clermont-Ferrand', 'McDonald''s', 'www.macdonalds.fr', '');
+INSERT INTO `Place` (`id`, `latitude`, `longitude`, `address`, `country`, `town`, `name`, `website`, `description`, `validated`) VALUES
+('1', 45.763653, 3.134995, 'Rue de l''Oradou', 'France', 'Clermont-Ferrand', 'McDonald''s', 'www.macdonalds.fr', '', 1);
 
 -- --------------------------------------------------------
 
@@ -77,3 +83,7 @@ CREATE TABLE IF NOT EXISTS `User` (
 
 INSERT INTO `User` (`id`, `firstname`, `lastname`, `email`, `username`, `website`, `password`, `salt`, `roles`) VALUES
 ('530ca80b43457', 'admin_firstname', 'admin_lastname', 'admin@hotspotmap.fr', 'admin', 'http://www.hotspotmap.fr', '5FZ2Z8QIkA7UTZ4BYkoC+GsReLf569mSKDsfods6LYQ8t+a8EW9oaircfMpmaLbPBh4FOBiiFyLfuZmTSUwzZg==', NULL, 'ROLE_ADMIN,ROLE_USER,ROLE_AUTH');
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -36,7 +36,39 @@ class AdminController extends HotspotMapController
                 }
                 else if($status == "delete")
                 {
+                    $placeMapper->deleteById($id);
+                }
+            }
+        }
 
+        return $app->redirect($app['url_generator']->generate('admin'));
+    }
+
+    public function removePlaces(Application $app)
+    {
+        $request = $app['request'];
+
+        $placeMapper = $app['PlaceMapper'];
+        $places = $placeMapper->findAllValidated();
+
+        if ($request->getMethod() == 'POST') {
+            foreach($places as $place)
+            {
+                $id = $place->getId();
+                $status = $request->get($id);
+
+                if($status == "delete")
+                {
+                    $placeMapper->deleteById($id);
+                }
+                else if($status == "unvalidate")
+                {
+                    $place = $placeMapper->findById($id);
+                    if($place != null)
+                    {
+                        $place->validated = 0;
+                        $placeMapper->save($place);
+                    }
                 }
             }
         }
@@ -47,8 +79,9 @@ class AdminController extends HotspotMapController
     public function index(Application $app)
     {
         $placeMapper = $app['PlaceMapper'];
-        $places = $placeMapper->findAllNonValidated();
+        $data["nonvalidated"] = $placeMapper->findAllNonValidated();
+        $data["validated"] = $placeMapper->findAllValidated();
 
-        return $this->respond($app, 'data', $places, 'admin/admin');
+        return $this->respond($app, 'data', $data, 'admin/admin');
     }
 }
