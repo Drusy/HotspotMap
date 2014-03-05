@@ -23,7 +23,7 @@ function popupError() {
 function addPopupUpdateSuccess() {
     $.pnotify({
         title: 'Place updated',
-        text: 'The place have beed updated successfully',
+        text: 'The place have been updated successfully',
         addclass: 'pnotify-success',
         delay: 2000,
         opacity: 0.9,
@@ -34,7 +34,7 @@ function addPopupUpdateSuccess() {
 function addPopupAddSuccess() {
     $.pnotify({
         title: 'Place added',
-        text: 'The place have beed added successfully',
+        text: 'The place have been added successfully',
         addclass: 'pnotify-success',
         delay: 2000,
         opacity: 0.9,

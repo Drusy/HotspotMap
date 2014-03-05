@@ -148,6 +148,7 @@ class PlacesController extends HotspotMapController
     private function geocodeFromAddress($place)
     {
         $geocoded = $this->geocoder->geocode($place->address . " " . $place->town . " " . $place->country);
+
         $place->latitude = $geocoded['latitude'];
         $place->longitude = $geocoded['longitude'];
 
