@@ -53,7 +53,7 @@ class MapController extends HotspotMapController
         $place = $this->retrieveClientInfo();
         $places = $placeMapper->findAllValidated();
 
-        $closestPlaces = $placeMapper->findClosestPlaces($place->latitude, $place->longitude, 300);
+        $closestPlaces = $placeMapper->findClosestPlaces($place->latitude, $place->longitude, 3000);
 
         $data = array(
             'closestPlaces' => $closestPlaces,

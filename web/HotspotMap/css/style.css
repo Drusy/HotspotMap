@@ -16,13 +16,12 @@ body {
 .settings{
 	background: #383d40;
 	-moz-box-sizing: border-box;
-	min-height: 100%;
 	position: relative;
 	width: 280px;
-	float:left;
-	margin:0 0 50px;
 	z-index: 2;
-    top:50px;
+    bottom: 60px;
+    top: 75px;
+    position: fixed;
 }
 	.settings a{
 		color:#ccc;
@@ -127,7 +126,7 @@ hr{
 }
 
 #caract {
-    overflow: hidden;
+    overflow: auto;
     position: absolute;
     width: 50%;
     height: 50%;
@@ -151,10 +150,17 @@ hr{
 }
 
 #map.edit{
-    width: 50%;
-    height: 50%;
+    width: 48%;
+    height: 46%;
     right: 0%;
-    margin: 15px 15px;
+    margin: 1% 1%;
+}
+
+#map.add{
+    width: 48%;
+    height: 20%;
+    right: 0%;
+    margin: 1% 1%;
 }
 
 .gmap {
@@ -163,12 +169,26 @@ hr{
 }
 
 #map-info {
-    overflow: hidden;
+    overflow: auto;
     position: absolute;
-    width: 100%;
-    height: 50%;
-    bottom: 0%;
+    top: 50%;
     left: 0px;
+    bottom: 50px;
+}
+
+#comments-all {
+    position: absolute;
+    top: 22%;
+    bottom: 50px;
+    right: 1%;
+    transition: width 1s ease 0s, height 1s ease 0s, top 1s ease 0s, left 1s ease 0s, margin 1s ease 0s;
+}
+
+#comments-body {
+    bottom: 0px;
+    top: 40px;
+    overflow: auto;
+    position: absolute;
     transition: width 1s ease 0s, height 1s ease 0s, top 1s ease 0s, left 1s ease 0s, margin 1s ease 0s;
 }
 
@@ -178,6 +198,14 @@ hr{
 	right: 30px;
 	z-index: 200;
 }
+
+.left-infobar {
+    bottom: 30px;
+    position: absolute;
+    left: 300px;
+    z-index: 200;
+}
+
 .hotspot-button {
     background: #6EB0EB;
 	border-radius: 2px;
@@ -372,4 +400,35 @@ label.input-type{
     border-color: #d6e9c6;
     color: #3c763d;
     font-size: 15px;
+}
+
+#twitter-follow{
+    bottom: 20px;
+    padding-left: 20px;
+    position: absolute;
+}
+
+#spots-group{
+    height: 50%;
+}
+
+#spots-list{
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 100%;
+}
+
+#search-group{
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 50%;
+}
+
+#add-comment{
+    cursor: pointer;
+    padding-left: 6px;
+}
+
+#add-comment:hover{
+    cursor: pointer;
 }

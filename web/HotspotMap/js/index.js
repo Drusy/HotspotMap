@@ -78,7 +78,7 @@ function allowUpdateForId(id) {
     {
         if(isMapViewMode())
         {
-            toggleMap();
+            toggleMap("edit");
             $("#add-hotspot").text("cancel");
             currentPlaceId = id;
             setTimeout(
@@ -97,17 +97,17 @@ function isMapViewMode() {
     return $("#map").hasClass("view");
 }
 
-function toggleMap() {
+function toggleMap(type) {
     $("#caract").toggle();
     $("#map-info").toggle();
     if(isMapViewMode())
     {
         $("#map").removeClass("view");
-        $("#map").addClass("edit");
+        $("#map").addClass(type);
     }
     else
     {
-        $("#map").removeClass("edit");
+        $("#map").removeClass(type);
         $("#map").addClass("view");
     }
     setTimeout(
@@ -164,7 +164,7 @@ $("#add-hotspot").click(function() {
         $(this).text("add your hotspot");
     }
 
-    toggleMap();
+    toggleMap("edit");
 });
 
 $('#update-hotspot').click(function() {
@@ -173,6 +173,11 @@ $('#update-hotspot').click(function() {
 
 $('#save-hotspot').click(function() {
     $('#add-form').submit();
+});
+
+$('#view-hotspot').click(function() {
+    toggleMap("add");
+    toggleComment();
 });
 
 $('#add-form').on('submit', function(event) {
@@ -227,7 +232,7 @@ function saveHotspot() {
     request.done(function( data ) {
         var json = $.parseJSON(data);
 
-        toggleMap();
+        toggleMap("edit");
         $("#add-hotspot").text("add your hotspot");
 
         setTimeout(
@@ -299,6 +304,23 @@ function updateInputFromURI(uri) {
     });
 
     return result;
+}
+
+function toggleComment(){
+
+    if($("#map-info").hasClass("col-md-12"))
+    {
+        $("#map-info").removeClass("col-md-12");
+        $("#map-info").addClass("col-md-6");
+    }
+    else
+    {
+        $("#map-info").removeClass("col-md-6");
+        $("#map-info").addClass("col-md-12");
+    }
+
+    $("#comments-all").toggle();
+    $("#twitter-mess").toggle();
 }
 
 $(".clickablePlace").click(function() {
