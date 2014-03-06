@@ -134,6 +134,10 @@ $('#search-form').on('submit', function(event) {
     request.done(function( data ) {
         var json = $.parseJSON(data);
 
+        $( "#addressInput" ).val(json.address);
+        $( "#latitudeInput" ).val(json.latitude);
+        $( "#longitudeInput" ).val(json.longitude);
+
         currentPos = new google.maps.LatLng(json.latitude, json.longitude);
         map.setCenter(currentPos);
     })

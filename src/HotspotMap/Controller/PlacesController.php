@@ -100,14 +100,14 @@ class PlacesController extends HotspotMapController
         $latitude = $request->get("latitude");
         $longitude = $request->get("longitude");
 
-        if (empty($latitude) || empty($longitude)) {
-            $geocoded = $this->geocoder->geocode($address);
-        } elseif (!empty($latitude) && !empty($longitude)) {
+        if (!empty($latitude) && !empty($longitude)) {
             $geocoded = $this->geocoder->reverse($latitude, $longitude);
+        } else {
+            $geocoded = $this->geocoder->geocode($address);
         }
 
         $place = new Place();
-        $place->address = $geocoded['streetNumber']." ".$geocoded['streetName'];
+        $place->address = $geocoded['streetNumber']." ".$geocoded['streetName']." ".$geocoded['city']." ".$geocoded['country'];
         $place->country = $geocoded['country'];
         $place->town = $geocoded['city'];
         $place->latitude = $geocoded['latitude'];
