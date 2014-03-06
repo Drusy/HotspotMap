@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Mer 05 Mars 2014 à 14:08
+-- Généré le: Jeu 06 Mars 2014 à 15:25
 -- Version du serveur: 5.5.35-0ubuntu0.13.10.2
 -- Version de PHP: 5.5.3-1ubuntu2.1
 
@@ -19,6 +19,20 @@ SET time_zone = "+00:00";
 --
 -- Base de données: `HotspotMap`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Comment`
+--
+
+CREATE TABLE IF NOT EXISTS `Comment` (
+  `id` varchar(255) NOT NULL,
+  `content` varchar(1024) NOT NULL,
+  `author` varchar(255) NOT NULL,
+  `place` varchar(255) NOT NULL,
+  `validated` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -46,17 +60,6 @@ CREATE TABLE IF NOT EXISTS `Place` (
 
 INSERT INTO `Place` (`id`, `latitude`, `longitude`, `address`, `country`, `town`, `name`, `website`, `description`, `validated`) VALUES
 ('1', 45.763653, 3.134995, 'Rue de l''Oradou', 'France', 'Clermont-Ferrand', 'McDonald''s', 'www.macdonalds.fr', '', 1);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `PlacesUsers`
---
-
-CREATE TABLE IF NOT EXISTS `PlacesUsers` (
-  `idPlace` varchar(255) NOT NULL,
-  `idUser` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 

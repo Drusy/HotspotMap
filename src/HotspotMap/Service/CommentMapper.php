@@ -28,7 +28,7 @@ class CommentMapper extends Mapper
      FROM Comment
      WHERE id = :id';
 
-    public function save(Coment $comment)
+    public function save(Comment $comment)
     {
         $exist = $this->con->selectQuery($this->countByIdQuery, [
             'id' => $comment->getId()
