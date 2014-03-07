@@ -86,7 +86,6 @@ class PlacesController extends HotspotMapController
         } else {
             $place = $this->geocodeFromAddress($place);
         }
-        error_log($place->address);
 
         if ($placeMapper->save($place)) {
             $app['statusCode'] = 201;

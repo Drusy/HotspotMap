@@ -93,3 +93,8 @@ p {
     -ms-transform: rotate(45deg);
     -o-transform: rotate(45deg);
 }
+
+#comments-body{
+    width: 96%;
+    margin-left: 1%;
+}
