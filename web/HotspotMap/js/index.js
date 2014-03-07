@@ -70,53 +70,30 @@ function addMarkerListener(marker) {
         currentPos = marker.getPosition();
 
         allowUpdateForId(marker.id);
+        setToEditMode();
     });
 }
 
 function allowUpdateForId(id) {
     if (updateInputFromURI("/places/" + id))
     {
-        if(viewModeIs("map"))
-        {
-            toggleMap("add");
-            $("#add-hotspot").text("cancel");
-            currentPlaceId = id;
-            setTimeout(
-                function()
-                {
-                    map.setCenter(currentPos);
-                }, 1150
-            );
-        }
-        $("#update-hotspot").show();
-        $("#save-hotspot").hide();
+        currentPlaceId = id;
+        resizeAndCenterMap(1150);
     }
 }
 
-function viewModeIs(mode) {
-    return $("#map").hasClass(mode);
-}
-
-function toggleMap(type) {
-    $("#caract").toggle();
-    $("#map-info").toggle();
-
-    if(viewModeIs("view"))
-    {
-        $("#map").removeClass("view");
-        $("#map").addClass(type);
-    }
-    else
-    {
-        $("#map").removeClass(type);
-        $("#map").addClass("view");
-    }
+function resizeAndCenterMap(timeout) {
     setTimeout(
         function()
         {
             google.maps.event.trigger(map, 'resize');
-        }, 1100
+            map.setCenter(currentPos);
+        }, timeout
     );
+}
+
+function viewModeIs(mode) {
+    return $("#map").hasClass(mode);
 }
 
 $('#search-form').on('submit', function(event) {
@@ -134,13 +111,20 @@ $('#search-form').on('submit', function(event) {
 
     request.done(function( data ) {
         var json = $.parseJSON(data);
+        var timeout = 0;
+
+        if (!viewModeIs("view"))
+            timeout = 1150;
 
         $( "#addressInput" ).val(json.address);
         $( "#latitudeInput" ).val(json.latitude);
         $( "#longitudeInput" ).val(json.longitude);
 
         currentPos = new google.maps.LatLng(json.latitude, json.longitude);
-        map.setCenter(currentPos);
+
+
+        resizeAndCenterMap(timeout);
+        setToViewMode()
     })
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
@@ -152,25 +136,11 @@ $('#search-form').on('submit', function(event) {
 });
 
 $("#add-hotspot").click(function() {
-    if(viewModeIs("view"))
-    {
-        $("#save-hotspot").show();
-        $("#update-hotspot").hide();
-        clearAddUpdateForm();
-        $(this).text("cancel");
-        toggleMap("edit");
-    } else {
-        $("#save-hotspot").hide();
-        $("#update-hotspot").hide();
-        currentPlaceId = null;
-        $(this).text("add your hotspot");
+    setToAddMode();
+    clearAddUpdateForm();
+    resizeAndCenterMap(1150);
 
-        if(viewModeIs("edit"))
-            toggleMap("edit");
-        else
-            toggleMap("add");
-            toggleMap("add");
-    }
+    currentPlaceId = null;
 });
 
 $('#update-hotspot').click(function() {
@@ -233,15 +203,15 @@ function saveHotspot() {
     request.done(function( data ) {
         var json = $.parseJSON(data);
 
-        toggleMap("edit");
-        $("#add-hotspot").text("add your hotspot");
-
         setTimeout(
             function()
             {
                 addGreenMarker(json.id, json.name, new google.maps.LatLng(json.latitude, json.longitude));
                 updateFromJson(json);
                 addPopupAddSuccess();
+                currentPlaceId = json.id;
+                setToEditMode();
+                resizeAndCenterMap(1150);
             }, 1150
         );
     })
@@ -265,10 +235,6 @@ function clearAddUpdateForm() {
 function updateFromJson(json) {
     currentPos = new google.maps.LatLng(json.latitude, json.longitude);
     map.setCenter(currentPos);
-
-    $( "#addressInput" ).val(json.address);
-    //$( "#latitudeInput" ).val(json.latitude);
-    //$( "#longitudeInput" ).val(json.longitude);
 
     $( "#latitudeAddInput" ).val(json.latitude);
     $( "#longitudeAddInput" ).val(json.longitude);
@@ -307,28 +273,75 @@ function updateInputFromURI(uri) {
     return result;
 }
 
-function toggleComment(){
-        $("#comments-all").toggle();
-        $("#twitter-mess").toggle();
+function setToViewMode() {
+    $("#map").removeClass("add");
+    $("#map").removeClass("edit");
+    $("#map").addClass("view");
+
+    $("#update-hotspot").hide();
+    $("#save-hotspot").hide();
+    $("#cancel-hotspot").hide();
+    $("#comments-all").hide();
+    $("#twitter-mess").hide();
+    $("#caract").hide();
+    $("#map-info").hide();
+
+    $("#add-hotspot").show();
 }
+
+function setToEditMode() {
+    $("#map").removeClass("add");
+    $("#map").removeClass("view");
+    $("#map").addClass("edit");
+
+    $("#save-hotspot").hide();
+    $("#add-hotspot").hide();
+
+    $("#update-hotspot").show();
+    $("#cancel-hotspot").show();
+    $("#comments-all").show();
+    $("#twitter-mess").show();
+    $("#caract").show();
+    $("#map-info").show();
+}
+
+function setToAddMode() {
+    $("#map").removeClass("edit");
+    $("#map").removeClass("view");
+    $("#map").addClass("add");
+
+    $("#update-hotspot").hide();
+    $("#comments-all").hide();
+    $("#twitter-mess").hide();
+    $("#add-hotspot").hide();
+
+    $("#caract").show();
+    $("#map-info").show();
+    $("#save-hotspot").show();
+    $("#cancel-hotspot").show();
+}
+
+$("#cancel-hotspot").click(function() {
+    setToViewMode();
+    resizeAndCenterMap(1150);
+});
 
 $(".clickablePlace").click(function() {
     var placeId = $(this).attr('id');
 
-    if(viewModeIs("view"))
-    {
-        toggleComment();
-        toggleMap("add");
-    }
-
     if (placeId == 'clientPosition') {
         currentPlaceId = null;
-        if (!viewModeIs("view")) {
-            $("#update-hotspot").hide();
-            $("#save-hotspot").show();
-        }
         updateInputFromURI("/userInfo");
+        resizeAndCenterMap(1150);
     } else {
         allowUpdateForId(placeId);
     }
+
+    setToEditMode();
+});
+
+$("#addressInput").on('focus', function() {
+    $( "#addressInput" ).val("");
+    $( "#latitudeInput" ).val("");
+    $( "#longitudeInput" ).val("");
 });
