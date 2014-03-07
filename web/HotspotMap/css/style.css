@@ -149,14 +149,14 @@ hr{
     right: 0%;
 }
 
-#map.edit{
+#map.add{
     width: 48%;
     height: 96%;
     right: 0%;
     margin: 1% 1%;
 }
 
-#map.add{
+#map.edit{
     width: 48%;
     height: 50%;
     right: 0%;

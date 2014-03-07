@@ -15,6 +15,7 @@ class Place extends PlaceModel implements \JsonSerializable
         }
 
         $this->distance = 0;
+        $this->validated = 0;
     }
 
     public function getId()

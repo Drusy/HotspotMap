@@ -81,11 +81,12 @@ class PlacesController extends HotspotMapController
         $placeMapper = $app['PlaceMapper'];
         $place = $this->fillPlaceFromRequest($request);
 
-        if (empty($place->latitude) || empty($place->longitude)) {
-            $place = $this->geocodeFromAddress($place);
-        } elseif (!empty($place->latitude) && !empty($place->longitude)) {
+        if (!empty($place->latitude) && !empty($place->longitude)) {
             $place = $this->geocodeFromLatLng($place);
+        } else {
+            $place = $this->geocodeFromAddress($place);
         }
+        error_log($place->address);
 
         if ($placeMapper->save($place)) {
             $app['statusCode'] = 201;
