@@ -151,14 +151,14 @@ hr{
 
 #map.edit{
     width: 48%;
-    height: 46%;
+    height: 96%;
     right: 0%;
     margin: 1% 1%;
 }
 
 #map.add{
     width: 48%;
-    height: 20%;
+    height: 50%;
     right: 0%;
     margin: 1% 1%;
 }
@@ -178,7 +178,7 @@ hr{
 
 #comments-all {
     position: absolute;
-    top: 22%;
+    top: 52%;
     bottom: 50px;
     right: 1%;
     transition: width 1s ease 0s, height 1s ease 0s, top 1s ease 0s, left 1s ease 0s, margin 1s ease 0s;
@@ -362,12 +362,13 @@ pre{
     border-radius: 0;
 
 }
+
 .form-control.big{
 width: 91%;
 }
 
 textarea.form-control.big{
-    width: 70%;
+    width: 91%;
 }
 
 .subtitle{

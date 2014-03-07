@@ -47,7 +47,7 @@ function addGreenMarker(id, title, pos) {
             position: pos,
             map: map,
             title: title,
-            icon: 'Hotspotmap/images/green_marker.png',
+            icon: 'HotspotMap/images/green_marker.png',
             zIndex: 999
     });
     addMarkerListener(marker);
@@ -60,7 +60,7 @@ function addBlueMarker(title, pos) {
         position: pos,
         map: map,
         title: title,
-        icon: 'Hotspotmap/images/blue_marker.png',
+        icon: 'HotspotMap/images/blue_marker.png',
         zIndex: 999
     });
 }
@@ -76,9 +76,9 @@ function addMarkerListener(marker) {
 function allowUpdateForId(id) {
     if (updateInputFromURI("/places/" + id))
     {
-        if(isMapViewMode())
+        if(viewModeIs("map"))
         {
-            toggleMap("edit");
+            toggleMap("add");
             $("#add-hotspot").text("cancel");
             currentPlaceId = id;
             setTimeout(
@@ -93,14 +93,15 @@ function allowUpdateForId(id) {
     }
 }
 
-function isMapViewMode() {
-    return $("#map").hasClass("view");
+function viewModeIs(mode) {
+    return $("#map").hasClass(mode);
 }
 
 function toggleMap(type) {
     $("#caract").toggle();
     $("#map-info").toggle();
-    if(isMapViewMode())
+
+    if(viewModeIs("view"))
     {
         $("#map").removeClass("view");
         $("#map").addClass(type);
@@ -151,20 +152,25 @@ $('#search-form').on('submit', function(event) {
 });
 
 $("#add-hotspot").click(function() {
-    if(isMapViewMode())
+    if(viewModeIs("view"))
     {
         $("#save-hotspot").show();
         $("#update-hotspot").hide();
         clearAddUpdateForm();
         $(this).text("cancel");
+        toggleMap("edit");
     } else {
         $("#save-hotspot").hide();
         $("#update-hotspot").hide();
         currentPlaceId = null;
         $(this).text("add your hotspot");
-    }
 
-    toggleMap("edit");
+        if(viewModeIs("edit"))
+            toggleMap("edit");
+        else
+            toggleMap("add");
+            toggleMap("add");
+    }
 });
 
 $('#update-hotspot').click(function() {
@@ -173,11 +179,6 @@ $('#update-hotspot').click(function() {
 
 $('#save-hotspot').click(function() {
     $('#add-form').submit();
-});
-
-$('#view-hotspot').click(function() {
-    toggleMap("add");
-    toggleComment();
 });
 
 $('#add-form').on('submit', function(event) {
@@ -307,28 +308,22 @@ function updateInputFromURI(uri) {
 }
 
 function toggleComment(){
-
-    if($("#map-info").hasClass("col-md-12"))
-    {
-        $("#map-info").removeClass("col-md-12");
-        $("#map-info").addClass("col-md-6");
-    }
-    else
-    {
-        $("#map-info").removeClass("col-md-6");
-        $("#map-info").addClass("col-md-12");
-    }
-
-    $("#comments-all").toggle();
-    $("#twitter-mess").toggle();
+        $("#comments-all").toggle();
+        $("#twitter-mess").toggle();
 }
 
 $(".clickablePlace").click(function() {
     var placeId = $(this).attr('id');
 
+    if(viewModeIs("view"))
+    {
+        toggleComment();
+        toggleMap("add");
+    }
+
     if (placeId == 'clientPosition') {
         currentPlaceId = null;
-        if (!isMapViewMode()) {
+        if (!viewModeIs("view")) {
             $("#update-hotspot").hide();
             $("#save-hotspot").show();
         }
