@@ -38,8 +38,9 @@ class PlacesController extends HotspotMapController
     {
         $placeMapper = $app['PlaceMapper'];
         $commentMapper = $app['CommentMapper'];
-        $place = $placeMapper->findById($idPlace);
+        $place = $placeMapper->findById($id);
 
+        error_log($place->address);
         if (null === $place) {
             $app['statusCode'] = 404;
 
@@ -47,9 +48,7 @@ class PlacesController extends HotspotMapController
         }
 
         $app['statusCode'] = 200;
-        $comments = $commentMapper->findAllValidatedByPlaceId($idPlace);
-
-        $place["comments"] = $comments;
+        $comments = $commentMapper->findAllValidatedByPlaceId($id);
 
         return $this->respond($app, 'place', $place, 'places/show');
     }

@@ -4,6 +4,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 use \HotspotMap\Service\PlaceMapper;
 use \HotspotMap\Service\UserMapper;
+use \HotspotMap\Service\CommentMapper;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,6 +28,9 @@ $app['PlaceMapper'] = $app->share(function () use ($app) {
 });
 $app['UserMapper'] = $app->share(function () use ($app) {
     return new UserMapper($app);
+});
+$app['CommentMapper'] = $app->share(function () use ($app) {
+    return new CommentMapper($app);
 });
 
 // Authentification info
