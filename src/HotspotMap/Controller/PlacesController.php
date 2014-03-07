@@ -2,6 +2,7 @@
 
 namespace HotspotMap\Controller;
 
+use HotspotMap\Model\Comment;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Response;
 use HotspotMap\Model\Place;
@@ -36,14 +37,19 @@ class PlacesController extends HotspotMapController
     public function placeFromId(Application $app, $id)
     {
         $placeMapper = $app['PlaceMapper'];
-        $place = $placeMapper->findById($id);
+        $commentMapper = $app['CommentMapper'];
+        $place = $placeMapper->findById($idPlace);
 
         if (null === $place) {
             $app['statusCode'] = 404;
 
             return new Response('Place not found', $app['statusCode']);
         }
+
         $app['statusCode'] = 200;
+        $comments = $commentMapper->findAllValidatedByPlaceId($idPlace);
+
+        $place["comments"] = $comments;
 
         return $this->respond($app, 'place', $place, 'places/show');
     }
@@ -134,6 +140,18 @@ class PlacesController extends HotspotMapController
         return $place;
     }
 
+    private function fillCommentFromRequest($request, $id = null)
+    {
+        $comment = new Place();
+
+        $comment->author = $request->get('author');
+        $comment->content = $request->get('content');
+        $comment->avatar = $request->get('avatar');
+        $comment->place = $request->get('place');
+
+        return $comment;
+    }
+
     private function geocodeFromLatLng($place)
     {
         $geocoded = $this->geocoder->reverse($place->latitude, $place->longitude);
@@ -153,5 +171,30 @@ class PlacesController extends HotspotMapController
         $place->longitude = $geocoded['longitude'];
 
         return $place;
+    }
+
+    private function addCommentForId($app, $idPlace)
+    {
+        $placeMapper = $app['PlaceMapper'];
+        $commentMapper = $app['CommentMapper'];
+        $request = $app['request'];
+
+        $place = $placeMapper->findById($idPlace);
+
+        if (null === $place) {
+            $app['statusCode'] = 404;
+
+            return new Response('Place not found', $app['statusCode']);
+        }
+
+        if ($commentMapper->save($this->fillCommentFromRequest($request))) {
+            $app['statusCode'] = 201;
+
+            return new Response('Comment inserted', $app['statusCode']);
+        }
+
+        $app['statusCode'] = 400;
+
+        return new Response('Cannot insert', $app['statusCode']);
     }
 }

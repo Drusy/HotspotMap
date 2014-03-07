@@ -78,6 +78,8 @@ $app->get('/places', 'HotspotMap\\Controller\\PlacesController::places');
 $app->get('/places/{id}', 'HotspotMap\\Controller\\PlacesController::placeFromId');
 $app->put('/places/{id}', 'HotspotMap\\Controller\\PlacesController::updatePlace');
 
+$app->post('/place/{id}/comment', 'HotspotMap\\Controller\\PlacesController::addCommentForId');
+
 $app->get('/users', 'HotspotMap\\Controller\\UsersController::users');
 $app->get('/users/{id}', 'HotspotMap\\Controller\\UsersController::user');
 

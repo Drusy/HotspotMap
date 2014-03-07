@@ -14,14 +14,19 @@ class CommentMapper extends Mapper
         :content,
         :author,
         :place,
+        :avatar,
+        :creation_date,
         :validated)';
     private $updateQuery = 'UPDATE Comment
         SET
         content = :content,
         author = :author,
         place = :place,
+        :avatar,
+        :creation_date,
         validated = :validated
         WHERE id = :id';
+    private $findByPlaceQuery = 'SELECT * FROM Comment WHERE place = :place AND validated = :validated';
 
 
     private $delete = 'DELETE
@@ -39,6 +44,8 @@ class CommentMapper extends Mapper
             'content' => $comment->content,
             'author' => $comment->author,
             'place' => $comment->place,
+            'avatar'=>$comment->avatar,
+            'creation_date'=>$comment->creation_date(),
             'validated' => $comment->validated
         );
 
@@ -95,5 +102,35 @@ class CommentMapper extends Mapper
         return $this->con->executeQuery($this->delete, [
             'id' => $id
         ]);
+    }
+
+    public function findAllValidatedByPlaceId($placeId)
+    {
+        $commentTab = $this->con->selectQuery($this->findByPlaceQuery, [
+            'validated' => 1,
+            'place'     => $placeId
+        ]);
+        $commentList = [];
+
+        if (!empty($commentTab)) {
+            foreach ($commentTab as $comment) {
+                $commentList[] = $this->fillComment($comment);
+            }
+        }
+
+        return $commentList;
+    }
+
+    public function fillComment($commentTab)
+    {
+        $comment = new Comment($commentTab['id']);
+        $comment->place = $commentTab['place'];
+        $comment->author = $commentTab['author'];
+        $comment->creation_date = $commentTab['creation_date'];
+        $comment->avatar = $commentTab['avatar'];
+        $comment->content = $commentTab['content'];
+        $comment->validated = $commentTab['validated'];
+
+        return $comment;
     }
 }

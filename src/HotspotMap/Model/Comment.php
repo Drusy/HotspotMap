@@ -13,6 +13,8 @@ class Comment extends CommentModel implements \JsonSerializable
         } else {
             $this->id = $id;
         }
+
+        $this->creation_date = date_default_timezone_get();
     }
 
     public function jsonSerialize()
