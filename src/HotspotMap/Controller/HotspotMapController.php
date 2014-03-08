@@ -3,15 +3,16 @@
 namespace HotspotMap\Controller;
 
 use Silex\Application;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class HotspotMapController
 {
-    public function respond(Application $app, $dataName, $data, $uri)
+    public function respond(Application $app, Request $request, $dataName, $data, $uri)
     {
         $negotiator = new \Negotiation\Negotiator();
         $priorities   = array('text/html', 'application/json', 'application/xml', '*/*');
-        $contentType = $negotiator->getBest($_SERVER['HTTP_ACCEPT'], $priorities);
+        $contentType = $negotiator->getBest($request->headers->get('Accept'), $priorities);
 
         if (!isset($app['statusCode']) || empty($app['statusCode']))
             $app['statusCode'] = 200;

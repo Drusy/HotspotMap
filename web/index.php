@@ -63,7 +63,6 @@ $app['security.encoder.digest'] = $app->share(function ($app) {
 */
 
 $app->register(new UrlGeneratorServiceProvider());
-
 $app->register(new Silex\Provider\SessionServiceProvider());
 
 $app->register(new Silex\Provider\SecurityServiceProvider(), array(

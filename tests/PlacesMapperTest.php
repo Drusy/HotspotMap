@@ -1,7 +1,5 @@
 <?php
 
-use HotspotMap\Model\Place;
-
 class PlacesMapperTest extends PHPUnit_Extensions_Database_TestCase
 {
     // instancie pdo seulement une fois pour le nettoyage du test/le chargement de la fixture
@@ -9,6 +7,10 @@ class PlacesMapperTest extends PHPUnit_Extensions_Database_TestCase
 
     // instancie PHPUnit_Extensions_Database_DB_IDatabaseConnection seulement une fois par test
     private $conn = null;
+
+    public function __construct() {
+
+    }
 
     final public function getConnection()
     {
@@ -30,5 +32,11 @@ class PlacesMapperTest extends PHPUnit_Extensions_Database_TestCase
     public function testDataSet()
     {
         $this->assertEquals(2, $this->getConnection()->getRowCount('place'));
+    }
+
+    public function testAddPlace() {
+        //$placesController = new \HotspotMap\Controller\PlacesController();
+
+        //$placesController->addPlace()
     }
 }

@@ -9,15 +9,17 @@ class UsersController extends HotspotMapController
 {
     public function users(Application $app)
     {
+        $request = $app['request'];
         $userMapper = $app['UserMapper'];
         $users = $userMapper->findAll();
         $app['statusCode'] = 200;
 
-        return $this->respond($app, 'users', $users, 'users/list');
+        return $this->respond($app, $request, 'users', $users, 'users/list');
     }
 
     public function user(Application $app, $id)
     {
+        $request = $app['request'];
         $userMapper = $app['UserMapper'];
         $user = $userMapper->findById($id);
 
@@ -27,6 +29,6 @@ class UsersController extends HotspotMapController
             return new Response('User not found', $app['statusCode']);
         }
 
-        return $this->respond($app, 'user', $user, 'users/show');
+        return $this->respond($app, $request, 'user', $user, 'users/show');
     }
 }

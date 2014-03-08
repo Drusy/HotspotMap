@@ -72,10 +72,11 @@ class AdminController extends HotspotMapController
 
     public function index(Application $app)
     {
+        $request = $app['request'];
         $placeMapper = $app['PlaceMapper'];
         $data["nonvalidated"] = $placeMapper->findAllNonValidated();
         $data["validated"] = $placeMapper->findAllValidated();
 
-        return $this->respond($app, 'data', $data, 'admin/admin');
+        return $this->respond($app, $request, 'data', $data, 'admin/admin');
     }
 }

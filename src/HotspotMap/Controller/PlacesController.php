@@ -26,21 +26,22 @@ class PlacesController extends HotspotMapController
 
     public function places(Application $app)
     {
+        $request = $app['request'];
         $placeMapper = $app['PlaceMapper'];
         $places = $placeMapper->findAll();
 
         $app['statusCode'] = 200;
 
-        return $this->respond($app, 'places', $places, 'places/list');
+        return $this->respond($app, $request, 'places', $places, 'places/list');
     }
 
     public function placeFromId(Application $app, $id)
     {
+        $request = $app['request'];
         $placeMapper = $app['PlaceMapper'];
         $commentMapper = $app['CommentMapper'];
         $place = $placeMapper->findById($id);
 
-        error_log($place->address);
         if (null === $place) {
             $app['statusCode'] = 404;
 
@@ -50,7 +51,7 @@ class PlacesController extends HotspotMapController
         $app['statusCode'] = 200;
         $comments = $commentMapper->findAllValidatedByPlaceId($id);
 
-        return $this->respond($app, 'place', $place, 'places/show');
+        return $this->respond($app, $request, 'place', $place, 'places/show');
     }
 
     public function updatePlace(Application $app, $id)
@@ -66,7 +67,7 @@ class PlacesController extends HotspotMapController
         if ($placeMapper->save($place)) {
             $app['statusCode'] = 200;
 
-            return $this->respond($app, 'place', $place, 'places/show');
+            return $this->respond($app, $request, 'place', $place, 'places/show');
         }
 
         $app['statusCode'] = 400;
@@ -89,7 +90,7 @@ class PlacesController extends HotspotMapController
         if ($placeMapper->save($place)) {
             $app['statusCode'] = 201;
 
-            return $this->respond($app, 'place', $place, 'places/show');
+            return $this->respond($app, $request, 'place', $place, 'places/show');
         }
 
         $app['statusCode'] = 400;
@@ -100,7 +101,6 @@ class PlacesController extends HotspotMapController
     public function findPlace(Application $app)
     {
         $request = $app['request'];
-
         $address = $request->get("address");
         $latitude = $request->get("latitude");
         $longitude = $request->get("longitude");
@@ -120,7 +120,7 @@ class PlacesController extends HotspotMapController
 
         $app['statusCode'] = 200;
 
-        return $this->respond($app, 'place', $place, 'places/show');
+        return $this->respond($app, $request, 'place', $place, 'places/show');
     }
 
     private function fillPlaceFromRequest($request, $id = null)

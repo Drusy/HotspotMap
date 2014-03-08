@@ -8,6 +8,7 @@ use Buzz\Browser;
 use \Buzz\Client\Curl;
 use \Geocoder\HttpAdapter\BuzzHttpAdapter;
 use \Geocoder\Geocoder;
+use Symfony\Component\HttpFoundation\Request;
 
 class MapController extends HotspotMapController
 {
@@ -40,15 +41,17 @@ class MapController extends HotspotMapController
 
     public function userInfo(Application $app)
     {
+        $request = $app['request'];
         $place = $this->retrieveClientInfo();
 
         $app['statusCode'] = 200;
 
-        return $this->respond($app, 'place', $place, 'places/show');
+        return $this->respond($app, $request, 'place', $place, 'places/show');
     }
 
     public function index(Application $app)
     {
+        $request = $app['request'];
         $placeMapper = $app['PlaceMapper'];
         $place = $this->retrieveClientInfo();
         $places = $placeMapper->findAllValidated();
@@ -63,6 +66,6 @@ class MapController extends HotspotMapController
 
         $app['statusCode'] = 200;
 
-        return $this->respond($app, 'data', $data, 'map/index');
+        return $this->respond($app, $request, 'data', $data, 'map/index');
     }
 }
