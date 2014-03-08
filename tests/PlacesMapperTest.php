@@ -1,15 +1,23 @@
 <?php
 
+require_once __DIR__.'/../vendor/autoload.php';
+
+use Silex\Application;
+
 class PlacesMapperTest extends PHPUnit_Extensions_Database_TestCase
 {
-    // instancie pdo seulement une fois pour le nettoyage du test/le chargement de la fixture
     static private $pdo = null;
-
-    // instancie PHPUnit_Extensions_Database_DB_IDatabaseConnection seulement une fois par test
     private $conn = null;
+    private $app;
+    private $placeMapper;
 
-    public function __construct() {
+    public function setUp() {
+        $GLOBALS['TEST_MODE'] = true;
 
+        include __DIR__.'/../web/index.php';
+
+        $this->app = $app;
+        $this->placeMapper = $this->app['PlaceMapper'];
     }
 
     final public function getConnection()
@@ -29,14 +37,22 @@ class PlacesMapperTest extends PHPUnit_Extensions_Database_TestCase
         return $this->createFlatXmlDataSet("tests/mock/places.xml");
     }
 
-    public function testDataSet()
+    public function testPlacesDataSet()
     {
         $this->assertEquals(2, $this->getConnection()->getRowCount('place'));
     }
 
-    public function testAddPlace() {
-        //$placesController = new \HotspotMap\Controller\PlacesController();
+    public function testValidatedPlacesDataSet()
+    {
+        $places = $this->placeMapper->findAllValidated();
 
-        //$placesController->addPlace()
+        $this->assertEquals(1, count($places));
+    }
+
+    public function testNonValidatedPlacesDataSet()
+    {
+        $places = $this->placeMapper->findAllNonValidated();
+
+        $this->assertEquals(1, count($places));
     }
 }

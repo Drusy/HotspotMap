@@ -14,9 +14,12 @@ $app = new Silex\Application();
 $app['debug'] = true;
 
 // Configure globals for database
-$GLOBALS['dsn'] = 'mysql:host=localhost:3306;dbname=HotspotMap';
-$GLOBALS['user'] = 'root';
-$GLOBALS['password'] = 'root';
+if (!isset($GLOBALS['TEST_MODE']) || empty($GLOBALS['TEST_MODE']))
+{
+    $GLOBALS['DB_DSN'] = 'mysql:host=localhost:3306;dbname=HotspotMap';
+    $GLOBALS['DB_USER'] = 'root';
+    $GLOBALS['DB_PASSWD'] = 'root';
+}
 
 // Register Services
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
@@ -132,17 +135,21 @@ $app->error(function (\Exception $e, $code) use ($app) {
 // REST response
 $app->after(function (Request $request, Response $response) use ($app) {
     $negotiator = new \Negotiation\Negotiator();
-    $contentType = $negotiator->getBest($_SERVER['HTTP_ACCEPT'])->getValue();
+    $contentType = $negotiator->getBest($request->headers->get('Accept'));
 
-    if ($contentType == '*/*') {
-        $contentType = 'text/html';
-    }
+    if ($contentType != null) {
+        $contentType = $contentType->getValue();
 
-    if (isset($app['statusCode']) && !empty($app['statusCode'])) {
-        $response->setStatusCode($app['statusCode']);
-        $app['statusCode'] = '';
+        if ($contentType == '*/*') {
+            $contentType = 'text/html';
+        }
+
+        if (isset($app['statusCode']) && !empty($app['statusCode'])) {
+            $response->setStatusCode($app['statusCode']);
+            $app['statusCode'] = '';
+        }
+        $response->headers->set('Content-Type', $contentType);
     }
-    $response->headers->set('Content-Type', $contentType);
 });
 
 $app->run();

@@ -17,15 +17,17 @@ class HotspotMapController
         if (!isset($app['statusCode']) || empty($app['statusCode']))
             $app['statusCode'] = 200;
 
-        switch ($contentType->getValue()) {
-            case 'application/json':
-                return new Response(json_encode($data), $app['statusCode']);
-                break;
-            case 'application/xml':
-                return $app['twig']->render($uri.'.xml.twig', array($dataName => $data));
-                break;
-            default:
-                return $app['twig']->render($uri.'.html.twig', array($dataName => $data));
+        if ($contentType != null) {
+            switch ($contentType->getValue()) {
+                case 'application/json':
+                    return new Response(json_encode($data), $app['statusCode']);
+                    break;
+                case 'application/xml':
+                    return $app['twig']->render($uri.'.xml.twig', array($dataName => $data));
+                    break;
+                default:
+                    return $app['twig']->render($uri.'.html.twig', array($dataName => $data));
+            }
         }
     }
 }

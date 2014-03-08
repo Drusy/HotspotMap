@@ -10,4 +10,9 @@ class Mapper
     {
         $this->con = Connection::getConnection();
     }
+
+    public function setConnection($con)
+    {
+        $this->con = $con;
+    }
 }
