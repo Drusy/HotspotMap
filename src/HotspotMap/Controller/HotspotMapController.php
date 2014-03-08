@@ -13,6 +13,9 @@ class HotspotMapController
         $priorities   = array('text/html', 'application/json', 'application/xml', '*/*');
         $contentType = $negotiator->getBest($_SERVER['HTTP_ACCEPT'], $priorities);
 
+        if (!isset($app['statusCode']) || empty($app['statusCode']))
+            $app['statusCode'] = 200;
+
         switch ($contentType->getValue()) {
             case 'application/json':
                 return new Response(json_encode($data), $app['statusCode']);

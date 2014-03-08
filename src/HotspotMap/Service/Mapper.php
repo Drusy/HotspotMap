@@ -6,8 +6,8 @@ class Mapper
 {
     protected $con;
 
-    public function __construct($app)
+    public function __construct()
     {
-        $this->con = Connection::getConnection($app);
+        $this->con = Connection::getConnection();
     }
 }

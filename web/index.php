@@ -11,12 +11,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Silex\Provider\UrlGeneratorServiceProvider;
 
 $app = new Silex\Application();
-
-// Configure app
 $app['debug'] = true;
-$app['dsn'] = 'mysql:host=localhost;dbname=HotspotMap';
-$app['user'] = 'root';
-$app['password'] = 'root';
+
+// Configure globals for database
+$GLOBALS['dsn'] = 'mysql:host=localhost:3306;dbname=HotspotMap';
+$GLOBALS['user'] = 'root';
+$GLOBALS['password'] = 'root';
 
 // Register Services
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
