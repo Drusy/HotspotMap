@@ -14,8 +14,7 @@ $app = new Silex\Application();
 $app['debug'] = true;
 
 // Configure globals for database
-if (!isset($GLOBALS['TEST_MODE']) || empty($GLOBALS['TEST_MODE']))
-{
+if (!isset($GLOBALS['TEST_MODE']) || empty($GLOBALS['TEST_MODE'])) {
     $GLOBALS['DB_DSN'] = 'mysql:host=localhost:3306;dbname=HotspotMap';
     $GLOBALS['DB_USER'] = 'root';
     $GLOBALS['DB_PASSWD'] = 'root';
@@ -152,4 +151,7 @@ $app->after(function (Request $request, Response $response) use ($app) {
     }
 });
 
-$app->run();
+
+if (!isset($GLOBALS['TEST_MODE']) || empty($GLOBALS['TEST_MODE'])) {
+    $app->run();
+}

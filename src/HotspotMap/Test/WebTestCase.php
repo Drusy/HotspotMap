@@ -2,7 +2,6 @@
 
 namespace HotspotMap\Test;
 
-
 /**
  * This file is part of the RestExtraBundle package.
  * For the full copyright and license information, please view the LICENSE

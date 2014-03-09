@@ -28,7 +28,6 @@ class CommentMapper extends Mapper
         WHERE id = :id';
     private $findByPlaceQuery = 'SELECT * FROM Comment WHERE place = :place AND validated = :validated';
 
-
     private $delete = 'DELETE
      FROM Comment
      WHERE id = :id';
