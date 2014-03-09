@@ -14,7 +14,13 @@ class Comment extends CommentModel implements \JsonSerializable
             $this->id = $id;
         }
 
+        date_default_timezone_set("Europe/Paris");
         $this->creation_date = date('Y-m-d h:i:s');
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 
     public function jsonSerialize()
@@ -25,10 +31,5 @@ class Comment extends CommentModel implements \JsonSerializable
         }
 
         return $json;
-    }
-
-    public function getId()
-    {
-        return $this->id;
     }
 }

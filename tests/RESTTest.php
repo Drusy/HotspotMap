@@ -28,5 +28,8 @@ class RESTTest extends WebTestCase
     public function testXmlRootPage()
     {
         $client = $this->createClient();
+
+        $this->xmlRequest($client, 'GET', '/');
+        $this->assertXmlResponse($client->getResponse());
     }
 }

@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<dataset>
+    <comment id="1" content="Comment 1" author="1" place="1" validated="1"/>
+    <comment id="2" content="Comment 2" author="1" place="1" validated="1"/>
+    <comment id="3" content="Comment 3" author="2" place="2" validated="0"/>
+</dataset>
