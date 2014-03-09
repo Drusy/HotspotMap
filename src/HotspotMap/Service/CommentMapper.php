@@ -82,7 +82,6 @@ class CommentMapper extends Mapper
     protected function findAll($validated = true)
     {
         $commentTab = $this->con->selectQuery($this->findAllQuery, [
-            'place'     => '',
             'validated' => $validated
         ]);
         $commentList = [];

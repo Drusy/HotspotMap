@@ -77,7 +77,7 @@ function addMarkerListener(marker) {
 function allowUpdateForId(id) {
     var timeout = 1150;
 
-    if (!viewModeIs("view"))
+    if (viewModeIs("edit"))
         timeout = 0;
 
     if (updateInputFromURI("/places/" + id))
