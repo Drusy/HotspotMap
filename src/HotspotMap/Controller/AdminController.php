@@ -15,6 +15,7 @@ class AdminController extends HotspotMapController
     public function managePlaces(Application $app)
     {
         $request = $app['request'];
+        $app['statusCode'] = 200;
 
         $placeMapper = $app['PlaceMapper'];
         $places = $request->request->all();
@@ -26,6 +27,10 @@ class AdminController extends HotspotMapController
                     if ($place != null) {
                         $place->validated = 1;
                         $placeMapper->save($place);
+                    }
+                    else
+                    {
+                        $app['statusCode'] = 400;
                     }
                 } elseif ($status == "delete") {
                     $placeMapper->deleteById($id);
@@ -39,6 +44,7 @@ class AdminController extends HotspotMapController
     public function removePlaces(Application $app)
     {
         $request = $app['request'];
+        $app['statusCode'] = 200;
 
         $placeMapper = $app['PlaceMapper'];
         $places = $request->request->all();
@@ -53,6 +59,10 @@ class AdminController extends HotspotMapController
                         $place->validated = 0;
                         $placeMapper->save($place);
                     }
+                    else
+                    {
+                        $app['statusCode'] = 400;
+                    }
                 }
             }
         }
@@ -63,6 +73,7 @@ class AdminController extends HotspotMapController
     public function updatePlaces(Application $app)
     {
         $request = $app['request'];
+        $app['statusCode'] = 200;
 
         $placeMapper = $app['PlaceMapper'];
         $places = $request->request->all();
@@ -72,18 +83,17 @@ class AdminController extends HotspotMapController
                 if ($status == "update")
                 {
                     $placeUpdated = $placeMapper->findById($id);
-                    error_log("copy of"+$placeUpdated->copy_of);
+
                     $placeOrigin = $placeMapper->findById($placeUpdated->copy_of);
                     $placeMapper->deleteById($id);
 
                     if ($placeOrigin && $placeUpdated) {
-                        error_log("tout roule");
                         $placeUpdated->copy_of = null;
                         $placeUpdated->validated = 1;
                         $placeMapper->save($placeOrigin->fillWith($placeUpdated));
                     }
                     else{
-                        error_log("tout roule pas");
+                        $app['statusCode'] = 400;
                     }
                 } elseif ($status == "delete") {
                     $placeMapper->deleteById($id);
@@ -99,6 +109,9 @@ class AdminController extends HotspotMapController
         $request = $app['request'];
         $placeMapper = $app['PlaceMapper'];
         $commentMapper = $app['CommentMapper'];
+
+        $app['statusCode'] = 200;
+
         $data["nonvalidated"] = $placeMapper->findNonValidated();
         $data["validated"] = $placeMapper->findValidated();
         $data["comments"] = $commentMapper->findNonValidatedComment();
@@ -114,6 +127,8 @@ class AdminController extends HotspotMapController
         $commentMapper = $app['CommentMapper'];
         $places = $request->request->all();
 
+        $app['statusCode'] = 200;
+
         if ($request->getMethod() == 'POST') {
             foreach($places as $id => $status)
             {
@@ -128,6 +143,9 @@ class AdminController extends HotspotMapController
                     {
                         $place->validated = 1;
                         $commentMapper->save($place);
+                    }
+                    else{
+                        $app['statusCode'] = 400;
                     }
                 }
             }

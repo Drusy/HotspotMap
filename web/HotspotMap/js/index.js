@@ -23,7 +23,7 @@ function popupError() {
 function addPopupUpdateSuccess() {
     $.pnotify({
         title: 'Place updated',
-        text: 'The place have been updated successfully',
+        text: 'The place will be updated after being moderate.',
         addclass: 'pnotify-success',
         delay: 2000,
         opacity: 0.9,
@@ -208,13 +208,12 @@ function updateHotspot() {
     })
 
     request.done(function( data ) {
+        addPopupUpdateSuccess();
         var json = $.parseJSON(data);
         currentPos = new google.maps.LatLng(json.latitude, json.longitude);
 
         markers[json.id].setPosition(currentPos);
         updateFromJson(json);
-        addPopupUpdateSuccess();
-
     })
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
