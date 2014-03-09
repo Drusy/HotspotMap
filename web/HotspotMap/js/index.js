@@ -144,7 +144,7 @@ $('#search-form').on('submit', function(event) {
 $('#comment-form').on('submit', function(event) {
     event.preventDefault();
     $(".mfp-close").first().trigger("click");
-    $("input[type=text], textarea").val("");
+
     var request = $.ajax({
         url: "/places/"+currentPlaceId+"/comment",
         type: "POST",
@@ -157,6 +157,7 @@ $('#comment-form').on('submit', function(event) {
 
     request.done(function( data ) {
         addPopupAddSuccess();
+        //TODO : CLEAR FORM
     })
 
     request.fail(function(jqXHR, textStatus, errorThrown) {

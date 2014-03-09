@@ -164,6 +164,7 @@ class PlacesController extends HotspotMapController
         $comment->avatar = $request->get('avatar');
         $comment->place = $id;
         $comment->validated = 0;
+        error_log($comment->content);
 
         return $comment;
     }
