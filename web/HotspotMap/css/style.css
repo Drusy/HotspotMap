@@ -150,14 +150,14 @@ hr{
 }
 
 #map.add{
-    width: 48%;
+    width: 50%;
     height: 96%;
     right: 0%;
     margin: 1% 1%;
 }
 
 #map.edit{
-    width: 48%;
+    width: 50%;
     height: 50%;
     right: 0%;
     margin: 1% 1%;
