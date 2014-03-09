@@ -2,7 +2,7 @@
 
 use HotspotMap\Model\Place;
 
-class PlacesControllerTest extends PHPUnit_Framework_TestCase
+class PlaceTest extends PHPUnit_Framework_TestCase
 {
     public function testUniqId()
     {

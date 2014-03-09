@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<dataset>
+    <user id="1" firstname="Kevin" lastname="Renella" username="Drusy" password="password" salt="salt"
+          roles="ROLE_ADMIN,ROLE_USER,ROLE_AUTH" email="kevin.renella@gmail.com" website="https://github.com/Drusy" />
+
+    <user id="2" firstname="Florian" lastname="Rotagnon" username="Loof42" password="password" salt="salt"
+          roles="ROLE_ADMIN,ROLE_USER,ROLE_AUTH" email="florian.rotagnon@gmail.com" website="https://github.com/loof42" />
+</dataset>

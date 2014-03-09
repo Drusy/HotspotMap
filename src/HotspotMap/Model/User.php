@@ -45,6 +45,11 @@ class User extends UserModel implements UserInterface
         return $this->website;
     }
 
+    public function isAdmin()
+    {
+        return in_array('ROLE_ADMIN', $this->getRoles());
+    }
+
     /**
      * Returns the roles granted to the user.
      *

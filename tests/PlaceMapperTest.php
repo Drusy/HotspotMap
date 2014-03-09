@@ -2,7 +2,7 @@
 
 Use \HotspotMap\Model\Place;
 
-class PlacesMapperTest extends PHPUnit_Extensions_Database_TestCase
+class PlaceMapperTest extends PHPUnit_Extensions_Database_TestCase
 {
     private static $pdo = null;
     private $conn = null;
@@ -12,7 +12,6 @@ class PlacesMapperTest extends PHPUnit_Extensions_Database_TestCase
     public function setUp()
     {
         parent::setUp();
-
         $GLOBALS['TEST_MODE'] = true;
 
         include __DIR__.'/../web/index.php';
@@ -25,7 +24,6 @@ class PlacesMapperTest extends PHPUnit_Extensions_Database_TestCase
     {
         if ($this->conn === null) {
             if (self::$pdo == null) {
-                //self::$pdo = new PDO( $GLOBALS['DB_DSN'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWD'] );
                 self::$pdo = \HotspotMap\Service\Connection::getConnection();
             }
             $this->conn = $this->createDefaultDBConnection(self::$pdo, $GLOBALS['DB_DBNAME']);
@@ -44,14 +42,14 @@ class PlacesMapperTest extends PHPUnit_Extensions_Database_TestCase
         $this->assertEquals(3, $this->getConnection()->getRowCount('place'));
     }
 
-    public function testValidatedPlacesDataSet()
+    public function testValidatedPlacesD()
     {
         $places = $this->placeMapper->findAllValidated();
 
         $this->assertEquals(2, count($places));
     }
 
-    public function testNonValidatedPlacesDataSet()
+    public function testNonValidatedPlaces()
     {
         $places = $this->placeMapper->findAllNonValidated();
 

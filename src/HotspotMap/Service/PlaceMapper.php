@@ -98,9 +98,9 @@ class PlaceMapper extends Mapper
             'id' => $id
         ]);
 
-        if($placeTab == null)
-
+        if ($placeTab == null) {
             return null;
+        }
 
         return $this->fillPlace($placeTab[0]);
     }
