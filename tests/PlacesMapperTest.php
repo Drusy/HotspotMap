@@ -12,6 +12,8 @@ class PlacesMapperTest extends PHPUnit_Extensions_Database_TestCase
     private $placeMapper;
 
     public function setUp() {
+        parent::setUp();
+
         $GLOBALS['TEST_MODE'] = true;
 
         include __DIR__.'/../web/index.php';

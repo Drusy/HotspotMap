@@ -28,7 +28,7 @@ class PlacesController extends HotspotMapController
     {
         $request = $app['request'];
         $placeMapper = $app['PlaceMapper'];
-        $places = $placeMapper->findAllNonValidated();
+        $places = $placeMapper->findAllValidated();
 
         $app['statusCode'] = 200;
 
