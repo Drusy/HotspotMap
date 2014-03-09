@@ -22,8 +22,8 @@ class CommentMapper extends Mapper
         content = :content,
         author = :author,
         place = :place,
-        :avatar,
-        :creation_date,
+        avatar = :avatar,
+        creation_date = :creation_date,
         validated = :validated
         WHERE id = :id';
     private $findByPlaceQuery = 'SELECT * FROM Comment WHERE place = :place AND validated = :validated';
@@ -45,7 +45,7 @@ class CommentMapper extends Mapper
             'author' => $comment->author,
             'place' => $comment->place,
             'avatar'=>$comment->avatar,
-            'creation_date'=>$comment->creation_date(),
+            'creation_date'=>$comment->creation_date,
             'validated' => $comment->validated
         );
 
@@ -65,7 +65,6 @@ class CommentMapper extends Mapper
         ]);
 
         if($commentTab == null)
-
             return null;
 
         return $this->fillComment($commentTab[0]);
@@ -84,6 +83,7 @@ class CommentMapper extends Mapper
     protected function findAll($validated = true)
     {
         $commentTab = $this->con->selectQuery($this->findAllQuery, [
+            'place'     => '',
             'validated' => $validated
         ]);
         $commentList = [];
@@ -121,6 +121,22 @@ class CommentMapper extends Mapper
         return $commentList;
     }
 
+    public function findAllNonValidatedComment()
+    {
+        $commentTab = $this->con->selectQuery($this->findAllQuery, [
+            'validated' => 0
+        ]);
+        $commentList = [];
+
+        if (!empty($commentTab)) {
+            foreach ($commentTab as $comment) {
+                $commentList[] = $this->fillComment($comment);
+            }
+        }
+
+        return $commentList;
+    }
+
     public function fillComment($commentTab)
     {
         $comment = new Comment($commentTab['id']);
@@ -129,7 +145,7 @@ class CommentMapper extends Mapper
         $comment->creation_date = $commentTab['creation_date'];
         $comment->avatar = $commentTab['avatar'];
         $comment->content = $commentTab['content'];
-        $comment->validated = $commentTab['validated'];
+        $comment->validated = 0;
 
         return $comment;
     }

@@ -82,7 +82,8 @@ $app->get('/places', 'HotspotMap\\Controller\\PlacesController::places');
 $app->get('/places/{id}', 'HotspotMap\\Controller\\PlacesController::placeFromId');
 $app->put('/places/{id}', 'HotspotMap\\Controller\\PlacesController::updatePlace');
 
-$app->post('/place/{id}/comment', 'HotspotMap\\Controller\\PlacesController::addCommentForId');
+$app->post('/places/{id}/comment', 'HotspotMap\\Controller\\PlacesController::addCommentForId');
+$app->get('/places/{id}/comments', 'HotspotMap\\Controller\\PlacesController::getCommentsForId');
 
 $app->get('/users', 'HotspotMap\\Controller\\UsersController::users');
 $app->get('/users/{id}', 'HotspotMap\\Controller\\UsersController::user');
@@ -107,8 +108,8 @@ $app->get('/admin', 'HotspotMap\\Controller\\AdminController::index')
     ->bind('admin');
 
 $app->post('/admin/save', 'HotspotMap\\Controller\\AdminController::managePlaces');
-
 $app->post('/admin/remove', 'HotspotMap\\Controller\\AdminController::removePlaces');
+$app->post('/admin/comment/remove', 'HotspotMap\\Controller\\AdminController::manageComment');
 
 // Error management
 $app->error(function (\Exception $e, $code) use ($app) {

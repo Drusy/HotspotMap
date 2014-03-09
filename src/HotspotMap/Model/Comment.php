@@ -14,7 +14,7 @@ class Comment extends CommentModel implements \JsonSerializable
             $this->id = $id;
         }
 
-        $this->creation_date = date_default_timezone_get();
+        $this->creation_date = date('Y-m-d h:i:s');
     }
 
     public function jsonSerialize()
@@ -25,5 +25,10 @@ class Comment extends CommentModel implements \JsonSerializable
         }
 
         return $json;
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 }

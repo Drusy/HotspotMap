@@ -3,6 +3,7 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="/HotspotMap/css/comment.css" />
+    <link rel="stylesheet" type="text/css" href="/HotspotMap/css/magnific-popup.css" />
 {% endblock %}
 
 {% block core %}
@@ -71,7 +72,7 @@
                         <textarea class="form-control big" name="description" placeholder="More information" id="descriptionAddInput"></textarea>
                     </div>
                     <div id="comments-all" class="col-md-6" style="display: none;">
-                        <label class="subtitle">COMMENTS</label><span id="add-comment" class="glyphicon glyphicon-comment"></span><br/>
+                        <label class="subtitle">COMMENTS</label><a id="add-comment" class="popup-with-form" href="#comment-form"><span id="add-comment" class="glyphicon glyphicon-comment"></span></a><br/>
                         <div id="comments-body" >
                             {% include 'comment/comment.html.twig' %}
                          </div>
@@ -92,9 +93,35 @@
         <a id="add-hotspot" class="hotspot-button" href="#">Add your Hotspot</a>
         <a id="cancel-hotspot" class="hotspot-button" style="display: none;" href="#">Cancel</a>
     </div>
+
+    <!-- form itself -->
+    <form id="comment-form" class="white-popup-block mfp-hide">
+        <h1>Add comment</h1>
+        <fieldset style="border:0;">
+            <p>All comments have to be moderated before being displayed.</p>
+            <ol>
+                <li>
+                    <label class="comment-field" for="pseudo">Pseudo</label><br/>
+                    <input class="comment-data" id="pseudo" name="author" placeholder="Pseudo" required="true" type="text">
+                </li>
+                <li>
+                    <label class="comment-field" for="email">Avatar</label><br/>
+                    <input class="comment-data"  id="email" name="avatar" placeholder="www.example.com/avatar.png" type="url">
+                </li>
+                <li>
+                    <label class="comment-field" for="textarea">Comment</label><br/>
+                    <textarea id="comment-area" placeholder="add your comment here" required="true" name="content"></textarea>
+                </li>
+                <li>
+                    <button type="submit" id="addCommentButton" class="generate search-btn">Submit</button>
+                </li>
+            </ol>
+        </fieldset>
+    </form>
 {% endblock %}
 
 {% block js %}
+    <script src="/HotspotMap/js/jquery.magnific-popup.min.js"></script>
     <script src="/HotspotMap/js/index.js"></script>
     <!-- Should stay in twig file due to template replacement -->
     <script type="text/javascript">

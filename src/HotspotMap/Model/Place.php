@@ -6,6 +6,9 @@ use HotspotMap\Model\ORM\PlaceModel;
 
 class Place extends PlaceModel implements \JsonSerializable
 {
+    //lazy loading
+    public $comments;
+
     public function __construct($id = null)
     {
         if ($id == null) {

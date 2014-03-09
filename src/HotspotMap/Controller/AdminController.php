@@ -73,9 +73,40 @@ class AdminController extends HotspotMapController
     public function index(Application $app)
     {
         $placeMapper = $app['PlaceMapper'];
+        $commentMapper = $app['CommentMapper'];
         $data["nonvalidated"] = $placeMapper->findAllNonValidated();
         $data["validated"] = $placeMapper->findAllValidated();
+        $data["comments"] = $commentMapper->findAllNonValidatedComment();
 
         return $this->respond($app, 'data', $data, 'admin/admin');
+    }
+
+    public function manageComment(Application $app)
+    {
+        $request = $app['request'];
+
+        $commentMapper = $app['CommentMapper'];
+        $places = $request->request->all();
+
+        if ($request->getMethod() == 'POST') {
+            foreach($places as $id => $status)
+            {
+                if($status == "delete")
+                {
+                    $commentMapper->deleteById($id);
+                }
+                else if($status == "validate")
+                {
+                    $place = $commentMapper->findById($id);
+                    if($place != null)
+                    {
+                        $place->validated = 1;
+                        $commentMapper->save($place);
+                    }
+                }
+            }
+        }
+
+        return $app->redirect($app['url_generator']->generate('admin'));
     }
 }

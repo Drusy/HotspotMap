@@ -79,6 +79,7 @@ function allowUpdateForId(id) {
     {
         currentPlaceId = id;
         resizeAndCenterMap(1150);
+        getComments();
     }
 }
 
@@ -135,11 +136,34 @@ $('#search-form').on('submit', function(event) {
     return false;
 });
 
+$('#comment-form').on('submit', function(event) {
+    event.preventDefault();
+    var request = $.ajax({
+        url: "/places/"+currentPlaceId+"/comment",
+        type: "POST",
+        dataType: "text",
+        data: $('#comment-form').serialize(),
+        headers: {
+            Accept : "application/json"
+        }
+    })
+
+    request.done(function( data ) {
+        addPopupAddSuccess();
+    })
+
+    request.fail(function(jqXHR, textStatus, errorThrown) {
+        popupError();
+    });
+
+    // Prevent form submit
+    return false;
+});
+
 $("#add-hotspot").click(function() {
     setToAddMode();
     clearAddUpdateForm();
     resizeAndCenterMap(1150);
-
     currentPlaceId = null;
 });
 
@@ -182,7 +206,75 @@ function updateHotspot() {
         markers[json.id].setPosition(currentPos);
         updateFromJson(json);
         addPopupUpdateSuccess();
+
     })
+
+    request.fail(function(jqXHR, textStatus, errorThrown) {
+        popupError();
+    });
+}
+
+function fillComment(content, author, date, avatar)
+{
+    var articleComment = '<article class="comment">\
+             <a class="comment-img" href="#non">\
+             <img src="##AVATAR" alt="" width="50" height="50">\
+             </a>\
+             <div class="comment-body">\
+             <div class="text">\
+             <p>##COMMENT</p>\
+             </div>\
+             ##BY\
+             </div>\
+             </article>';
+
+    var by = '<p class="attribution">by <a href="#non">##AUTHOR</a> at ##DATE</p>';
+
+    articleComment = articleComment.replace("##COMMENT", content);
+
+    if(!avatar)
+        avatar="HotspotMap/images/avatar_hsm.png";
+
+    articleComment = articleComment.replace("##AVATAR", avatar);
+
+    if(author && date)
+    {
+        by = by.replace("##AUTHOR", author);
+        by = by.replace("##DATE", date);
+    }
+    else
+        by = "";
+
+    articleComment = articleComment.replace("##BY", by);
+
+    return articleComment;
+}
+
+function getComments() {
+    var request = $.ajax({
+        url: "/places/" +currentPlaceId+"/comments",
+        type: "GET",
+        dataType: "text",
+        headers: {
+            Accept : "application/json"
+        }
+    })
+
+    request.done(function( data ) {
+        var json = $.parseJSON(data);
+
+        $("section.comments").empty();
+
+        if( json.length == 0 )
+        {
+            $("section.comments").append(fillComment("No comment for this place. Be the first to add one.", '', '', ''));
+        }
+        else
+            $.each(json, function(){
+                $("section.comments").append(fillComment(this.content, this.author, this.creation_date, this.avatar));
+            });
+
+    });
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
         popupError();
@@ -344,4 +436,22 @@ $("#addressInput").on('focus', function() {
     $( "#addressInput" ).val("");
     $( "#latitudeInput" ).val("");
     $( "#longitudeInput" ).val("");
+});
+
+$('.popup-with-form').magnificPopup({
+    type: 'inline',
+    preloader: false,
+    focus: '#name',
+
+    // When elemened is focused, some mobile browsers in some cases zoom in
+    // It looks not nice, so we disable it:
+    callbacks: {
+        beforeOpen: function() {
+            if($(window).width() < 700) {
+                this.st.focus = false;
+            } else {
+                this.st.focus = '#name';
+            }
+        }
+    }
 });

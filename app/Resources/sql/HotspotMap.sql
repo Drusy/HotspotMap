@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Jeu 06 Mars 2014 à 15:25
+-- Généré le: Dim 09 Mars 2014 à 18:46
 -- Version du serveur: 5.5.35-0ubuntu0.13.10.2
 -- Version de PHP: 5.5.3-1ubuntu2.1
 
@@ -31,8 +31,20 @@ CREATE TABLE IF NOT EXISTS `Comment` (
   `content` varchar(1024) NOT NULL,
   `author` varchar(255) NOT NULL,
   `place` varchar(255) NOT NULL,
+  `avatar` varchar(255) DEFAULT NULL,
+  `creation_date` datetime NOT NULL,
   `validated` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `Comment`
+--
+
+INSERT INTO `Comment` (`id`, `content`, `author`, `place`, `avatar`, `creation_date`, `validated`) VALUES
+('1', 'commentaire de test', 'Florian', '1', NULL, '2014-03-07 00:00:00', 1),
+('531cad6fabb6a', 'hello', 'flo', '531b158ae3c18', '', '2014-03-09 06:05:35', 1),
+('531caed5b811d', 'Le mcDo c''est trop cool', 'flo', '1', '', '2014-03-09 06:11:33', 1),
+('531cb6623077c', 'message c''est cool les lapinou', 'flo', '1', 'http://cdn.pratique.fr/sites/default/files/articles/lapin-blanc.jpg', '2014-03-09 06:43:46', 1);
 
 -- --------------------------------------------------------
 
@@ -59,7 +71,8 @@ CREATE TABLE IF NOT EXISTS `Place` (
 --
 
 INSERT INTO `Place` (`id`, `latitude`, `longitude`, `address`, `country`, `town`, `name`, `website`, `description`, `validated`) VALUES
-('1', 45.763653, 3.134995, 'Rue de l''Oradou', 'France', 'Clermont-Ferrand', 'McDonald''s', 'www.macdonalds.fr', '', 1);
+('1', 45.763653, 3.134995, 'Rue de l''Oradou', 'France', 'Clermont-Ferrand', 'McDonald''s', 'www.macdonalds.fr', '', 1),
+('531b158ae3c18', 45.600918, 4.087811, '9 impasse de l''agriculture 42600', 'France', 'Montbrison', 'Maison Rotagnon', '', 'wifi gratuit', 1);
 
 -- --------------------------------------------------------
 

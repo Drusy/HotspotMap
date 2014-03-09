@@ -433,3 +433,21 @@ label.input-type{
 #add-comment:hover{
     cursor: pointer;
 }
+
+.comment-field{
+    width: 15%;
+}
+
+.comment-data{
+    width: 55%;
+}
+
+#comment-area{
+    width: 80%;
+}
+
+ol li { list-style:none }
+
+#addCommentButton{
+    width: 10%;
+}

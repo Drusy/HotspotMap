@@ -54,6 +54,27 @@
         {% endif %}
     </form>
 
+    <p>COMMENT UNVALIDATED : </p>
+    <form name="comment-unvalidated" method="post" action="admin/comment/remove">
+        {% for line in data.comments %}
+            <div class="admin-line">
+                {{ line.creation_date }}
+                {{ line.author }}
+                {{ line.avatar }}
+                {{ line.content }}
+                {{ line.place }}
+                <input type="radio" name="{{ line.id }}" value="validate">Validate
+                <input type="radio" name="{{ line.id }}" checked="checked" value="nothing">Do nothing
+                <input type="radio" name="{{ line.id }}" value="delete">Delete
+            </div>
+        {% else %}
+            No new comment.
+        {% endfor %}
+        {% if data.validated|length != 0 %}
+            <input type="submit" value="Submit">
+        {% endif %}
+    </form>
+
 {% endblock %}
 
 {% block js %}
