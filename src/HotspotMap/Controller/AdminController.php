@@ -20,19 +20,14 @@ class AdminController extends HotspotMapController
         $places = $request->request->all();
 
         if ($request->getMethod() == 'POST') {
-            foreach($places as $id => $status)
-            {
-                if($status == "validate")
-                {
+            foreach ($places as $id => $status) {
+                if ($status == "validate") {
                     $place = $placeMapper->findById($id);
-                    if($place != null)
-                    {
+                    if ($place != null) {
                         $place->validated = 1;
                         $placeMapper->save($place);
                     }
-                }
-                else if($status == "delete")
-                {
+                } elseif ($status == "delete") {
                     $placeMapper->deleteById($id);
                 }
             }
@@ -49,17 +44,12 @@ class AdminController extends HotspotMapController
         $places = $request->request->all();
 
         if ($request->getMethod() == 'POST') {
-            foreach($places as $id => $status)
-            {
-                if($status == "delete")
-                {
+            foreach ($places as $id => $status) {
+                if ($status == "delete") {
                     $placeMapper->deleteById($id);
-                }
-                else if($status == "unvalidate")
-                {
+                } elseif ($status == "unvalidate") {
                     $place = $placeMapper->findById($id);
-                    if($place != null)
-                    {
+                    if ($place != null) {
                         $place->validated = 0;
                         $placeMapper->save($place);
                     }
@@ -72,13 +62,14 @@ class AdminController extends HotspotMapController
 
     public function index(Application $app)
     {
+        $request = $app['request'];
         $placeMapper = $app['PlaceMapper'];
         $commentMapper = $app['CommentMapper'];
         $data["nonvalidated"] = $placeMapper->findAllNonValidated();
         $data["validated"] = $placeMapper->findAllValidated();
         $data["comments"] = $commentMapper->findAllNonValidatedComment();
 
-        return $this->respond($app, 'data', $data, 'admin/admin');
+        return $this->respond($app, $request, 'data', $data, 'admin/admin');
     }
 
     public function manageComment(Application $app)

@@ -24,16 +24,16 @@ class UserMapper extends Mapper implements UserProviderInterface
         :password,
         :salt,
         :roles)';
-    private $updateQuery            = 'UPDATE User
+    private $updateQuery         = 'UPDATE User
         SET
         firstname = :firstname,
         lastname = :lastname,
         email = :email,
         username = :username,
         website = :website,
-        :password,
-        :salt,
-        :roles
+        password = :password,
+        salt = :salt,
+        roles = :roles
         WHERE id = :id';
 
     private function fillUser($userTab)
@@ -92,9 +92,9 @@ class UserMapper extends Mapper implements UserProviderInterface
             'id' => $id
         ]);
 
-        if($userTab == null)
-
+        if ($userTab == null) {
             return null;
+        }
 
         return $this->fillUser($userTab[0]);
     }
@@ -104,6 +104,10 @@ class UserMapper extends Mapper implements UserProviderInterface
         $userTab = $this->con->selectQuery($this->findByUsernameQuery, [
             'username' => $username
         ]);
+
+        if ($userTab == null) {
+            return null;
+        }
 
         return $this->fillUser($userTab[0]);
     }

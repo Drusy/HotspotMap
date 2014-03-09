@@ -7,12 +7,12 @@ class Connection extends \PDO
 
     private static $con = null;
 
-    public static function getConnection($app)
+    public static function getConnection()
     {
         if (Connection::$con == null) {
-            $dsn = $app['dsn'];
-            $user = $app['user'];
-            $password = $app['password'];
+            $dsn = $GLOBALS['DB_DSN'];
+            $user = $GLOBALS['DB_USER'];
+            $password = $GLOBALS['DB_PASSWD'];
 
             Connection::$con = new Connection($dsn, $user, $password);
         }

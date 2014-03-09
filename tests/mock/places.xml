@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<dataset>
+    <place id="1" name="ISIMA" latitude="45.759042" longitude="3.110482" address="ISIMA Les Cezeaux" country="France"
+            town="Aubiere" website="www.isima.fr" description="engineering school" validated="1"/>
+
+    <place id="2" name="Michelin Carmes" latitude="45.7810575" longitude="3.1063158" address="Avenue Edouard Michelin" country="France"
+           town="Clermont-Ferrand" website="www.michelin.fr" description="company" validated="0"/>
+
+    <place id="3" name="Mac Donald's" latitude="45.765973" longitude="3.1295155" address="Rue de l'Hermitage" country="France"
+           town="Clermont-Ferrand" website="www.macdonals.fr" description="fastfood" validated="1"/>
+</dataset>

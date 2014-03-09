@@ -75,10 +75,15 @@ function addMarkerListener(marker) {
 }
 
 function allowUpdateForId(id) {
+    var timeout = 1150;
+
+    if (!viewModeIs("view"))
+        timeout = 0;
+
     if (updateInputFromURI("/places/" + id))
     {
         currentPlaceId = id;
-        resizeAndCenterMap(1150);
+        resizeAndCenterMap(timeout);
         getComments();
     }
 }
@@ -88,7 +93,7 @@ function resizeAndCenterMap(timeout) {
         function()
         {
             google.maps.event.trigger(map, 'resize');
-            map.setCenter(currentPos);
+            map.panTo(currentPos);
         }, timeout
     );
 }
@@ -328,7 +333,7 @@ function clearAddUpdateForm() {
 
 function updateFromJson(json) {
     currentPos = new google.maps.LatLng(json.latitude, json.longitude);
-    map.setCenter(currentPos);
+    //map.panTo(currentPos);
 
     $( "#latitudeAddInput" ).val(json.latitude);
     $( "#longitudeAddInput" ).val(json.longitude);

@@ -11,12 +11,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Silex\Provider\UrlGeneratorServiceProvider;
 
 $app = new Silex\Application();
-
-// Configure app
 $app['debug'] = true;
-$app['dsn'] = 'mysql:host=localhost;dbname=HotspotMap';
-$app['user'] = 'root';
-$app['password'] = 'root';
+
+// Configure globals for database
+if (!isset($GLOBALS['TEST_MODE']) || empty($GLOBALS['TEST_MODE'])) {
+    $GLOBALS['DB_DSN'] = 'mysql:host=localhost;dbname=HotspotMap';
+    $GLOBALS['DB_USER'] = 'root';
+    $GLOBALS['DB_PASSWD'] = 'root';
+}
 
 // Register Services
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
@@ -63,7 +65,6 @@ $app['security.encoder.digest'] = $app->share(function ($app) {
 */
 
 $app->register(new UrlGeneratorServiceProvider());
-
 $app->register(new Silex\Provider\SessionServiceProvider());
 
 $app->register(new Silex\Provider\SecurityServiceProvider(), array(
@@ -134,17 +135,24 @@ $app->error(function (\Exception $e, $code) use ($app) {
 // REST response
 $app->after(function (Request $request, Response $response) use ($app) {
     $negotiator = new \Negotiation\Negotiator();
-    $contentType = $negotiator->getBest($_SERVER['HTTP_ACCEPT'])->getValue();
+    $contentType = $negotiator->getBest($request->headers->get('Accept'));
 
-    if ($contentType == '*/*') {
-        $contentType = 'text/html';
-    }
+    if ($contentType != null) {
+        $contentType = $contentType->getValue();
 
-    if (isset($app['statusCode']) && !empty($app['statusCode'])) {
-        $response->setStatusCode($app['statusCode']);
-        $app['statusCode'] = '';
+        if ($contentType == '*/*') {
+            $contentType = 'text/html';
+        }
+
+        if (isset($app['statusCode']) && !empty($app['statusCode'])) {
+            $response->setStatusCode($app['statusCode']);
+            $app['statusCode'] = '';
+        }
+        $response->headers->set('Content-Type', $contentType);
     }
-    $response->headers->set('Content-Type', $contentType);
 });
 
-$app->run();
+
+if (!isset($GLOBALS['TEST_MODE']) || empty($GLOBALS['TEST_MODE'])) {
+    $app->run();
+}

@@ -4,16 +4,16 @@ namespace HotspotMap\Model\ORM;
 
 class PlaceModel
 {
-    public $latitude;
-    public $longitude;
-    public $address;
-    public $country;
-    public $town;
-    public $name;
-    public $distance;
-    public $description;
-    public $validated;
+    public $latitude = 0;
+    public $longitude = 0;
+    public $address = "";
+    public $country = "";
+    public $town = "";
+    public $name = "";
+    public $distance = 0;
+    public $description = "";
+    public $validated = 0;
 
+    protected $website = "";
     protected $id;
-    protected $website;
 }
