@@ -22,8 +22,8 @@ class CommentMapper extends Mapper
         content = :content,
         author = :author,
         place = :place,
-        :avatar,
-        :creation_date,
+        avatar = :avatar,
+        creation_date = :creation_date,
         validated = :validated
         WHERE id = :id';
     private $findByPlaceQuery = 'SELECT * FROM Comment WHERE place = :place AND validated = :validated';
@@ -44,7 +44,7 @@ class CommentMapper extends Mapper
             'author' => $comment->author,
             'place' => $comment->place,
             'avatar'=>$comment->avatar,
-            'creation_date'=>$comment->creation_date(),
+            'creation_date'=>$comment->creation_date,
             'validated' => $comment->validated
         );
 

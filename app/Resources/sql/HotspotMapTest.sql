@@ -1,23 +1,17 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.6deb1
+-- version 4.0.6
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Jeu 06 Mars 2014 à 15:25
--- Version du serveur: 5.5.35-0ubuntu0.13.10.2
--- Version de PHP: 5.5.3-1ubuntu2.1
+-- Généré le: Dim 09 Mars 2014 à 19:28
+-- Version du serveur: 5.5.33
+-- Version de PHP: 5.5.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
 --
--- Base de données: `HotspotMap`
+-- Base de données: `HotspotMapTest`
 --
 
 -- --------------------------------------------------------
@@ -56,12 +50,16 @@ CREATE TABLE IF NOT EXISTS `Place` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Contenu de la table `Place`
+-- Structure de la table `PlacesUsers`
 --
 
-INSERT INTO `Place` (`id`, `latitude`, `longitude`, `address`, `country`, `town`, `name`, `website`, `description`, `validated`) VALUES
-('1', 45.763653, 3.134995, 'Rue de l''Oradou', 'France', 'Clermont-Ferrand', 'McDonald''s', 'www.macdonalds.fr', '', 1);
+CREATE TABLE IF NOT EXISTS `PlacesUsers` (
+  `idPlace` varchar(255) NOT NULL,
+  `idUser` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -81,14 +79,3 @@ CREATE TABLE IF NOT EXISTS `User` (
   `roles` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Contenu de la table `User`
---
-
-INSERT INTO `User` (`id`, `firstname`, `lastname`, `email`, `username`, `website`, `password`, `salt`, `roles`) VALUES
-('530ca80b43457', 'admin_firstname', 'admin_lastname', 'admin@hotspotmap.fr', 'admin', 'http://www.hotspotmap.fr', '5FZ2Z8QIkA7UTZ4BYkoC+GsReLf569mSKDsfods6LYQ8t+a8EW9oaircfMpmaLbPBh4FOBiiFyLfuZmTSUwzZg==', NULL, 'ROLE_ADMIN,ROLE_USER,ROLE_AUTH');
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

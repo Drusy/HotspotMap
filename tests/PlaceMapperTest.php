@@ -42,7 +42,7 @@ class PlaceMapperTest extends PHPUnit_Extensions_Database_TestCase
         $this->assertEquals(3, $this->getConnection()->getRowCount('place'));
     }
 
-    public function testValidatedPlacesD()
+    public function testValidatedPlaces()
     {
         $places = $this->placeMapper->findAllValidated();
 
