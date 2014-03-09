@@ -138,6 +138,8 @@ $('#search-form').on('submit', function(event) {
 
 $('#comment-form').on('submit', function(event) {
     event.preventDefault();
+    $(".mfp-close").first().trigger("click");
+    $("input[type=text], textarea").val("");
     var request = $.ajax({
         url: "/places/"+currentPlaceId+"/comment",
         type: "POST",
