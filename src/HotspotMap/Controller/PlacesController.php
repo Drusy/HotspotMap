@@ -28,7 +28,7 @@ class PlacesController extends HotspotMapController
     {
         $request = $app['request'];
         $placeMapper = $app['PlaceMapper'];
-        $places = $placeMapper->findAllValidated();
+        $places = $placeMapper->findValidated();
 
         $app['statusCode'] = 200;
 
@@ -49,7 +49,7 @@ class PlacesController extends HotspotMapController
             return new Response('Place not found', $app['statusCode']);
         }
 
-        $comments = $commentMapper->findAllValidatedByPlaceId($id);
+        $comments = $commentMapper->findValidatedByPlaceId($id);
 
         return $this->respond($app, $request,'comments', $comments, 'comments/list');
     }
@@ -75,7 +75,8 @@ class PlacesController extends HotspotMapController
     {
         $request = $app['request'];
         $placeMapper = $app['PlaceMapper'];
-        $place = $this->fillPlaceFromRequest($request, $id);
+        $place = $this->fillPlaceFromRequest($request);
+        $place->copy_of=$id;
 
         if (empty($place->latitude) || empty($place->longitude)) {
             $place = $this->geocodeFromAddress($place);

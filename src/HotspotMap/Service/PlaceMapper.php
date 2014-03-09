@@ -9,6 +9,7 @@ class PlaceMapper extends Mapper
     private $countByIdQuery = 'SELECT COUNT(*) FROM Place WHERE id = :id';
     private $findByIdQuery = 'SELECT * FROM Place WHERE id = :id';
     private $findAllQuery = 'SELECT * FROM Place WHERE validated = :validated';
+    private $findUpdatedQuery = 'SELECT * FROM Place WHERE copy_of IS NOT NULL';
     private $insertQuery = 'INSERT INTO Place Values (
         :id,
         :latitude,
@@ -19,7 +20,8 @@ class PlaceMapper extends Mapper
         :name,
         :website,
         :description,
-        :validated)';
+        :validated,
+        :copy_of)';
     private $updateQuery = 'UPDATE Place
         SET
         longitude = :longitude,
@@ -30,7 +32,8 @@ class PlaceMapper extends Mapper
         town = :town,
         website = :website,
         description = :description,
-        validated = :validated
+        validated = :validated,
+        copy_of = :copy_of
         WHERE id = :id';
 
     private $closestPlaces = 'SELECT *,
@@ -60,6 +63,7 @@ class PlaceMapper extends Mapper
         $place->distance = round($placeTab['distance'], 1, PHP_ROUND_HALF_EVEN);
         $place->setWebsite($placeTab['website']);
         $place->validated = $placeTab['validated'];
+        $place->copy_of = $placeTab['copy_of'];
 
         return $place;
     }
@@ -80,7 +84,8 @@ class PlaceMapper extends Mapper
             'town' => $place->town,
             'website' => $place->getWebsite(),
             'description' => $place->description,
-            'validated' => $place->validated
+            'validated' => $place->validated,
+            'copy_of'   => $place->copy_of
         );
 
         if ($exist[0][0] == 1) {
@@ -105,14 +110,28 @@ class PlaceMapper extends Mapper
         return $this->fillPlace($placeTab[0]);
     }
 
-    public function findAllValidated()
+    public function findValidated()
     {
         return $this->findAll(true);
     }
 
-    public function findAllNonValidated()
+    public function findNonValidated()
     {
         return $this->findAll(false);
+    }
+
+    public function findUpdated()
+    {
+        $placeTab = $this->con->selectQuery($this->findUpdatedQuery);
+        $placeList = [];
+
+        if (!empty($placeTab)) {
+            foreach ($placeTab as $place) {
+                $placeList[] = $this->fillPlace($place);
+            }
+        }
+
+        return $placeList;
     }
 
     protected function findAll($validated = true)

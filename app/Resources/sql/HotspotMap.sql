@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Dim 09 Mars 2014 à 18:46
+-- Généré le: Dim 09 Mars 2014 à 23:15
 -- Version du serveur: 5.5.35-0ubuntu0.13.10.2
 -- Version de PHP: 5.5.3-1ubuntu2.1
 
@@ -63,6 +63,7 @@ CREATE TABLE IF NOT EXISTS `Place` (
   `website` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
   `validated` tinyint(1) NOT NULL DEFAULT '0',
+  `copy_of` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -70,9 +71,9 @@ CREATE TABLE IF NOT EXISTS `Place` (
 -- Contenu de la table `Place`
 --
 
-INSERT INTO `Place` (`id`, `latitude`, `longitude`, `address`, `country`, `town`, `name`, `website`, `description`, `validated`) VALUES
-('1', 45.763653, 3.134995, 'Rue de l''Oradou', 'France', 'Clermont-Ferrand', 'McDonald''s', 'www.macdonalds.fr', '', 1),
-('531b158ae3c18', 45.600918, 4.087811, '9 impasse de l''agriculture 42600', 'France', 'Montbrison', 'Maison Rotagnon', '', 'wifi gratuit', 1);
+INSERT INTO `Place` (`id`, `latitude`, `longitude`, `address`, `country`, `town`, `name`, `website`, `description`, `validated`, `copy_of`) VALUES
+('1', 45.763653, 3.134995, 'Rue de l''Oradou', 'France', 'Clermont-Ferrand', 'McDonald''s', 'www.macdonalds.fr', 'C''est pas top Ã§a pue la frite !', 1, NULL),
+('531b158ae3c18', 45.600918, 4.087811, '9 impasse de l''agriculture 42600', 'France', 'Montbrison', 'Maison Rotagnon', '', 'wifi gratuit', 1, NULL);
 
 -- --------------------------------------------------------
 

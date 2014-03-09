@@ -108,8 +108,9 @@ $app->get('/contact', function (Request $request) use ($app) {
 $app->get('/admin', 'HotspotMap\\Controller\\AdminController::index')
     ->bind('admin');
 
-$app->post('/admin/save', 'HotspotMap\\Controller\\AdminController::managePlaces');
-$app->post('/admin/remove', 'HotspotMap\\Controller\\AdminController::removePlaces');
+$app->post('/admin/place/save', 'HotspotMap\\Controller\\AdminController::managePlaces');
+$app->post('/admin/place/remove', 'HotspotMap\\Controller\\AdminController::removePlaces');
+$app->post('/admin/place/update', 'HotspotMap\\Controller\\AdminController::updatePlaces');
 $app->post('/admin/comment/remove', 'HotspotMap\\Controller\\AdminController::manageComment');
 
 // Error management

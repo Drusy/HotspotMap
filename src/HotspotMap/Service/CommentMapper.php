@@ -69,12 +69,12 @@ class CommentMapper extends Mapper
         return $this->fillComment($commentTab[0]);
     }
 
-    public function findAllValidated()
+    public function findValidated()
     {
         return $this->findAll(true);
     }
 
-    public function findAllNonValidated()
+    public function findNonValidated()
     {
         return $this->findAll(false);
     }
@@ -103,7 +103,7 @@ class CommentMapper extends Mapper
         ]);
     }
 
-    public function findAllValidatedByPlaceId($placeId)
+    public function findValidatedByPlaceId($placeId)
     {
         $commentTab = $this->con->selectQuery($this->findByPlaceQuery, [
             'validated' => 1,
@@ -120,7 +120,7 @@ class CommentMapper extends Mapper
         return $commentList;
     }
 
-    public function findAllNonValidatedComment()
+    public function findNonValidatedComment()
     {
         $commentTab = $this->con->selectQuery($this->findAllQuery, [
             'validated' => 0

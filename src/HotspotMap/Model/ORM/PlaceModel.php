@@ -13,6 +13,7 @@ class PlaceModel
     public $distance = 0;
     public $description = "";
     public $validated = 0;
+    public $copy_of = 0;
 
     protected $website = "";
     protected $id;

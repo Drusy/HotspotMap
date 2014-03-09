@@ -7,7 +7,7 @@
 
     <h1 style="margin-top: 60px">ADMIN CONSOLE</h1>
     <p>NOT VALIDATED : </p>
-    <form name="admin-place-not-validated" method="post" action="admin/save">
+    <form name="admin-place-not-validated" method="post" action="admin/place/save">
         {% for line in data.nonvalidated %}
             <div class="admin-line">
                 {{ line.name }}
@@ -31,7 +31,7 @@
     </form>
 
     <p>VALIDATED : </p>
-    <form name="admin-place-validated" method="post" action="admin/remove">
+    <form name="admin-place-validated" method="post" action="admin/place/remove">
         {% for line in data.validated %}
             <div class="admin-line">
                 {{ line.name }}
@@ -43,6 +43,30 @@
                 {{ line.description }}
                 {{ line.website }}
                 <input type="radio" name="{{ line.id }}" value="unvalidate">Unvalidate
+                <input type="radio" name="{{ line.id }}" checked="checked" value="nothing">Do nothing
+                <input type="radio" name="{{ line.id }}" value="delete">Delete
+            </div>
+        {% else %}
+            No new place.
+        {% endfor %}
+        {% if data.validated|length != 0 %}
+            <input type="submit" value="Submit">
+        {% endif %}
+    </form>
+
+    <p>UPDATED : </p>
+    <form name="admin-place-validated" method="post" action="admin/place/update">
+        {% for line in data.updated %}
+            <div class="admin-line">
+                {{ line.name }}
+                {{ line.latitude }}
+                {{ line.longitude }}
+                {{ line.address }}
+                {{ line.town }}
+                {{ line.country }}
+                {{ line.description }}
+                {{ line.website }}
+                <input type="radio" name="{{ line.id }}" value="update">Update
                 <input type="radio" name="{{ line.id }}" checked="checked" value="nothing">Do nothing
                 <input type="radio" name="{{ line.id }}" value="delete">Delete
             </div>

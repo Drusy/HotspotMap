@@ -60,14 +60,49 @@ class AdminController extends HotspotMapController
         return $app->redirect($app['url_generator']->generate('admin'));
     }
 
+    public function updatePlaces(Application $app)
+    {
+        $request = $app['request'];
+
+        $placeMapper = $app['PlaceMapper'];
+        $places = $request->request->all();
+
+        if ($request->getMethod() == 'POST') {
+            foreach ($places as $id => $status) {
+                if ($status == "update")
+                {
+                    $placeUpdated = $placeMapper->findById($id);
+                    error_log("copy of"+$placeUpdated->copy_of);
+                    $placeOrigin = $placeMapper->findById($placeUpdated->copy_of);
+                    $placeMapper->deleteById($id);
+
+                    if ($placeOrigin && $placeUpdated) {
+                        error_log("tout roule");
+                        $placeUpdated->copy_of = null;
+                        $placeUpdated->validated = 1;
+                        $placeMapper->save($placeOrigin->fillWith($placeUpdated));
+                    }
+                    else{
+                        error_log("tout roule pas");
+                    }
+                } elseif ($status == "delete") {
+                    $placeMapper->deleteById($id);
+                }
+            }
+        }
+
+        return $app->redirect($app['url_generator']->generate('admin'));
+    }
+
     public function index(Application $app)
     {
         $request = $app['request'];
         $placeMapper = $app['PlaceMapper'];
         $commentMapper = $app['CommentMapper'];
-        $data["nonvalidated"] = $placeMapper->findAllNonValidated();
-        $data["validated"] = $placeMapper->findAllValidated();
-        $data["comments"] = $commentMapper->findAllNonValidatedComment();
+        $data["nonvalidated"] = $placeMapper->findNonValidated();
+        $data["validated"] = $placeMapper->findValidated();
+        $data["comments"] = $commentMapper->findNonValidatedComment();
+        $data["updated"] = $placeMapper->findUpdated();
 
         return $this->respond($app, $request, 'data', $data, 'admin/admin');
     }
