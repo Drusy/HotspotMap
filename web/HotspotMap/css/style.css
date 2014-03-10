@@ -208,6 +208,7 @@ hr{
 
 .hotspot-button {
     background: #6EB0EB;
+    border: 0px;
 	border-radius: 2px;
 	color: #fff;
 	display: block;
@@ -218,7 +219,7 @@ hr{
 	text-decoration: none;
 	text-transform: uppercase;
 	position: relative;
-	float: left; margin: 0 3px 0 0;
+    margin: 0 3px 0 0;
 }
 
     .hotspot-button:hover{
@@ -454,4 +455,17 @@ ol li { list-style:none }
 
 .mfp-content input, .mfp-content textarea {
     padding: 3px;
+}
+
+.about-author {
+    margin-top: 70px;
+    margin-left: 25px;
+}
+
+.validationBlock {
+    margin: 0px 0px 20px 0px;
+}
+
+.floatleft {
+    float: left;
 }

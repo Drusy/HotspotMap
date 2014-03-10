@@ -5,100 +5,165 @@
 
 {% block core %}
 
-    <h1 style="margin-top: 60px">ADMIN CONSOLE</h1>
-    <p>NOT VALIDATED : </p>
-    <form name="admin-place-not-validated" method="post" action="admin/place/save">
-        {% for line in data.nonvalidated %}
-            <div class="admin-line">
-                {{ line.name }}
-                {{ line.latitude }}
-                {{ line.longitude }}
-                {{ line.address }}
-                {{ line.town }}
-                {{ line.country }}
-                {{ line.description }}
-                {{ line.website }}
-                <input type="radio" name="{{ line.id }}" value="validate">Create
-                <input type="radio" name="{{ line.id }}" checked="checked" value="nothing">Do nothing
-                <input type="radio" name="{{ line.id }}" value="delete">Delete
-            </div>
-        {% else %}
-            No new place.
-        {% endfor %}
-        {% if data.nonvalidated|length != 0 %}
-            <input type="submit" value="Submit">
-        {% endif %}
-    </form>
+<div style="margin-top: 70px">
+    <div class="validationBlock">
+        <p>Places that needs to be validated</p>
+        <form name="admin-place-not-validated" method="post" action="admin/place/save">
+            <table class="table">
+                <tr>
+                    <th>Name</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>Address</th>
+                    <th>Town</th>
+                    <th>Country</th>
+                    <th>Brief</th>
+                    <th>Website</th>
+                    <th colspan="3">Actions</th>
+                </tr>
+                {% for line in data.nonvalidated %}
+                    <tr>
+                        <td>{{ line.name }}</td>
+                        <td>{{ line.latitude }}</td>
+                        <td>{{ line.longitude }}</td>
+                        <td>{{ line.address }}</td>
+                        <td>{{ line.town }}</td>
+                        <td>{{ line.country }}</td>
+                        <td>{{ line.description }}</td>
+                        <td>{{ line.website }}</td>
+                        <td><input type="radio" name="{{ line.id }}" value="validate">Create</td>
+                        <td><input type="radio" name="{{ line.id }}" checked="checked" value="nothing">Do nothing</td>
+                        <td><input type="radio" name="{{ line.id }}" value="delete">Delete</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="11">No new place.</td>
+                    </tr>
+                {% endfor %}
+            </table>
+            {% if data.nonvalidated|length != 0 %}
+                <input type="submit" value="Submit" class="hotspot-button">
+            {% endif %}
+        </form>
+    </div>
 
-    <p>VALIDATED : </p>
-    <form name="admin-place-validated" method="post" action="admin/place/remove">
-        {% for line in data.validated %}
-            <div class="admin-line">
-                {{ line.name }}
-                {{ line.latitude }}
-                {{ line.longitude }}
-                {{ line.address }}
-                {{ line.town }}
-                {{ line.country }}
-                {{ line.description }}
-                {{ line.website }}
-                <input type="radio" name="{{ line.id }}" value="unvalidate">Unvalidate
-                <input type="radio" name="{{ line.id }}" checked="checked" value="nothing">Do nothing
-                <input type="radio" name="{{ line.id }}" value="delete">Delete
-            </div>
-        {% else %}
-            No new place.
-        {% endfor %}
-        {% if data.validated|length != 0 %}
-            <input type="submit" value="Submit">
-        {% endif %}
-    </form>
+    <div class="validationBlock">
+        <p>Validated places</p>
+        <form name="admin-place-validated" method="post" action="admin/place/remove">
+            <table class="table">
+                <tr>
+                    <th>Name</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>Address</th>
+                    <th>Town</th>
+                    <th>Country</th>
+                    <th>Brief</th>
+                    <th>Website</th>
+                    <th colspan="3">Actions</th>
+                </tr>
+                {% for line in data.validated %}
+                    <tr>
+                        <td>{{ line.name }}</td>
+                        <td>{{ line.latitude }}</td>
+                        <td>{{ line.longitude }}</td>
+                        <td>{{ line.address }}</td>
+                        <td>{{ line.town }}</td>
+                        <td>{{ line.country }}</td>
+                        <td>{{ line.description }}</td>
+                        <td>{{ line.website }}</td>
+                        <td><input type="radio" name="{{ line.id }}" value="unvalidate">Unvalidate</td>
+                        <td><input type="radio" name="{{ line.id }}" checked="checked" value="nothing">Do nothing</td>
+                        <td><input type="radio" name="{{ line.id }}" value="delete">Delete</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="11">No new place.</td>
+                    </tr>
+                {% endfor %}
+            </table>
+            {% if data.validated|length != 0 %}
+                <input type="submit" value="Submit" class="hotspot-button">
+            {% endif %}
+        </form>
+     </div>
 
-    <p>UPDATED : </p>
-    <form name="admin-place-validated" method="post" action="admin/place/update">
-        {% for line in data.updated %}
-            <div class="admin-line">
-                {{ line.name }}
-                {{ line.latitude }}
-                {{ line.longitude }}
-                {{ line.address }}
-                {{ line.town }}
-                {{ line.country }}
-                {{ line.description }}
-                {{ line.website }}
-                <input type="radio" name="{{ line.id }}" value="update">Update
-                <input type="radio" name="{{ line.id }}" checked="checked" value="nothing">Do nothing
-                <input type="radio" name="{{ line.id }}" value="delete">Delete
-            </div>
-        {% else %}
-            No new place.
-        {% endfor %}
-        {% if data.validated|length != 0 %}
-            <input type="submit" value="Submit">
-        {% endif %}
-    </form>
+    <div class="validationBlock">
+        <p>Updated places that needs to be validated </p>
+        <form name="admin-place-validated" method="post" action="admin/place/update">
+            <table class="table">
+                <tr>
+                    <th>Name</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>Address</th>
+                    <th>Town</th>
+                    <th>Country</th>
+                    <th>Brief</th>
+                    <th>Website</th>
+                    <th colspan="3">Actions</th>
+                </tr>
+                {% for line in data.updated %}
+                    <tr>
+                        <td>{{ line.name }}</td>
+                        <td>{{ line.latitude }}</td>
+                        <td>{{ line.longitude }}</td>
+                        <td>{{ line.address }}</td>
+                        <td>{{ line.town }}</td>
+                        <td>{{ line.country }}</td>
+                        <td>{{ line.description }}</td>
+                        <td>{{ line.website }}</td>
+                        <td><input type="radio" name="{{ line.id }}" value="unvalidate">Unvalidate</td>
+                        <td><input type="radio" name="{{ line.id }}" checked="checked" value="nothing">Do nothing</td>
+                        <td><input type="radio" name="{{ line.id }}" value="delete">Delete</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="11">No new place.</td>
+                    </tr>
+                {% endfor %}
+            </table>
+            {% if data.validated|length != 0 %}
+                <input type="submit" value="Submit" class="hotspot-button">
+            {% endif %}
+        </form>
+    </div>
 
-    <p>COMMENT UNVALIDATED : </p>
-    <form name="comment-unvalidated" method="post" action="admin/comment/remove">
-        {% for line in data.comments %}
-            <div class="admin-line">
-                {{ line.creation_date }}
-                {{ line.author }}
-                {{ line.avatar }}
-                {{ line.content }}
-                {{ line.place }}
-                <input type="radio" name="{{ line.id }}" value="validate">Validate
-                <input type="radio" name="{{ line.id }}" checked="checked" value="nothing">Do nothing
-                <input type="radio" name="{{ line.id }}" value="delete">Delete
-            </div>
-        {% else %}
-            No new comment.
-        {% endfor %}
-        {% if data.validated|length != 0 %}
-            <input type="submit" value="Submit">
-        {% endif %}
-    </form>
-
+    <div class="validationBlock">
+        <p>Comments that needs to be validated </p>
+        <form name="comment-unvalidated" method="post" action="admin/comment/remove">
+            <table class="table">
+                <tr>
+                    <th>Date</th>
+                    <th>Author</th>
+                    <th>Avatar</th>
+                    <th>Content</th>
+                    <th>Place</th>
+                    <th colspan="3">Actions</th>
+                </tr>
+                {% for line in data.comments %}
+                    <tr>
+                        <td>{{ line.creation_date }}</td>
+                        <td>{{ line.author }}</td>
+                        <td><img src="" alt="" width="50" height="50"></td>
+                        <td>{{ line.content }}</td>
+                        <td>{{ line.place }}</td>
+                        <td><input type="radio" name="{{ line.id }}" value="validate">Validate</td>
+                        <td><input type="radio" name="{{ line.id }}" checked="checked" value="nothing">Do nothing</td>
+                        <td><input type="radio" name="{{ line.id }}" value="delete">Delete</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="8">No new comment.</td>
+                    </tr>
+                {% endfor %}
+            </table>
+            {% if data.validated|length != 0 %}
+                <input type="submit" value="Submit" class="hotspot-button">
+            {% endif %}
+        </form>
+    </div>
+</div>
 {% endblock %}
 
 {% block js %}
