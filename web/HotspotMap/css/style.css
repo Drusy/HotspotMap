@@ -451,3 +451,7 @@ ol li { list-style:none }
 #addCommentButton{
     width: 10%;
 }
+
+.mfp-content input, .mfp-content textarea {
+    padding: 3px;
+}

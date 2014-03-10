@@ -9,10 +9,15 @@ $("#address-tooltip").hover(
     }
 );
 
-function popupError() {
+function popupError(msg) {
+    textMsg = 'An error occurred while processing your request';
+    if (msg != 'undefined') {
+        textMsg = msg;
+    }
+
     $.pnotify({
-        title: "Can't retrieve the place",
-        text: 'An error occurred while processing your request',
+        title: "Error occured",
+        text: textMsg,
         addclass: 'pnotify-error',
         delay: 2000,
         opacity: 0.9,
@@ -134,7 +139,7 @@ $('#search-form').on('submit', function(event) {
     })
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
-        popupError();
+        popupError(jqXHR.responseText);
     });
 
     // Prevent form submit
@@ -146,7 +151,7 @@ $('#comment-form').on('submit', function(event) {
     $(".mfp-close").first().trigger("click");
 
     var request = $.ajax({
-        url: "/places/"+currentPlaceId+"/comment",
+        url: "/places/" + currentPlaceId + "/comment",
         type: "POST",
         dataType: "text",
         data: $('#comment-form').serialize(),
@@ -161,7 +166,7 @@ $('#comment-form').on('submit', function(event) {
     })
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
-        popupError();
+        popupError(jqXHR.responseText);
     });
 
     // Prevent form submit
@@ -217,7 +222,7 @@ function updateHotspot() {
     })
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
-        popupError();
+        popupError(jqXHR.responseText);
     });
 }
 
@@ -316,7 +321,7 @@ function saveHotspot() {
     })
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
-        popupError();
+        popupError(jqXHR.responseText);
     });
 }
 

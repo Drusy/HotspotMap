@@ -76,21 +76,29 @@ class PlacesController extends HotspotMapController
         $request = $app['request'];
         $placeMapper = $app['PlaceMapper'];
         $place = $this->fillPlaceFromRequest($request);
-        $place->copy_of=$id;
-
-        if (empty($place->latitude) || empty($place->longitude)) {
-            $place = $this->geocodeFromAddress($place);
-        }
-
-        if ($placeMapper->save($place)) {
-            $app['statusCode'] = 200;
-
-            return $this->respond($app, $request, 'place', $place, 'places/show');
-        }
+        $place->copy_of = $id;
+        $message = $this->validatePlace($place);
 
         $app['statusCode'] = 400;
 
-        return new Response('Cannot update', $app['statusCode']);
+        if ($place->valid) {
+            if (empty($place->latitude) || empty($place->longitude)) {
+                $place = $this->geocodeFromAddress($place);
+            } else {
+                $place = $this->geocodeFromAddress($place);
+            }
+
+            if ($placeMapper->save($place)) {
+                $app['statusCode'] = 200;
+
+                return $this->respond($app, $request, 'place', $place, 'places/show');
+            }
+
+            return new Response('Cannot insert', $app['statusCode']);
+
+        }
+
+        return new Response($message, $app['statusCode']);
     }
 
     public function addPlace(Application $app)
@@ -98,22 +106,27 @@ class PlacesController extends HotspotMapController
         $request = $app['request'];
         $placeMapper = $app['PlaceMapper'];
         $place = $this->fillPlaceFromRequest($request);
-
-        if (!empty($place->latitude) && !empty($place->longitude)) {
-            $place = $this->geocodeFromLatLng($place);
-        } else {
-            $place = $this->geocodeFromAddress($place);
-        }
-
-        if ($placeMapper->save($place)) {
-            $app['statusCode'] = 201;
-
-            return $this->respond($app, $request, 'place', $place, 'places/show');
-        }
+        $message = $this->validatePlace($place);
 
         $app['statusCode'] = 400;
 
-        return new Response('Cannot insert', $app['statusCode']);
+        if ($place->valid) {
+            if (!empty($place->latitude) && !empty($place->longitude)) {
+                $place = $this->geocodeFromLatLng($place);
+            } else {
+                $place = $this->geocodeFromAddress($place);
+            }
+
+            if ($placeMapper->save($place)) {
+                $app['statusCode'] = 201;
+
+                return $this->respond($app, $request, 'place', $place, 'places/show');
+            }
+
+            return new Response('Cannot insert', $app['statusCode']);
+        }
+
+        return new Response($message, $app['statusCode']);
     }
 
     public function findPlace(Application $app)
@@ -122,6 +135,12 @@ class PlacesController extends HotspotMapController
         $address = $request->get("address");
         $latitude = $request->get("latitude");
         $longitude = $request->get("longitude");
+
+        if ($address == "" && $latitude == "" && $longitude == "") {
+            $app['statusCode'] = 400;
+
+            return new Response("Empty search ...", $app['statusCode']);
+        }
 
         if (!empty($latitude) && !empty($longitude)) {
             $geocoded = $this->geocoder->reverse($latitude, $longitude);
@@ -139,6 +158,40 @@ class PlacesController extends HotspotMapController
         $app['statusCode'] = 200;
 
         return $this->respond($app, $request, 'place', $place, 'places/show');
+    }
+
+    private function validateComment($comment) {
+        $noName = "You must provide a name";
+        $noContent = "You must provide a content";
+        $success = "success";
+
+        $comment->valid = false;
+
+        if ($comment->author == "") {
+            return $noName;
+        } elseif ($comment->content == "") {
+            return $noContent;
+        }
+
+        $comment->valid = true;
+        return $success;
+    }
+
+    private function validatePlace($place) {
+        $noAddressLatLnError = "You must provide an address or coordinates of your place.";
+        $noPlaceName = "You must provide a name to your place";
+        $success = "success";
+
+        $place->valid = false;
+
+        if ($place->address == "" &&  $place->latitude == "" && $place->longitude == "") {
+            return $noAddressLatLnError;
+        } elseif ($place->name == "") {
+            return $noPlaceName;
+        }
+
+        $place->valid = true;
+        return $success;
     }
 
     private function fillPlaceFromRequest($request, $id = null)
@@ -198,20 +251,25 @@ class PlacesController extends HotspotMapController
         $request = $app['request'];
         $place = $placeMapper->findById($id);
 
-        if (null === $place) {
-            $app['statusCode'] = 404;
+        $app['statusCode'] = 400;
 
+        if (null === $place) {
             return new Response('Place not found', $app['statusCode']);
         }
 
-        if ($commentMapper->save($this->fillCommentFromRequest($request, $id))) {
-            $app['statusCode'] = 201;
+        $comment = $this->fillCommentFromRequest($request, $id);
+        $message = $this->validateComment($comment);
 
-            return new Response('Comment inserted', $app['statusCode']);
+        if ($comment->valid) {
+            if ($commentMapper->save($comment)) {
+                $app['statusCode'] = 201;
+
+                return new Response('Comment inserted', $app['statusCode']);
+            } else {
+                return new Response('Cannot insert', $app['statusCode']);
+            }
         }
 
-        $app['statusCode'] = 400;
-
-        return new Response('Cannot insert', $app['statusCode']);
+        return new Response($message, $app['statusCode']);
     }
 }

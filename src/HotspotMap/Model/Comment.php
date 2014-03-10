@@ -6,6 +6,9 @@ use HotspotMap\Model\ORM\CommentModel;
 
 class Comment extends CommentModel implements \JsonSerializable
 {
+    public $valid = true;
+
+
     public function __construct($id = null)
     {
         if ($id == null) {

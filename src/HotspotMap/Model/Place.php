@@ -8,6 +8,7 @@ class Place extends PlaceModel implements \JsonSerializable
 {
     //lazy loading
     public $comments;
+    public $valid = true;
 
     public function __construct($id = null)
     {
