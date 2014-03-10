@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <closest>
-    {% for closePlace in data['$closestPlaces'] %}
+    {% for closePlace in data['closestPlaces'] %}
         <place>
             <name>
                 {{ closePlace.name }}
@@ -32,28 +32,28 @@
 <current>
     <place>
         <name>
-            {{ place.name }}
+            {{ data['place'].name }}
         </name>
         <longitude>
-            {{ place.longitude }}
+            {{ data['place'].longitude }}
         </longitude>
         <latitude>
-            {{ place.latitude }}
+            {{ data['place'].latitude }}
         </latitude>
         <address>
-            {{ place.address }}
+            {{ data['place'].address }}
         </address>
         <country>
-            {{ place.country }}
+            {{ data['place'].country }}
         </country>
         <town>
-            {{ place.town }}
+            {{ data['place'].town }}
         </town>
         <website>
-            {{ place.website }}
+            {{ data['place'].website }}
         </website>
         <description>
-            {{ place.description }}
+            {{ data['place'].description }}
         </description>
     </place>
 </current>

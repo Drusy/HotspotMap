@@ -7,7 +7,16 @@
         {% for user in users %}
             <h3>{{ user.username }}</h3>
             <div>
-                {{ user.firstname }} {{ user.lastname }} ({{ user.email }})
+                Fistname : {{ user.firstname }}
+            </div>
+            <div>
+                Lastname : {{ user.lastname }}
+            </div>
+            <div>
+                Email : {{ user.email }}
+            </div>
+            <div>
+                Username : {{ user.username }}
             </div>
             <div>
                 Website : {{ user.website }}
