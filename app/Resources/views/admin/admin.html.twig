@@ -31,9 +31,9 @@
                         <td>{{ line.country }}</td>
                         <td>{{ line.description }}</td>
                         <td>{{ line.website }}</td>
-                        <td><input type="radio" name="{{ line.id }}" value="validate">Create</td>
-                        <td><input type="radio" name="{{ line.id }}" checked="checked" value="nothing">Do nothing</td>
-                        <td><input type="radio" name="{{ line.id }}" value="delete">Delete</td>
+                        <td><label for="validate_{{ line.id }}">Create</label> <input type="radio" id="validate_{{ line.id }}" name="{{ line.id }}" value="validate" /></td>
+                        <td><label for="nothing_{{ line.id }}">Do nothing </label> <input id="nothing_{{ line.id }}" type="radio" name="{{ line.id }}" checked="checked" value="nothing"></td>
+                        <td><label for="delete_{{ line.id }}">Delete </label> <input id="delete_{{ line.id }}" type="radio" name="{{ line.id }}" value="delete"></td>
                     </tr>
                 {% else %}
                     <tr>
@@ -72,9 +72,9 @@
                         <td>{{ line.country }}</td>
                         <td>{{ line.description }}</td>
                         <td>{{ line.website }}</td>
-                        <td><input type="radio" name="{{ line.id }}" value="unvalidate">Unvalidate</td>
-                        <td><input type="radio" name="{{ line.id }}" checked="checked" value="nothing">Do nothing</td>
-                        <td><input type="radio" name="{{ line.id }}" value="delete">Delete</td>
+                        <td><label for="unvalidate_{{ line.id }}">Unvalidate</label> <input type="radio" id="unvalidate_{{ line.id }}" name="{{ line.id }}" value="unvalidate" /></td>
+                        <td><label for="nothing_{{ line.id }}">Do nothing </label> <input id="nothing_{{ line.id }}" type="radio" name="{{ line.id }}" checked="checked" value="nothing"></td>
+                        <td><label for="delete_{{ line.id }}">Delete </label> <input id="delete_{{ line.id }}" type="radio" name="{{ line.id }}" value="delete"></td>
                     </tr>
                 {% else %}
                     <tr>
@@ -113,9 +113,9 @@
                         <td>{{ line.country }}</td>
                         <td>{{ line.description }}</td>
                         <td>{{ line.website }}</td>
-                        <td><input type="radio" name="{{ line.id }}" value="unvalidate">Unvalidate</td>
-                        <td><input type="radio" name="{{ line.id }}" checked="checked" value="nothing">Do nothing</td>
-                        <td><input type="radio" name="{{ line.id }}" value="delete">Delete</td>
+                        <td><label for="update_{{ line.id }}">Update</label> <input type="radio" id="update_{{ line.id }}" name="{{ line.id }}" value="update" /></td>
+                        <td><label for="nothing_{{ line.id }}">Do nothing </label> <input id="nothing_{{ line.id }}" type="radio" name="{{ line.id }}" checked="checked" value="nothing"></td>
+                        <td><label for="delete_{{ line.id }}">Delete </label> <input id="delete_{{ line.id }}" type="radio" name="{{ line.id }}" value="delete"></td>
                     </tr>
                 {% else %}
                     <tr>
@@ -148,9 +148,9 @@
                         <td><img src="" alt="" width="50" height="50"></td>
                         <td>{{ line.content }}</td>
                         <td>{{ line.place }}</td>
-                        <td><input type="radio" name="{{ line.id }}" value="validate">Validate</td>
-                        <td><input type="radio" name="{{ line.id }}" checked="checked" value="nothing">Do nothing</td>
-                        <td><input type="radio" name="{{ line.id }}" value="delete">Delete</td>
+                        <td><label for="validate_{{ line.id }}">Create</label> <input type="radio" id="validate_{{ line.id }}" name="{{ line.id }}" value="validate" /></td>
+                        <td><label for="nothing_{{ line.id }}">Do nothing </label> <input id="nothing_{{ line.id }}" type="radio" name="{{ line.id }}" checked="checked" value="nothing"></td>
+                        <td><label for="delete_{{ line.id }}">Delete </label> <input id="delete_{{ line.id }}" type="radio" name="{{ line.id }}" value="delete"></td>
                     </tr>
                 {% else %}
                     <tr>

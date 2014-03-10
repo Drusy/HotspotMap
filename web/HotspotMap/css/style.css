@@ -465,7 +465,15 @@ ol li { list-style:none }
 .validationBlock {
     margin: 0px 0px 20px 0px;
 }
+    .validationBlock th {
+        background: #333;
+        color: #ddd;
+    }
 
 .floatleft {
     float: left;
+}
+
+form label {
+    font-weight: normal;
 }
