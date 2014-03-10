@@ -15,7 +15,7 @@ $app['debug'] = true;
 
 // Configure globals for database
 if (!isset($GLOBALS['TEST_MODE']) || empty($GLOBALS['TEST_MODE'])) {
-    $GLOBALS['DB_DSN'] = 'mysql:host=localhost;dbname=HotspotMap';
+    $GLOBALS['DB_DSN'] = 'mysql:host=localhost:3306;dbname=HotspotMap';
     $GLOBALS['DB_USER'] = 'root';
     $GLOBALS['DB_PASSWD'] = 'root';
 }
