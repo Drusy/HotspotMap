@@ -27,9 +27,7 @@ class AdminController extends HotspotMapController
                     if ($place != null) {
                         $place->validated = 1;
                         $placeMapper->save($place);
-                    }
-                    else
-                    {
+                    } else {
                         $app['statusCode'] = 400;
                     }
                 } elseif ($status == "delete") {
@@ -58,9 +56,7 @@ class AdminController extends HotspotMapController
                     if ($place != null) {
                         $place->validated = 0;
                         $placeMapper->save($place);
-                    }
-                    else
-                    {
+                    } else {
                         $app['statusCode'] = 400;
                     }
                 }
@@ -80,8 +76,7 @@ class AdminController extends HotspotMapController
 
         if ($request->getMethod() == 'POST') {
             foreach ($places as $id => $status) {
-                if ($status == "update")
-                {
+                if ($status == "update") {
                     $placeUpdated = $placeMapper->findById($id);
 
                     $placeOrigin = $placeMapper->findById($placeUpdated->copy_of);
@@ -91,8 +86,7 @@ class AdminController extends HotspotMapController
                         $placeUpdated->copy_of = null;
                         $placeUpdated->validated = 1;
                         $placeMapper->save($placeOrigin->fillWith($placeUpdated));
-                    }
-                    else{
+                    } else {
                         $app['statusCode'] = 400;
                     }
                 } elseif ($status == "delete") {
@@ -130,21 +124,15 @@ class AdminController extends HotspotMapController
         $app['statusCode'] = 200;
 
         if ($request->getMethod() == 'POST') {
-            foreach($places as $id => $status)
-            {
-                if($status == "delete")
-                {
+            foreach ($places as $id => $status) {
+                if ($status == "delete") {
                     $commentMapper->deleteById($id);
-                }
-                else if($status == "validate")
-                {
+                } elseif ($status == "validate") {
                     $place = $commentMapper->findById($id);
-                    if($place != null)
-                    {
+                    if ($place != null) {
                         $place->validated = 1;
                         $commentMapper->save($place);
-                    }
-                    else{
+                    } else {
                         $app['statusCode'] = 400;
                     }
                 }

@@ -44,14 +44,14 @@ class PlaceMapperTest extends PHPUnit_Extensions_Database_TestCase
 
     public function testValidatedPlaces()
     {
-        $places = $this->placeMapper->findAllValidated();
+        $places = $this->placeMapper->findValidated();
 
         $this->assertEquals(2, count($places));
     }
 
     public function testNonValidatedPlaces()
     {
-        $places = $this->placeMapper->findAllNonValidated();
+        $places = $this->placeMapper->findNonValidated();
 
         $this->assertEquals(1, count($places));
     }

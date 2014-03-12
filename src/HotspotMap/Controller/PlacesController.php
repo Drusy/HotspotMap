@@ -160,7 +160,8 @@ class PlacesController extends HotspotMapController
         return $this->respond($app, $request, 'place', $place, 'places/show');
     }
 
-    private function validateComment($comment) {
+    private function validateComment($comment)
+    {
         $noName = "You must provide a name";
         $noContent = "You must provide a content";
         $success = "success";
@@ -174,10 +175,12 @@ class PlacesController extends HotspotMapController
         }
 
         $comment->valid = true;
+
         return $success;
     }
 
-    private function validatePlace($place) {
+    private function validatePlace($place)
+    {
         $noAddressLatLnError = "You must provide an address or coordinates of your place.";
         $noPlaceName = "You must provide a name to your place";
         $success = "success";
@@ -191,6 +194,7 @@ class PlacesController extends HotspotMapController
         }
 
         $place->valid = true;
+
         return $success;
     }
 

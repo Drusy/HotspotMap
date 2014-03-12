@@ -44,14 +44,14 @@ class CommentMapperTest extends PHPUnit_Extensions_Database_TestCase
 
     public function testValidatedComments()
     {
-        $comments = $this->commentMapper->findAllValidated();
+        $comments = $this->commentMapper->findValidated();
 
         $this->assertEquals(2, count($comments));
     }
 
     public function testNonValidatedComments()
     {
-        $comments = $this->commentMapper->findAllNonValidated();
+        $comments = $this->commentMapper->findNonValidated();
 
         $this->assertEquals(1, count($comments));
     }

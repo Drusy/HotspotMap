@@ -64,6 +64,7 @@ class CommentMapper extends Mapper
         ]);
 
         if($commentTab == null)
+
             return null;
 
         return $this->fillComment($commentTab[0]);

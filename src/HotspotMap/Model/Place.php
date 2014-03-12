@@ -53,8 +53,6 @@ class Place extends PlaceModel implements \JsonSerializable
         $this->distance = $placeOrigin->distance;
         $this->description = $placeOrigin->description;
 
-
-
         $this->setWebsite($placeOrigin->getWebsite());
 
         return $this;

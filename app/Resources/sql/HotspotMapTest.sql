@@ -47,6 +47,7 @@ CREATE TABLE IF NOT EXISTS `Place` (
   `website` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
   `validated` tinyint(1) NOT NULL DEFAULT '0',
+  `copy_of` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
