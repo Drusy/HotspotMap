@@ -66,9 +66,17 @@ Certaines dépendances sont indispensables telles que `phpunit` pour lancer les 
 
 	./composer.phar install
 	
-Importez le fichier de base de données dans votre base locale :
+Importez le fichier de base de données dans votre base locale (malgré que les données de test soient automatiquement importée par `phpunit`, il est important de fournir la structure de la base de donnée) :
 
 	/HotspotMap/app/Resources/sql/HotspotMapTest.sql
+	
+Définissez les informations de connexion à la base de données de test dans le fichier xml `dbconfig.xml` :
+
+	/HotspotMap/tests/config/dbconfig.xml
+	
+Lors de l'éxécution des tests unitaires, la base de donnée de test est construite avec les fichiers xml placés dans le dossier :
+
+	/HotspotMap/tests/mock
 	
 Executez le script shell `startTests.sh` pour lancer les tests unitaires :
 
