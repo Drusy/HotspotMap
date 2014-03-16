@@ -6,6 +6,10 @@ Les développeurs sont souvent amenés à voyager et à travailler loin de leur 
 
 ----------
 
+Auteurs
+---------
+Kevin Renella <kevin.renella@gmail.com>
+Florian Rotagnon <florian.rotagnon@gmail.com>
 
 Outils
 ---------
@@ -59,6 +63,20 @@ Les fonctionnalités manquantes à implémenter sont :
 
 - Filtrage des lieux par critères
 - Par souplesse d'utilisation, un utilisateur ne doit pas être authentifié pour consulter les Hotspot ou pour en ajouter
+
+Utilisation
+---------
+La création d'un lieu se fait sans authentification mais doit être modérée par l'administrateur.
+La suppression d'un lieu se fait uniquement par l'administrateur.
+La modification d'un lieu se fait sans authentification mais doit être modérée par l'administrateur.
+La création d'un commentaire se fait sans authentification mais doit être modérée par l'administrateur.
+La suppression d'un lieu se fait uniquement par l'administrateur.
+La modération se fait dans l'interface d'Admin uniquement après authentification.
+
+Accès admin dev:
+login : admin
+pass  : foo 
+
 
 Tests unitaires
 ---------
