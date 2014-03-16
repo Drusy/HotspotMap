@@ -8,8 +8,8 @@ Les développeurs sont souvent amenés à voyager et à travailler loin de leur 
 
 Auteurs
 ---------
-Kevin Renella <kevin.renella@gmail.com>
-Florian Rotagnon <florian.rotagnon@gmail.com>
+- Kevin Renella <kevin.renella@gmail.com>
+- Florian Rotagnon <florian.rotagnon@gmail.com>
 
 Outils
 ---------
@@ -66,16 +66,16 @@ Les fonctionnalités manquantes à implémenter sont :
 
 Utilisation
 ---------
-La création d'un lieu se fait sans authentification mais doit être modérée par l'administrateur.
-La suppression d'un lieu se fait uniquement par l'administrateur.
-La modification d'un lieu se fait sans authentification mais doit être modérée par l'administrateur.
-La création d'un commentaire se fait sans authentification mais doit être modérée par l'administrateur.
-La suppression d'un lieu se fait uniquement par l'administrateur.
-La modération se fait dans l'interface d'Admin uniquement après authentification.
+- La création d'un lieu se fait sans authentification mais doit être modérée par l'administrateur.
+- La suppression d'un lieu se fait uniquement par l'administrateur.
+- La modification d'un lieu se fait sans authentification mais doit être modérée par l'administrateur.
+- La création d'un commentaire se fait sans authentification mais doit être modérée par l'administrateur.
+- La suppression d'un lieu se fait uniquement par l'administrateur.
+- La modération se fait dans l'interface d'Admin uniquement après authentification.
 
 Accès admin dev:
-login : admin
-pass  : foo 
+- login : admin
+- pass  : foo 
 
 
 Tests unitaires
