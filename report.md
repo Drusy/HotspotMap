@@ -63,6 +63,10 @@ Les fonctionnalités manquantes à implémenter sont :
 
 - Filtrage des lieux par critères
 - Par souplesse d'utilisation, un utilisateur ne doit pas être authentifié pour consulter les Hotspot ou pour en ajouter
+- Amélioration du tweet (ajout du lieux courant)
+- Découplage du data mapper et de la connexion pour améliorer la maintenabilité
+- Chargement dynamique des lieux sur la carte (lazy loading)
+- Utiliser HATEOAS pour API REST
 
 Utilisation
 ---------
@@ -74,6 +78,7 @@ Utilisation
 - La modération se fait dans l'interface d'Admin uniquement après authentification.
 
 Accès admin dev:
+
 - login : admin
 - pass  : foo 
 
