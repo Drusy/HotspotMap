@@ -1,40 +1,46 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
     ],
-    "hash": "b17bd7582c2c157434da6952479c3607",
+    "content-hash": "0e913d2fddd97f5161e512bb2a084e44",
     "packages": [
         {
             "name": "doctrine/annotations",
-            "version": "v1.1.2",
+            "version": "1.14.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/annotations.git",
-                "reference": "40db0c96985aab2822edbc4848b3bd2429e02670"
+                "reference": "fb0d71a7393298a7b232cbf4c8b1f73f3ec3d5af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/annotations/zipball/40db0c96985aab2822edbc4848b3bd2429e02670",
-                "reference": "40db0c96985aab2822edbc4848b3bd2429e02670",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/fb0d71a7393298a7b232cbf4c8b1f73f3ec3d5af",
+                "reference": "fb0d71a7393298a7b232cbf4c8b1f73f3ec3d5af",
                 "shasum": ""
             },
             "require": {
-                "doctrine/lexer": "1.*",
-                "php": ">=5.3.2"
+                "doctrine/lexer": "^1 || ^2",
+                "ext-tokenizer": "*",
+                "php": "^7.1 || ^8.0",
+                "psr/cache": "^1 || ^2 || ^3"
             },
             "require-dev": {
-                "doctrine/cache": "1.*"
+                "doctrine/cache": "^1.11 || ^2.0",
+                "doctrine/coding-standard": "^9 || ^10",
+                "phpstan/phpstan": "~1.4.10 || ^1.8.0",
+                "phpunit/phpunit": "^7.5 || ^8.5 || ^9.5",
+                "symfony/cache": "^4.4 || ^5.4 || ^6",
+                "vimeo/psalm": "^4.10"
+            },
+            "suggest": {
+                "php": "PHP 8.0 or higher comes with attributes, a native replacement for annotations"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
             "autoload": {
-                "psr-0": {
-                    "Doctrine\\Common\\Annotations\\": "lib/"
+                "psr-4": {
+                    "Doctrine\\Common\\Annotations\\": "lib/Doctrine/Common/Annotations"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -43,15 +49,8 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan Wage",
-                    "email": "jonwage@gmail.com",
-                    "homepage": "http://www.jwage.com/",
-                    "role": "Creator"
-                },
-                {
                     "name": "Guilherme Blanco",
-                    "email": "guilhermeblanco@gmail.com",
-                    "homepage": "http://www.instaclick.com"
+                    "email": "guilhermeblanco@gmail.com"
                 },
                 {
                     "name": "Roman Borschel",
@@ -62,20 +61,26 @@
                     "email": "kontakt@beberlei.de"
                 },
                 {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com"
+                },
+                {
                     "name": "Johannes Schmitt",
-                    "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
-                    "role": "Developer of wrapped JMSSerializerBundle"
+                    "email": "schmittjoh@gmail.com"
                 }
             ],
             "description": "Docblock Annotations Parser",
-            "homepage": "http://www.doctrine-project.org",
+            "homepage": "https://www.doctrine-project.org/projects/annotations.html",
             "keywords": [
                 "annotations",
                 "docblock",
                 "parser"
             ],
-            "time": "2013-06-16 21:33:03"
+            "support": {
+                "issues": "https://github.com/doctrine/annotations/issues",
+                "source": "https://github.com/doctrine/annotations/tree/1.14.3"
+            },
+            "time": "2023-02-01T09:20:38+00:00"
         },
         {
             "name": "doctrine/cache",
@@ -149,7 +154,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2013-10-25 19:04:14"
+            "time": "2013-10-25T19:04:14+00:00"
         },
         {
             "name": "doctrine/collections",
@@ -217,7 +222,7 @@
                 "collections",
                 "iterator"
             ],
-            "time": "2014-02-03 23:07:43"
+            "time": "2014-02-03T23:07:43+00:00"
         },
         {
             "name": "doctrine/common",
@@ -292,7 +297,7 @@
                 "persistence",
                 "spl"
             ],
-            "time": "2013-09-07 10:20:34"
+            "time": "2013-09-07T10:20:34+00:00"
         },
         {
             "name": "doctrine/dbal",
@@ -356,7 +361,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2013-05-11 07:45:37"
+            "time": "2013-05-11T07:45:37+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -420,29 +425,35 @@
                 "singuarlize",
                 "string"
             ],
-            "time": "2013-01-10 21:49:15"
+            "time": "2013-01-10T21:49:15+00:00"
         },
         {
             "name": "doctrine/lexer",
-            "version": "v1.0",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/lexer.git",
-                "reference": "2f708a85bb3aab5d99dab8be435abd73e0b18acb"
+                "reference": "c268e882d4dbdd85e36e4ad69e02dc284f89d229"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/lexer/zipball/2f708a85bb3aab5d99dab8be435abd73e0b18acb",
-                "reference": "2f708a85bb3aab5d99dab8be435abd73e0b18acb",
+                "url": "https://api.github.com/repos/doctrine/lexer/zipball/c268e882d4dbdd85e36e4ad69e02dc284f89d229",
+                "reference": "c268e882d4dbdd85e36e4ad69e02dc284f89d229",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.2"
+                "php": "^7.1 || ^8.0"
+            },
+            "require-dev": {
+                "doctrine/coding-standard": "^9.0",
+                "phpstan/phpstan": "^1.3",
+                "phpunit/phpunit": "^7.5 || ^8.5 || ^9.5",
+                "vimeo/psalm": "^4.11"
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "Doctrine\\Common\\Lexer\\": "lib/"
+                "psr-4": {
+                    "Doctrine\\Common\\Lexer\\": "lib/Doctrine/Common/Lexer"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -452,8 +463,7 @@
             "authors": [
                 {
                     "name": "Guilherme Blanco",
-                    "email": "guilhermeblanco@gmail.com",
-                    "homepage": "http://www.instaclick.com"
+                    "email": "guilhermeblanco@gmail.com"
                 },
                 {
                     "name": "Roman Borschel",
@@ -461,18 +471,37 @@
                 },
                 {
                     "name": "Johannes Schmitt",
-                    "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
-                    "role": "Developer of wrapped JMSSerializerBundle"
+                    "email": "schmittjoh@gmail.com"
                 }
             ],
-            "description": "Base library for a lexer that can be used in Top-Down, Recursive Descent Parsers.",
-            "homepage": "http://www.doctrine-project.org",
+            "description": "PHP Doctrine Lexer parser library that can be used in Top-Down, Recursive Descent Parsers.",
+            "homepage": "https://www.doctrine-project.org/projects/lexer.html",
             "keywords": [
+                "annotations",
+                "docblock",
                 "lexer",
-                "parser"
+                "parser",
+                "php"
             ],
-            "time": "2013-01-12 18:59:04"
+            "support": {
+                "issues": "https://github.com/doctrine/lexer/issues",
+                "source": "https://github.com/doctrine/lexer/tree/1.2.3"
+            },
+            "funding": [
+                {
+                    "url": "https://www.doctrine-project.org/sponsorship.html",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.patreon.com/phpdoctrine",
+                    "type": "patreon"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/doctrine%2Flexer",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-02-28T11:07:21+00:00"
         },
         {
             "name": "geocoder-php/geocoder-service-provider",
@@ -520,7 +549,7 @@
                 "service",
                 "silex"
             ],
-            "time": "2013-09-18 19:49:10"
+            "time": "2013-09-18T19:49:10+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -587,7 +616,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2013-11-14 19:48:31"
+            "time": "2013-11-14T19:48:31+00:00"
         },
         {
             "name": "pimple/pimple",
@@ -633,7 +662,56 @@
                 "container",
                 "dependency injection"
             ],
-            "time": "2013-11-22 08:30:29"
+            "time": "2013-11-22T08:30:29+00:00"
+        },
+        {
+            "name": "psr/cache",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/cache.git",
+                "reference": "d11b50ad223250cf17b86e38383413f5a6764bf8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/cache/zipball/d11b50ad223250cf17b86e38383413f5a6764bf8",
+                "reference": "d11b50ad223250cf17b86e38383413f5a6764bf8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Cache\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for caching libraries",
+            "keywords": [
+                "cache",
+                "psr",
+                "psr-6"
+            ],
+            "support": {
+                "source": "https://github.com/php-fig/cache/tree/master"
+            },
+            "time": "2016-08-06T20:24:11+00:00"
         },
         {
             "name": "psr/log",
@@ -671,7 +749,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2012-12-21 11:40:51"
+            "time": "2012-12-21T11:40:51+00:00"
         },
         {
             "name": "silex/silex",
@@ -755,7 +833,7 @@
             "keywords": [
                 "microframework"
             ],
-            "time": "2013-10-30 08:53:26"
+            "time": "2013-10-30T08:53:26+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -804,7 +882,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2013-12-03 13:33:24"
+            "time": "2013-12-03T13:33:24+00:00"
         },
         {
             "name": "symfony/browser-kit",
@@ -861,7 +939,7 @@
             ],
             "description": "Symfony BrowserKit Component",
             "homepage": "http://symfony.com",
-            "time": "2014-01-24 06:18:16"
+            "time": "2014-01-24T06:18:16+00:00"
         },
         {
             "name": "symfony/config",
@@ -911,7 +989,7 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "http://symfony.com",
-            "time": "2014-01-07 13:28:54"
+            "time": "2014-01-07T13:28:54+00:00"
         },
         {
             "name": "symfony/console",
@@ -966,7 +1044,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-02-11 13:52:09"
+            "time": "2014-02-11T13:52:09+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -1019,7 +1097,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "http://symfony.com",
-            "time": "2014-02-11 13:52:09"
+            "time": "2014-02-11T13:52:09+00:00"
         },
         {
             "name": "symfony/debug",
@@ -1076,7 +1154,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "http://symfony.com",
-            "time": "2014-02-11 13:52:09"
+            "time": "2014-02-11T13:52:09+00:00"
         },
         {
             "name": "symfony/dom-crawler",
@@ -1131,7 +1209,7 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "http://symfony.com",
-            "time": "2014-02-11 13:52:09"
+            "time": "2014-02-11T13:52:09+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -1187,7 +1265,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "http://symfony.com",
-            "time": "2014-02-11 13:52:09"
+            "time": "2014-02-11T13:52:09+00:00"
         },
         {
             "name": "symfony/filesystem",
@@ -1236,7 +1314,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "http://symfony.com",
-            "time": "2014-01-07 13:28:54"
+            "time": "2014-01-07T13:28:54+00:00"
         },
         {
             "name": "symfony/finder",
@@ -1285,7 +1363,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "http://symfony.com",
-            "time": "2014-01-07 13:28:54"
+            "time": "2014-01-07T13:28:54+00:00"
         },
         {
             "name": "symfony/form",
@@ -1349,7 +1427,7 @@
             ],
             "description": "Symfony Form Component",
             "homepage": "http://symfony.com",
-            "time": "2014-02-11 13:52:09"
+            "time": "2014-02-11T13:52:09+00:00"
         },
         {
             "name": "symfony/http-foundation",
@@ -1401,7 +1479,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "http://symfony.com",
-            "time": "2014-02-11 15:39:28"
+            "time": "2014-02-11T15:39:28+00:00"
         },
         {
             "name": "symfony/http-kernel",
@@ -1474,7 +1552,7 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "http://symfony.com",
-            "time": "2014-02-12 19:27:03"
+            "time": "2014-02-12T19:27:03+00:00"
         },
         {
             "name": "symfony/icu",
@@ -1521,7 +1599,7 @@
                 "icu",
                 "intl"
             ],
-            "time": "2013-06-03 18:32:07"
+            "time": "2013-06-03T18:32:07+00:00"
         },
         {
             "name": "symfony/intl",
@@ -1598,7 +1676,7 @@
                 "l10n",
                 "localization"
             ],
-            "time": "2014-02-11 13:52:09"
+            "time": "2014-02-11T13:52:09+00:00"
         },
         {
             "name": "symfony/locale",
@@ -1648,7 +1726,7 @@
             ],
             "description": "Symfony Locale Component",
             "homepage": "http://symfony.com",
-            "time": "2014-01-07 13:28:54"
+            "time": "2014-01-07T13:28:54+00:00"
         },
         {
             "name": "symfony/monolog-bridge",
@@ -1708,7 +1786,7 @@
             ],
             "description": "Symfony Monolog Bridge",
             "homepage": "http://symfony.com",
-            "time": "2014-01-07 13:28:54"
+            "time": "2014-01-07T13:28:54+00:00"
         },
         {
             "name": "symfony/options-resolver",
@@ -1762,7 +1840,7 @@
                 "configuration",
                 "options"
             ],
-            "time": "2014-01-07 13:28:54"
+            "time": "2014-01-07T13:28:54+00:00"
         },
         {
             "name": "symfony/process",
@@ -1811,7 +1889,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "http://symfony.com",
-            "time": "2014-02-11 13:52:09"
+            "time": "2014-02-11T13:52:09+00:00"
         },
         {
             "name": "symfony/property-access",
@@ -1871,7 +1949,7 @@
                 "property path",
                 "reflection"
             ],
-            "time": "2014-02-11 15:39:28"
+            "time": "2014-02-11T15:39:28+00:00"
         },
         {
             "name": "symfony/routing",
@@ -1939,7 +2017,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2014-02-11 13:52:09"
+            "time": "2014-02-11T13:52:09+00:00"
         },
         {
             "name": "symfony/security",
@@ -2015,7 +2093,7 @@
             ],
             "description": "Symfony Security Component",
             "homepage": "http://symfony.com",
-            "time": "2014-02-11 13:52:09"
+            "time": "2014-02-11T13:52:09+00:00"
         },
         {
             "name": "symfony/serializer",
@@ -2064,7 +2142,7 @@
             ],
             "description": "Symfony Serializer Component",
             "homepage": "http://symfony.com",
-            "time": "2014-02-11 13:52:09"
+            "time": "2014-02-11T13:52:09+00:00"
         },
         {
             "name": "symfony/translation",
@@ -2121,7 +2199,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "http://symfony.com",
-            "time": "2014-02-03 17:15:33"
+            "time": "2014-02-03T17:15:33+00:00"
         },
         {
             "name": "symfony/twig-bridge",
@@ -2194,7 +2272,7 @@
             ],
             "description": "Symfony Twig Bridge",
             "homepage": "http://symfony.com",
-            "time": "2014-01-26 21:33:04"
+            "time": "2014-01-26T21:33:04+00:00"
         },
         {
             "name": "symfony/validator",
@@ -2261,7 +2339,7 @@
             ],
             "description": "Symfony Validator Component",
             "homepage": "http://symfony.com",
-            "time": "2014-02-11 13:52:09"
+            "time": "2014-02-11T13:52:09+00:00"
         },
         {
             "name": "twig/twig",
@@ -2318,7 +2396,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2014-02-13 10:19:29"
+            "time": "2014-02-13T10:19:29+00:00"
         },
         {
             "name": "willdurand/geocoder",
@@ -2381,7 +2459,7 @@
                 "geocoding",
                 "geoip"
             ],
-            "time": "2014-01-05 01:57:42"
+            "time": "2014-01-05T01:57:42+00:00"
         },
         {
             "name": "willdurand/negotiation",
@@ -2431,7 +2509,7 @@
                 "header",
                 "negotiation"
             ],
-            "time": "2014-02-26 13:56:25"
+            "time": "2014-02-26T13:56:25+00:00"
         }
     ],
     "packages-dev": [
@@ -2481,7 +2559,7 @@
                 "curl",
                 "http client"
             ],
-            "time": "2013-05-19 03:41:15"
+            "time": "2013-05-19T03:41:15+00:00"
         },
         {
             "name": "phpunit/dbunit",
@@ -2539,7 +2617,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-03-01 11:50:46"
+            "time": "2013-03-01T11:50:46+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -2600,7 +2678,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-02-25 03:34:05"
+            "time": "2014-02-25T03:34:05+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -2645,7 +2723,7 @@
                 "filesystem",
                 "iterator"
             ],
-            "time": "2013-10-10 15:34:57"
+            "time": "2013-10-10T15:34:57+00:00"
         },
         {
             "name": "phpunit/php-text-template",
@@ -2689,7 +2767,7 @@
             "keywords": [
                 "template"
             ],
-            "time": "2014-01-30 17:20:04"
+            "time": "2014-01-30T17:20:04+00:00"
         },
         {
             "name": "phpunit/php-timer",
@@ -2733,7 +2811,7 @@
             "keywords": [
                 "timer"
             ],
-            "time": "2013-08-02 07:42:54"
+            "time": "2013-08-02T07:42:54+00:00"
         },
         {
             "name": "phpunit/php-token-stream",
@@ -2783,7 +2861,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2014-03-03 05:10:30"
+            "time": "2014-03-03T05:10:30+00:00"
         },
         {
             "name": "phpunit/phpunit",
@@ -2857,7 +2935,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-02-25 03:47:29"
+            "time": "2014-02-25T03:47:29+00:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -2906,7 +2984,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2013-01-13 10:24:48"
+            "time": "2013-01-13T10:24:48+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -2955,21 +3033,20 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2014-01-07 13:28:54"
+            "time": "2014-01-07T13:28:54+00:00"
         }
     ],
-    "aliases": [
-
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "doctrine/dbal": 20,
         "geocoder-php/geocoder-service-provider": 0,
-        "willdurand/negotiation": 0
+        "willdurand/negotiation": 0,
+        "symfony/browser-kit": 20
     },
-    "platform": [
-
-    ],
-    "platform-dev": [
-
-    ]
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
 }
